@@ -1,3 +1,2 @@
 # Projet de Groupe HAX712X
-
-Projet de groupes !!!!
+Le diagramme de Gantt du projet et dans le fichier gantt.md
