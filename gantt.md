@@ -10,7 +10,7 @@ Recherche des données et des logiciels pour le projet : 2023-10-01, 22d
 section Evaluation de mi-parcours
 Evaluation de mi-parcours : crit, b, 2023-10-23, 1d
 
-section Recherche
+section Programmation
 Recherche : 2023-10-23, 2023-12-10
 
 section Finalisation
