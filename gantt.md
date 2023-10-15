@@ -1,13 +1,15 @@
 ```mermaid
 gantt
 dateFormat YYYY-MM-DD
-title Exemple de Diagramme de Gantt
+title Diagramme de Gantt du projet
+axisFormat %m-%d
+section Recherche des données et des logiciels pour le projet
+Tâche 1 : 2023-10-01, 22d
 
-section Tâches importantes
-Tâche 1 : 2023-10-15, 7d
-Tâche 2 : 2023-10-22, 5d
+section Evaluation de mi-parcours
+Tâche 2 : 2023-10-23, 0d
+Tâche 3 : 2023-10-24, 52d
 
-section Autres tâches
-Tâche 3 : 2023-10-15, 3d
-Tâche 4 : 2023-10-18, 4d
+section Evaluation finale
+Tâche 4 : 2023-12-16, 0d
 
