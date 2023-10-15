@@ -13,7 +13,7 @@ Evaluation de mi-parcours : crit, b, 2023-10-23, 1d
 section Recherche
 Recherche : 2023-10-23, 2023-12-10
 
-section finalisation
+section Finalisation
 Dépôt de référentiel github : crit, b, 2023-12-10, 1d
 Présentation orale : crit, b, 2023-12-15, 1d
 
