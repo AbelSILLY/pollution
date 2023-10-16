@@ -13,6 +13,9 @@ Evaluation de mi-parcours : crit, b, 2023-10-23, 1d
 section Programmation
 Recherche : 2023-10-23, 2023-12-10
 
+section Préparation de l'oral
+Préparation de l'oral : 2023-12-01, 2023-12-15
+
 section Finalisation
 Dépôt de référentiel github : crit, b, 2023-12-10, 1d
 Présentation orale : crit, b, 2023-12-15, 1d
