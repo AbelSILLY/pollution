@@ -1,5 +1,8 @@
 # Projet de Groupe HAX712X
 
+## Lien du site
+https://jeannevivierum.github.io/pollution/
+
 ## Packages utilisés
 ### NumPy
 NumPy est une biliothèque qui permet de manipuler des matrices ou tableaux multidimensionnels ainsi que des fonctions mathématiques opérant sur ces tableaux. Elle permet de notamment de créer directement un tableau depuis un fichier ou au contraire de sauvegarder un tableau dans un fichier. C'est l'une des bibliothèques les plus connues sur python et elle est particulièrement utilisée en DataSciences.
@@ -9,3 +12,9 @@ La bibliothèque Pandas fournit des outils pour lire et écrire des données dep
 
 ### Matplotlib
 La bibliothèque Matplotlib est destinée à tracer et visualiser des données sous forme de graphiques. Elle permet de nombreux exports au format matriciel (PNG, JPEG...) et vectoriel (PDF, SVG...). Elle est notamment utilisée sur des serveurs d’application web.
+
+### Pytest
+
+
+### Pooch
+Pooch permet de gérer un répertoire de données en téléchargeant les fichiers de données depuis un serveur ey en les enregistrant localement. Les principales qualités de pooch sont qu'on peut télécharger une donnée seulement ssi nécessaire, qu'elle vérifie l'intégrité des données télechargées et est souvent utilisée pour vérifier qu'un fichier doit être mis à jour. Cette bibliothèque contient un moyen de dézipper et décompresser les données pendant le téléchargement, ce qui nous fera gagner du temps.
