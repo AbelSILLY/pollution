@@ -2,7 +2,7 @@
 gantt
 dateFormat YYYY-MM-DD
 title Diagramme de Gantt du projet
-axisFormat %m-%d
+axisFormat %d-%m
 
 section Recherche
 Recherche des données et des logiciels pour le projet : 2023-10-01, 22d
