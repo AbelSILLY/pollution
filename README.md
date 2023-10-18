@@ -18,3 +18,14 @@ La bibliothèque Matplotlib est destinée à tracer et visualiser des données s
 
 ### Pooch
 Pooch permet de gérer un répertoire de données en téléchargeant les fichiers de données depuis un serveur ey en les enregistrant localement. Les principales qualités de pooch sont qu'on peut télécharger une donnée seulement ssi nécessaire, qu'elle vérifie l'intégrité des données télechargées et est souvent utilisée pour vérifier qu'un fichier doit être mis à jour. Cette bibliothèque contient un moyen de dézipper et décompresser les données pendant le téléchargement, ce qui nous fera gagner du temps.
+
+## Descrpition des données utilisées
+
+### ATMO 
+
+
+### WeatherForcast
+
+
+### RTE 
+Sur l'application éCO2mix gérée par RTE (responsable du transport de l'éelctricité), nous avons remarqué que les données concernant la production d'éléctricité en France étaient découpées par région. Nous savons que la production d'électricité est à l'origine d'émission de CO2 et donc de pollution atmosphérique. Bien que les principaux moyens de production en Occitanie soient neutres en carbonne (nucléaire, barrages, solaire et éolien) il arrive qu'il soit nécessaire de consommer des énergies fossiles. Nous aimerion donc extraire les données concernant la production électrique en Occitanie, afin de les mettre en relation avec la pollution de l'air dans cette même région.
