@@ -14,7 +14,10 @@ La bibliothèque Pandas fournit des outils pour lire et écrire des données dep
 La bibliothèque Matplotlib est destinée à tracer et visualiser des données sous forme de graphiques. Elle permet de nombreux exports au format matriciel (PNG, JPEG...) et vectoriel (PDF, SVG...). Elle est notamment utilisée sur des serveurs d’application web.
 
 ### Pytest
+Nous utiliserons la librairie Pytest afin d'effectuer des test automatisés pour s'assurer que notre code fonctionne.
 
+### OS
+Nous utiliserons la librairie OS afin d'éviter les conflits entre nos systèmes d'exploitations vis à vis de l'utilisation de fichiers communs comme les jeux de données par exemple.
 
 ### Pooch
 Pooch permet de gérer un répertoire de données en téléchargeant les fichiers de données depuis un serveur ey en les enregistrant localement. Les principales qualités de pooch sont qu'on peut télécharger une donnée seulement ssi nécessaire, qu'elle vérifie l'intégrité des données télechargées et est souvent utilisée pour vérifier qu'un fichier doit être mis à jour. Cette bibliothèque contient un moyen de dézipper et décompresser les données pendant le téléchargement, ce qui nous fera gagner du temps.
