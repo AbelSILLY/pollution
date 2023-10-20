@@ -5,8 +5,6 @@ https://jeannevivierum.github.io/pollution/
 
 ## Packages utilisés
 
-## Packages utilisés1
-
 ### NumPy
 NumPy est une bibliothèque qui permet de manipuler des matrices ou tableaux multidimensionnels ainsi que des fonctions mathématiques opérant sur ces tableaux. Elle permet de notamment de créer directement un tableau depuis un fichier ou, au contraire, de sauvegarder un tableau dans un fichier. C'est l'une des bibliothèques les plus connues sur python et elle est particulièrement utilisée en DataSciences.
 
@@ -34,8 +32,4 @@ Pooch permet de gérer un répertoire de données en téléchargeant les fichier
 
 
 ### RTE 
-<<<<<<< HEAD
-Sur l'application éCO2mix gérée par RTE (responsable du transport de l'éelctricité), nous avons remarqué que les données concernant la production d'éléctricité en France étaient découpées par région. Nous savons que la production d'électricité est à l'origine d'émission de CO2 et donc de pollution atmosphérique. Bien que les principaux moyens de production en Occitanie soient neutres en carbonne (nucléaire, barrages, solaire et éolien) il arrive qu'il soit nécessaire de consommer des énergies fossiles. Nous aimerion donc extraire les données concernant la production électrique en Occitanie, afin de les mettre en relation avec la pollution de l'air dans cette même région.
-=======
 Sur l'application éCO2mix gérée par RTE (responsable du transport de l'électricité), nous avons remarqué que les données concernant la production d'électricité en France étaient découpées par région. Nous savons que la production d'électricité est à l'origine d'émissions de CO2 et donc de pollution atmosphérique. Bien que les principaux moyens de production en Occitanie soient neutres en carbonne (nucléaire, barrages, solaire et éolien) il arrive qu'il soit nécessaire de consommer des énergies fossiles. Nous aimerions donc extraire les données concernant la production électrique en Occitanie, afin de les mettre en relation avec la pollution de l'air dans cette même région.
->>>>>>> orthographe
