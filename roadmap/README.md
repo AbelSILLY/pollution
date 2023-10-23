@@ -1,7 +1,11 @@
-#Projet de Groupe HAX712X
+# Projet de Groupe HAX712X
 
 ## Lien du site
 https://jeannevivierum.github.io/pollution/
+
+## Descritption du projet
+Le projet consiste en la création d'un site internet présentant une étude de la pollution de l'air en Occitanie. Pour cela, nous avons à notre disposition des données: celles de ATMO Occitanie et SYNOP data. Nous aimerions aussi exploiter les données de RTE, afin de complèter le travail.
+Nous voudrions donc afficher une carte inter-active de l'Occitanie, étudier les variations de pollution suivant les différents départements, et les variations au cours des années.
 
 ## Packages utilisés
 
@@ -26,10 +30,22 @@ Pooch permet de gérer un répertoire de données en téléchargeant les fichier
 ## Descrpition des données utilisées
 
 ### ATMO 
-
+ATMO Occitanie regroupe un certain nombre de données très intéressantes pour traiter la question de la pollution de l'air en Occitanie. On y retrouve notamment la concentration de différents polluants au cours des années. 
 
 ### WeatherForcast
-
+Ce site nous propose différentes données qui traitent principalement des conditions météo. 
+L'utilisation de ces données permettraient de faire un lien entre la pollution atmosphérique et les conditions météorologiques. Autrement dit, nous voudrions voir en quoi la météo influence la qualité de l'air.
 
 ### RTE 
 Sur l'application éCO2mix gérée par RTE (responsable du transport de l'électricité), nous avons remarqué que les données concernant la production d'électricité en France étaient découpées par région. Nous savons que la production d'électricité est à l'origine d'émissions de CO2 et donc de pollution atmosphérique. Bien que les principaux moyens de production en Occitanie soient neutres en carbonne (nucléaire, barrages, solaire et éolien) il arrive qu'il soit nécessaire de consommer des énergies fossiles. Nous aimerions donc extraire les données concernant la production électrique en Occitanie, afin de les mettre en relation avec la pollution de l'air dans cette même région.
+
+## Répartition des tâches
+On distingue plusieurs parties dans le développement de ce site :
+    1/ L'extraction et le tri des données
+    2/ La construction de graphiques en fonction des différents départements et polluants
+    3/ La construction des cartes et l'intégration des données de pollution
+    4/ L'écriture du fichier quarto, l'architecture du site
+    5/ La mise en place de l'inter-activité du site internet, et l'insertion des éléménts python
+
+
+
