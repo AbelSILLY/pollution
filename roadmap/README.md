@@ -5,7 +5,7 @@ https://jeannevivierum.github.io/pollution/
 
 ## Descritption du projet
 Le projet consiste en la création d'un site internet présentant une étude de la pollution de l'air en Occitanie. Pour cela, nous avons à notre disposition des données: celles de ATMO Occitanie et SYNOP data. Nous aimerions aussi exploiter les données de RTE, afin de complèter le travail.
-Nous voudrions donc afficher une carte inter-active de l'Occitanie, étudier les variations de pollution suivant les différents départements, et les variations au cours des années.
+Nous voudrions donc afficher une carte inter-active de l'Occitanie, étudier les variations de pollution suivant les différents départements, et les variations de concentration au cours des années.
 
 ## Packages utilisés
 
