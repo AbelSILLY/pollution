@@ -80,7 +80,7 @@ for index, row in df.iterrows():
     marker = folium.CircleMarker(location=coords[::-1], radius=5, color=color, fill=True, fill_color=color)
     
     # Ajoute un popup avec les informations de concentration et de type de pollution
-    popup_text = f'Département: {pollution_type}<br>Concentration: {concentration}'
+    popup_text = f'Département: {pollution_type}<br>Concentration NOx_kg: {concentration}'#NOx (oxyde d'azote) polluants atmosphérique
     folium.Popup(popup_text, max_width=300).add_to(marker)
     
     marker.add_to(m)
