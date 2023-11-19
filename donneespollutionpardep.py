@@ -4,6 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
+import os
 
 # Fonction pour récupérer les données depuis l'URL
 def get_data(url):
@@ -56,6 +57,10 @@ def plot_radar_chart(department_pollution_counts):
     ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
     ax.set_title('Occurrences de polluants par département et par état')
 
+    # Sauvegarde du graphique au format SVG avec le même nom que le script
+    script_name = os.path.basename(__file__).replace(".py", "")
+    plt.savefig(f"{script_name}.svg", format="svg")
+
     # Affichage du graphique
     plt.show()
 
@@ -72,8 +77,7 @@ if __name__ == "__main__":
     # Filtrer les départements avec moins de 3 types de polluants pour éviter les erreurs
     department_pollution_counts = {dept: counts for dept, counts in department_pollution_counts.items() if len(counts) >= 3}
 
-    # Afficher les données dans un graphique radar avec des points
+    # Afficher les données dans un graphique radar avec des points et sauvegarder au format SVG
     plot_radar_chart(department_pollution_counts)
-
 
 # %%
