@@ -75,3 +75,5 @@ if __name__ == "__main__":
     # Afficher les données dans un graphique radar avec des points
     plot_radar_chart(department_pollution_counts)
 
+
+# %%
