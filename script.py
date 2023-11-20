@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import os
+import pygal
 import matplotlib.pyplot as plt
 url="https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
 response = requests.get(url)
@@ -40,3 +41,15 @@ plt.xlabel('Nom Départements et polluants')
 plt.ylabel('Observation Concentrations')
 plt.title('Moyenne des concentrations observées par départements')
 plt.savefig("./vis/con_pol_dep.svg",format='svg')
+
+#### Carte ####
+fr_chart = pygal.maps.fr.Departments(human_readable=True)
+fr_chart.title='Moyenne des concentrations par départements'
+fr_chart.add('In 2022', {
+     '09':24.044737, '12':30.248485, '30':27.981081, '32':16.600000,
+     '31':25.598969, '65':16.850467, '34':30.191860, '66':25.998305,
+     '81':17.986047, '82':25.969388
+})
+#fr_chart.render()
+fr_chart.render_in_browser() #pour visualiser dans une fenêtre sur un navigateur web
+fr_chart.render_to_file('./vis/chart_con_dep.svg')#sauvegarde le fichier
