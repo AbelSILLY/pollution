@@ -46,5 +46,5 @@ fr_chart.add('In 2022', {
 })
 #fr_chart.render()
 fr_chart.render_in_browser() #pour visualiser dans une fenêtre sur un navigateur web
-#fr_chart.render_to_file('./vis/chart_con_dep.svg')#sauvegarde le fichier
+fr_chart.render_to_file('./vis/chart_con_dep.svg')#sauvegarde le fichier
 ## Le Gard, le Tarn et les Pyrénées-Orientales ont une concentration particulièrement élevées
