@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_45d00bf9d3e09d5212aba9a2141a7ea3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_45d00bf9d3e09d5212aba9a2141a7ea3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_45d00bf9d3e09d5212aba9a2141a7ea3 = L.map(
+                "map_45d00bf9d3e09d5212aba9a2141a7ea3",
+                {
+                    center: [43.6, 1.4],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 8,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_ca5714094c136dd9e0f7619dc2920679 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+                tile_layer_ca5714094c136dd9e0f7619dc2920679.addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+    
+            var circle_marker_49ae1745c3b882413c2857f47e91fe3b = L.circleMarker(
+                [43.053089995474, 0.163787690045785],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_2907d4456f9da06c2c1d304488eaa8dc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ee53babc3ac346607e274b29e77ff8ae = $(`<div id="html_ee53babc3ac346607e274b29e77ff8ae" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 13<br>Dates : 09/06/2023 (Particules PM10)<br>09/05/2023 (Particules PM10)<br>02/22/2023 (Particules PM10)<br>07/18/2022 (Ozone)<br>07/17/2022 (Ozone)<br>07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>03/16/2022 (Particules PM10)<br>01/30/2022 (Particules PM10)<br>01/29/2022 (Particules PM10)<br>01/28/2022 (Particules PM10)<br>Département : HAUTES-PYRENEES</div>`)[0];
+                popup_2907d4456f9da06c2c1d304488eaa8dc.setContent(html_ee53babc3ac346607e274b29e77ff8ae);
+            
+        
+
+        circle_marker_49ae1745c3b882413c2857f47e91fe3b.bindPopup(popup_2907d4456f9da06c2c1d304488eaa8dc)
+        ;
+
+        
+    
+    
+            var circle_marker_c5b62b93b40ecc7f8d2f417e72d5d1ba = L.circleMarker(
+                [42.599949117307, 2.52189314389612],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_8e9c81703b1080057246bc70ea1d55b2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7f0c262acf83b87e1e7e1aaa715ee36d = $(`<div id="html_7f0c262acf83b87e1e7e1aaa715ee36d" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 3<br>Dates : 09/05/2023 (Particules PM10)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>Département : PYRENEES-ORIENTALES</div>`)[0];
+                popup_8e9c81703b1080057246bc70ea1d55b2.setContent(html_7f0c262acf83b87e1e7e1aaa715ee36d);
+            
+        
+
+        circle_marker_c5b62b93b40ecc7f8d2f417e72d5d1ba.bindPopup(popup_8e9c81703b1080057246bc70ea1d55b2)
+        ;
+
+        
+    
+    
+            var circle_marker_e039d9e7b08d3c1baa61e808d647b863 = L.circleMarker(
+                [43.5796655466826, 3.36749809514735],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_7b1376332160f03b8af235422dbfd76a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_62af96c43d187aa2e82c8baf47dca1b1 = $(`<div id="html_62af96c43d187aa2e82c8baf47dca1b1" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 2<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>Département : HERAULT</div>`)[0];
+                popup_7b1376332160f03b8af235422dbfd76a.setContent(html_62af96c43d187aa2e82c8baf47dca1b1);
+            
+        
+
+        circle_marker_e039d9e7b08d3c1baa61e808d647b863.bindPopup(popup_7b1376332160f03b8af235422dbfd76a)
+        ;
+
+        
+    
+    
+            var circle_marker_dcbf8b41a60a2d224b57280ab7a352b4 = L.circleMarker(
+                [43.9934425898084, 4.1801801780479],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_6901e3804598a3306b9e5c040785c3b2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_457125d6e8468a2f6011edce8dd49998 = $(`<div id="html_457125d6e8468a2f6011edce8dd49998" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 8<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>02/15/2023 (Particules PM10)<br>02/14/2023 (Particules PM10)<br>02/13/2023 (Particules PM10)<br>06/18/2022 (Ozone)<br>01/26/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : GARD</div>`)[0];
+                popup_6901e3804598a3306b9e5c040785c3b2.setContent(html_457125d6e8468a2f6011edce8dd49998);
+            
+        
+
+        circle_marker_dcbf8b41a60a2d224b57280ab7a352b4.bindPopup(popup_6901e3804598a3306b9e5c040785c3b2)
+        ;
+
+        
+    
+    
+            var circle_marker_c1c663b3583b0f5ec5a073bdd8f8b8f7 = L.circleMarker(
+                [43.3582102327324, 1.17242305948459],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_b6306a3fad7ff48c80d00e428469941e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_8d3b9cdf132d0f03c712d8280c92c188 = $(`<div id="html_8d3b9cdf132d0f03c712d8280c92c188" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 6<br>Dates : 07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : HAUTE-GARONNE</div>`)[0];
+                popup_b6306a3fad7ff48c80d00e428469941e.setContent(html_8d3b9cdf132d0f03c712d8280c92c188);
+            
+        
+
+        circle_marker_c1c663b3583b0f5ec5a073bdd8f8b8f7.bindPopup(popup_b6306a3fad7ff48c80d00e428469941e)
+        ;
+
+        
+    
+    
+            var circle_marker_b111ed7e9afb3f57474f669086807ff5 = L.circleMarker(
+                [42.920857868962, 1.50383324229719],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_71c0c9bded86b72aa64f19c7521dfd81 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2647efa2592d2fae0791f3cab83febb7 = $(`<div id="html_2647efa2592d2fae0791f3cab83febb7" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 1<br>Dates : 03/29/2022 (Particules PM10)<br>Département : ARIEGE</div>`)[0];
+                popup_71c0c9bded86b72aa64f19c7521dfd81.setContent(html_2647efa2592d2fae0791f3cab83febb7);
+            
+        
+
+        circle_marker_b111ed7e9afb3f57474f669086807ff5.bindPopup(popup_71c0c9bded86b72aa64f19c7521dfd81)
+        ;
+
+        
+    
+    
+            var circle_marker_0836d822e5b8b5c88659165f2344282a = L.circleMarker(
+                [44.2802838904025, 2.67965536611778],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_2fab43ea4503e37348014ad7766dccc1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a1b7812536ca100955558af78219d86d = $(`<div id="html_a1b7812536ca100955558af78219d86d" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 1<br>Dates : 01/28/2022 (Particules PM10)<br>Département : AVEYRON</div>`)[0];
+                popup_2fab43ea4503e37348014ad7766dccc1.setContent(html_a1b7812536ca100955558af78219d86d);
+            
+        
+
+        circle_marker_0836d822e5b8b5c88659165f2344282a.bindPopup(popup_2fab43ea4503e37348014ad7766dccc1)
+        ;
+
+        
+    
+    
+            var circle_marker_6df901184ee614bd969668efaaed8fe7 = L.circleMarker(
+                [44.0857952162911, 1.28177340995911],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(map_45d00bf9d3e09d5212aba9a2141a7ea3);
+        
+    
+        var popup_17089b4f594e93573e6addc08ee19a97 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f0c987cb5914aeacfce56d9896952587 = $(`<div id="html_f0c987cb5914aeacfce56d9896952587" style="width: 100.0%; height: 100.0%;">Nombre d'alertes : 4<br>Dates : 01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : TARN-ET-GARONNE</div>`)[0];
+                popup_17089b4f594e93573e6addc08ee19a97.setContent(html_f0c987cb5914aeacfce56d9896952587);
+            
+        
+
+        circle_marker_6df901184ee614bd969668efaaed8fe7.bindPopup(popup_17089b4f594e93573e6addc08ee19a97)
+        ;
+
+        
+    
+</script>
+</html>
