@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index</title>
+<title>Projet Pollution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,27 +57,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent">
+<body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -100,13 +133,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années. On remarque une forte concentration en O3 et en NOX chaque année.</p>
 <div class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\abels\AppData\Local\Temp\ipykernel_31132\1489887017.py:32: FutureWarning:
-
-
+<pre><code>/tmp/ipykernel_2218/1489887017.py:32: FutureWarning: 
 
 The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
 
-</code></pre>
+  sns.barplot(x='annee', y='valeur', hue='nom_poll', data=df_polluants, palette='Set1', ci=None)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-2-output-2.png" width="1255" height="672"></p>
@@ -147,7 +178,7 @@ The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_95e0881c2215d57fa5551fe343b46ca9 {
+                #map_b75bcb44cc625117b2588334cddf69f5 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -161,14 +192,14 @@ The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_95e0881c2215d57fa5551fe343b46ca9&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_b75bcb44cc625117b2588334cddf69f5&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_95e0881c2215d57fa5551fe343b46ca9 = L.map(
-                &quot;map_95e0881c2215d57fa5551fe343b46ca9&quot;,
+            var map_b75bcb44cc625117b2588334cddf69f5 = L.map(
+                &quot;map_b75bcb44cc625117b2588334cddf69f5&quot;,
                 {
                     center: [43.6, 1.4],
                     crs: L.CRS.EPSG3857,
@@ -182,177 +213,177 @@ The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
 
         
     
-            var tile_layer_583ebab58d57e9269018688e49943949 = L.tileLayer(
+            var tile_layer_a632a560df9882fbee0822d79cad5ce3 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-                tile_layer_583ebab58d57e9269018688e49943949.addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+                tile_layer_a632a560df9882fbee0822d79cad5ce3.addTo(map_b75bcb44cc625117b2588334cddf69f5);
     
-            var circle_marker_84eaf0700f6c25394591c6b5cd593372 = L.circleMarker(
+            var circle_marker_d9d5199a1a5c1f8946b35ca2b34c0dac = L.circleMarker(
                 [43.053089995474, 0.163787690045785],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 26, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_8632b34d4d52bc8474c88aba3aafda69 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_399fb144719a79da925ac90045575f9e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_3496651388c317c2d20a309d804d7da6 = $(`<div id=&quot;html_3496651388c317c2d20a309d804d7da6&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 13<br>Dates : 09/06/2023 (Particules PM10)<br>09/05/2023 (Particules PM10)<br>02/22/2023 (Particules PM10)<br>07/18/2022 (Ozone)<br>07/17/2022 (Ozone)<br>07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>03/16/2022 (Particules PM10)<br>01/30/2022 (Particules PM10)<br>01/29/2022 (Particules PM10)<br>01/28/2022 (Particules PM10)<br>Département : HAUTES-PYRENEES</div>`)[0];
-                popup_8632b34d4d52bc8474c88aba3aafda69.setContent(html_3496651388c317c2d20a309d804d7da6);
+                var html_dfa99997abed2ea094815a3b2e5b320c = $(`<div id=&quot;html_dfa99997abed2ea094815a3b2e5b320c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 13<br>Dates : 09/06/2023 (Particules PM10)<br>09/05/2023 (Particules PM10)<br>02/22/2023 (Particules PM10)<br>07/18/2022 (Ozone)<br>07/17/2022 (Ozone)<br>07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>03/16/2022 (Particules PM10)<br>01/30/2022 (Particules PM10)<br>01/29/2022 (Particules PM10)<br>01/28/2022 (Particules PM10)<br>Département : HAUTES-PYRENEES</div>`)[0];
+                popup_399fb144719a79da925ac90045575f9e.setContent(html_dfa99997abed2ea094815a3b2e5b320c);
             
         
 
-        circle_marker_84eaf0700f6c25394591c6b5cd593372.bindPopup(popup_8632b34d4d52bc8474c88aba3aafda69)
+        circle_marker_d9d5199a1a5c1f8946b35ca2b34c0dac.bindPopup(popup_399fb144719a79da925ac90045575f9e)
         ;
 
         
     
     
-            var circle_marker_59092b2a946b92fa6f53e342d80fbf2f = L.circleMarker(
+            var circle_marker_c62ebfb71df320a4c0a7c4b1741682c3 = L.circleMarker(
                 [42.599949117307, 2.52189314389612],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 6, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_21861e3679c6c6476eae56f053c089d0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_62a9e0ad799a3307f9fa11d68bad5824 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_79d8872bdc387454e22e30408ff1eeb1 = $(`<div id=&quot;html_79d8872bdc387454e22e30408ff1eeb1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 3<br>Dates : 09/05/2023 (Particules PM10)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>Département : PYRENEES-ORIENTALES</div>`)[0];
-                popup_21861e3679c6c6476eae56f053c089d0.setContent(html_79d8872bdc387454e22e30408ff1eeb1);
+                var html_197bd0bf9733c629076d97b8072432e5 = $(`<div id=&quot;html_197bd0bf9733c629076d97b8072432e5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 3<br>Dates : 09/05/2023 (Particules PM10)<br>03/29/2022 (Particules PM10)<br>03/28/2022 (Particules PM10)<br>Département : PYRENEES-ORIENTALES</div>`)[0];
+                popup_62a9e0ad799a3307f9fa11d68bad5824.setContent(html_197bd0bf9733c629076d97b8072432e5);
             
         
 
-        circle_marker_59092b2a946b92fa6f53e342d80fbf2f.bindPopup(popup_21861e3679c6c6476eae56f053c089d0)
+        circle_marker_c62ebfb71df320a4c0a7c4b1741682c3.bindPopup(popup_62a9e0ad799a3307f9fa11d68bad5824)
         ;
 
         
     
     
-            var circle_marker_9ca6930dd0305f57967d8090b3c98822 = L.circleMarker(
+            var circle_marker_7cfcf0dbd6b2b74c0471abf31da1dcb5 = L.circleMarker(
                 [43.5796655466826, 3.36749809514735],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 4, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_8a7c413fc62f73147482a9d87d3af236 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0f5d85bdd42337b5bf7260271d66cd44 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_dc006b378fc0316e6e770a0b67c37b49 = $(`<div id=&quot;html_dc006b378fc0316e6e770a0b67c37b49&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 2<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>Département : HERAULT</div>`)[0];
-                popup_8a7c413fc62f73147482a9d87d3af236.setContent(html_dc006b378fc0316e6e770a0b67c37b49);
+                var html_4752dec14654406c0d716e684700ae09 = $(`<div id=&quot;html_4752dec14654406c0d716e684700ae09&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 2<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>Département : HERAULT</div>`)[0];
+                popup_0f5d85bdd42337b5bf7260271d66cd44.setContent(html_4752dec14654406c0d716e684700ae09);
             
         
 
-        circle_marker_9ca6930dd0305f57967d8090b3c98822.bindPopup(popup_8a7c413fc62f73147482a9d87d3af236)
+        circle_marker_7cfcf0dbd6b2b74c0471abf31da1dcb5.bindPopup(popup_0f5d85bdd42337b5bf7260271d66cd44)
         ;
 
         
     
     
-            var circle_marker_72cb09ce2bb968da1d14e65a4067aafb = L.circleMarker(
+            var circle_marker_782c66d969dc92f8b33ad581d459cae7 = L.circleMarker(
                 [43.9934425898084, 4.1801801780479],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 16, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_0da29ac035f5aa9eaca4e87c9d0f99bd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_55b7631537ec1c34d8cf2dccbfdb5ab2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6f59ac1ea984121245d794a80ef72402 = $(`<div id=&quot;html_6f59ac1ea984121245d794a80ef72402&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 8<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>02/15/2023 (Particules PM10)<br>02/14/2023 (Particules PM10)<br>02/13/2023 (Particules PM10)<br>06/18/2022 (Ozone)<br>01/26/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : GARD</div>`)[0];
-                popup_0da29ac035f5aa9eaca4e87c9d0f99bd.setContent(html_6f59ac1ea984121245d794a80ef72402);
+                var html_8e61cba26aedf6f1ce4bee86fdbe649a = $(`<div id=&quot;html_8e61cba26aedf6f1ce4bee86fdbe649a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 8<br>Dates : 08/23/2023 (Ozone)<br>07/12/2023 (Particules PM10)<br>02/15/2023 (Particules PM10)<br>02/14/2023 (Particules PM10)<br>02/13/2023 (Particules PM10)<br>06/18/2022 (Ozone)<br>01/26/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : GARD</div>`)[0];
+                popup_55b7631537ec1c34d8cf2dccbfdb5ab2.setContent(html_8e61cba26aedf6f1ce4bee86fdbe649a);
             
         
 
-        circle_marker_72cb09ce2bb968da1d14e65a4067aafb.bindPopup(popup_0da29ac035f5aa9eaca4e87c9d0f99bd)
+        circle_marker_782c66d969dc92f8b33ad581d459cae7.bindPopup(popup_55b7631537ec1c34d8cf2dccbfdb5ab2)
         ;
 
         
     
     
-            var circle_marker_58c221fe704102c20e86910b26aa99f4 = L.circleMarker(
+            var circle_marker_5068e36b294b0d44a6101e38de7be1a6 = L.circleMarker(
                 [43.3582102327324, 1.17242305948459],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 12, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_6850a8150ddb1f8f9e38c5813f0fd6ef = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_8f69bb0d2fb3922b04ece57bc377da70 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_015cc4a5bbd6ddb7c515e7be7efad895 = $(`<div id=&quot;html_015cc4a5bbd6ddb7c515e7be7efad895&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 6<br>Dates : 07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : HAUTE-GARONNE</div>`)[0];
-                popup_6850a8150ddb1f8f9e38c5813f0fd6ef.setContent(html_015cc4a5bbd6ddb7c515e7be7efad895);
+                var html_a75cade07c7b0c44d2f93d00f69032e3 = $(`<div id=&quot;html_a75cade07c7b0c44d2f93d00f69032e3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 6<br>Dates : 07/16/2022 (Ozone)<br>07/15/2022 (Ozone)<br>01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : HAUTE-GARONNE</div>`)[0];
+                popup_8f69bb0d2fb3922b04ece57bc377da70.setContent(html_a75cade07c7b0c44d2f93d00f69032e3);
             
         
 
-        circle_marker_58c221fe704102c20e86910b26aa99f4.bindPopup(popup_6850a8150ddb1f8f9e38c5813f0fd6ef)
+        circle_marker_5068e36b294b0d44a6101e38de7be1a6.bindPopup(popup_8f69bb0d2fb3922b04ece57bc377da70)
         ;
 
         
     
     
-            var circle_marker_f23eb79b91fdbf604803621faa2439d9 = L.circleMarker(
+            var circle_marker_8d1a53961e4496383438002afd768be3 = L.circleMarker(
                 [42.920857868962, 1.50383324229719],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_b937b1a0470c8c218d8cc98f6cbade8e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d4a90f18d7b383f2f3723415cec4396c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_b24a3be20c31d060e599ffac89861dbc = $(`<div id=&quot;html_b24a3be20c31d060e599ffac89861dbc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 1<br>Dates : 03/29/2022 (Particules PM10)<br>Département : ARIEGE</div>`)[0];
-                popup_b937b1a0470c8c218d8cc98f6cbade8e.setContent(html_b24a3be20c31d060e599ffac89861dbc);
+                var html_2e51b32f3474ea5c4c032f3a26deb9ae = $(`<div id=&quot;html_2e51b32f3474ea5c4c032f3a26deb9ae&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 1<br>Dates : 03/29/2022 (Particules PM10)<br>Département : ARIEGE</div>`)[0];
+                popup_d4a90f18d7b383f2f3723415cec4396c.setContent(html_2e51b32f3474ea5c4c032f3a26deb9ae);
             
         
 
-        circle_marker_f23eb79b91fdbf604803621faa2439d9.bindPopup(popup_b937b1a0470c8c218d8cc98f6cbade8e)
+        circle_marker_8d1a53961e4496383438002afd768be3.bindPopup(popup_d4a90f18d7b383f2f3723415cec4396c)
         ;
 
         
     
     
-            var circle_marker_87d6999f839732c206b950e11e0feba9 = L.circleMarker(
+            var circle_marker_1b83a9b9824037e3f87289ea94c9e7e9 = L.circleMarker(
                 [44.2802838904025, 2.67965536611778],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 2, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_975818949691723830b22dc95dd99ec4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_94038f630aa0b88ae4a2b66cd848d152 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_f7c855fb1c5375096137f2b5d03ff462 = $(`<div id=&quot;html_f7c855fb1c5375096137f2b5d03ff462&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 1<br>Dates : 01/28/2022 (Particules PM10)<br>Département : AVEYRON</div>`)[0];
-                popup_975818949691723830b22dc95dd99ec4.setContent(html_f7c855fb1c5375096137f2b5d03ff462);
+                var html_10ed924a33e5599758866086bec6aa16 = $(`<div id=&quot;html_10ed924a33e5599758866086bec6aa16&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 1<br>Dates : 01/28/2022 (Particules PM10)<br>Département : AVEYRON</div>`)[0];
+                popup_94038f630aa0b88ae4a2b66cd848d152.setContent(html_10ed924a33e5599758866086bec6aa16);
             
         
 
-        circle_marker_87d6999f839732c206b950e11e0feba9.bindPopup(popup_975818949691723830b22dc95dd99ec4)
+        circle_marker_1b83a9b9824037e3f87289ea94c9e7e9.bindPopup(popup_94038f630aa0b88ae4a2b66cd848d152)
         ;
 
         
     
     
-            var circle_marker_3b387c72bc9801dd6a2c06ac0481efeb = L.circleMarker(
+            var circle_marker_3eb1e50dc8bc569e3f6bb4d574de1f57 = L.circleMarker(
                 [44.0857952162911, 1.28177340995911],
                 {&quot;bubblingMouseEvents&quot;: true, &quot;color&quot;: &quot;red&quot;, &quot;dashArray&quot;: null, &quot;dashOffset&quot;: null, &quot;fill&quot;: true, &quot;fillColor&quot;: &quot;red&quot;, &quot;fillOpacity&quot;: 0.2, &quot;fillRule&quot;: &quot;evenodd&quot;, &quot;lineCap&quot;: &quot;round&quot;, &quot;lineJoin&quot;: &quot;round&quot;, &quot;opacity&quot;: 1.0, &quot;radius&quot;: 8, &quot;stroke&quot;: true, &quot;weight&quot;: 3}
-            ).addTo(map_95e0881c2215d57fa5551fe343b46ca9);
+            ).addTo(map_b75bcb44cc625117b2588334cddf69f5);
         
     
-        var popup_758419816aa8d4ccb326faa3de0e66c6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_53ed4fa6c0b3529d002d3a7c126e8166 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_38d8cc41797c922c64b2d557643f097a = $(`<div id=&quot;html_38d8cc41797c922c64b2d557643f097a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 4<br>Dates : 01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : TARN-ET-GARONNE</div>`)[0];
-                popup_758419816aa8d4ccb326faa3de0e66c6.setContent(html_38d8cc41797c922c64b2d557643f097a);
+                var html_968c84b266a5d90949881f8e27615a3b = $(`<div id=&quot;html_968c84b266a5d90949881f8e27615a3b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Nombre d'alertes : 4<br>Dates : 01/28/2022 (Particules PM10)<br>01/27/2022 (Particules PM10)<br>01/17/2022 (Particules PM10)<br>01/16/2022 (Particules PM10)<br>Département : TARN-ET-GARONNE</div>`)[0];
+                popup_53ed4fa6c0b3529d002d3a7c126e8166.setContent(html_968c84b266a5d90949881f8e27615a3b);
             
         
 
-        circle_marker_3b387c72bc9801dd6a2c06ac0481efeb.bindPopup(popup_758419816aa8d4ccb326faa3de0e66c6)
+        circle_marker_3eb1e50dc8bc569e3f6bb4d574de1f57.bindPopup(popup_53ed4fa6c0b3529d002d3a7c126e8166)
         ;
 
         
@@ -454,8 +485,9 @@ The `ci` parameter is deprecated. Use `errorbar=None` for the same effect.
 </div>
 </div>
 
-</main>
-<!-- /main column -->
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
