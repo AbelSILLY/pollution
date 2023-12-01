@@ -1,0 +1,258 @@
+## Premières visualisations
+Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années.
+On remarque une forte concentration en O3 et en NOX chaque année.
+```{python}
+#| echo: false
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# URL de l'API GeoJSON
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Obtenir les données GeoJSON depuis l'API
+response = requests.get(url)
+data = response.json()
+
+# Convertir les données GeoJSON en un DataFrame pandas
+features = data['features']
+data_list = []
+
+for feature in features:
+    properties = feature['properties']
+    data_list.append(properties)
+
+df_polluants = pd.DataFrame(data_list)
+
+# Convertir les colonnes de date au format datetime64[ns]
+df_polluants['date_debut'] = pd.to_datetime(df_polluants['date_debut'], unit='ms')
+df_polluants['date_fin'] = pd.to_datetime(df_polluants['date_fin'], unit='ms')
+
+# Ajouter une colonne 'annee' en extrayant l'année de la colonne 'date_debut'
+df_polluants['annee'] = df_polluants['date_debut'].dt.year
+
+# Créer un graphique à barres empilées avec les années sur l'axe des abscisses
+plt.figure(figsize=(16, 8))
+sns.barplot(x='annee', y='valeur', hue='nom_poll', data=df_polluants, palette='Set1', ci=None)
+
+plt.title('Quantité de chaque polluant pour toutes les années')
+plt.xlabel('Année')
+plt.ylabel('Quantité de polluants')
+plt.legend(title='Polluant', loc='upper right')
+plt.show()
+```
+
+Le graphique ce-dessous présente une autre visualisation des mêmes données qui nous permet de voir l'évolution dans le temps de la concentration (s'il y en a une).
+
+```{python}
+#| echo: false
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+from datetime import datetime
+from collections import defaultdict
+
+# URL of the GeoJSON API for the entire Occitanie region
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Get GeoJSON data from the API
+response = requests.get(url)
+data = response.json()
+
+# Extract relevant data for the Occitanie region
+features = data['features']
+occitanie_data = [feature['properties'] for feature in features]
+
+# Prepare data for plotting
+pollutants_per_year = defaultdict(list)
+
+for entry in occitanie_data:
+    pollutant = entry['nom_poll']
+    concentration = entry['valeur']
+    date_debut_timestamp = entry['date_debut']
+    year = datetime.utcfromtimestamp(date_debut_timestamp / 1000).year
+
+    pollutants_per_year[pollutant].append((year, concentration))
+
+# Transform data for plotting (calculate average concentration per year)
+for pollutant, data in pollutants_per_year.items():
+    data.sort(key=lambda x: x[0])
+
+    # Calculate average concentrations per year
+    averages_per_year = defaultdict(float)
+    counts_per_year = defaultdict(int)
+
+    for year, concentration in data:
+        if concentration is not None:
+            averages_per_year[year] += concentration
+            counts_per_year[year] += 1
+
+    for year in averages_per_year:
+        if counts_per_year[year] > 0:
+            averages_per_year[year] /= counts_per_year[year]
+
+    pollutants_per_year[pollutant] = list(averages_per_year.items())
+
+# Plotting
+for pollutant, data in pollutants_per_year.items():
+    years, concentrations = zip(*data)
+    plt.plot(years, concentrations, marker='o', linestyle='-', linewidth=1, label=pollutant)
+
+plt.title('Concentration des polluants en Occitanie par année')
+plt.xlabel('Année')
+plt.ylabel('Concentration')
+plt.legend(title='Pollutant', loc='upper right')
+plt.show()
+```
+
+
+```{python}
+#| echo: false
+
+import requests
+import folium
+from datetime import datetime
+from IPython.display import display
+import os
+
+# Récupérer les données depuis l'URL
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/epipol_occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+response = requests.get(url)
+data = response.json()
+
+# Créer une carte centrée sur une position approximative en Occitanie
+m = folium.Map(location=[43.6, 1.4], zoom_start=8)
+
+# Créer un dictionnaire pour stocker le nombre d'alertes et les dates associées à chaque point
+alerts_by_location = {}
+
+# Ajouter des marqueurs rouges pour chaque alerte avec le nombre d'alertes, la date et le polluant responsable
+features = data.get('features', [])
+for feature in features:
+    properties = feature.get('properties', {})
+    geometry = feature.get('geometry', {})
+    coordinates = geometry.get('coordinates', [])
+    etat = properties.get('etat', '')
+    date_ech = properties.get('date_ech', '')
+    lib_zone = properties.get('lib_zone', '')
+    lib_pol = properties.get('lib_pol', '')  # Ajout du polluant responsable
+
+    # Vérifier si l'état est une alerte et si la date est présente
+    if etat == 'ALERTE' and date_ech:
+        date_str = datetime.fromtimestamp(date_ech / 1000).strftime('%m/%d/%Y')
+
+        # Ajouter le nombre d'alertes, la date et le polluant responsable au dictionnaire associé aux coordonnées
+        if tuple(coordinates) in alerts_by_location:
+            alerts_by_location[tuple(coordinates)]['count'] += 1
+            alerts_by_location[tuple(coordinates)]['dates'].append(f"{date_str} ({lib_pol})")
+        else:
+            alerts_by_location[tuple(coordinates)] = {'count': 1, 'dates': [f"{date_str} ({lib_pol})"], 'lib_zone': lib_zone}
+
+# Ajouter des marqueurs pour chaque point avec une taille de marqueur variable en fonction du nombre d'alertes
+for coordinates, alert_info in alerts_by_location.items():
+    count = alert_info['count']
+    lib_zone = alert_info['lib_zone']
+    dates = "<br>".join(alert_info['dates'])
+
+    # La taille du marqueur est définie par le nombre d'alertes
+    radius = count * 2  # Vous pouvez ajuster le facteur de multiplication pour obtenir la taille désirée
+
+    popup_text = f"Nombre d'alertes : {count}<br>Dates : {dates}<br>Département : {lib_zone}"
+    
+    # Créer le marqueur avec une taille variable
+    folium.CircleMarker(location=[coordinates[1], coordinates[0]], radius=radius, popup=popup_text, color='red', fill=True).add_to(m)
+
+# Afficher la carte dans le notebook
+display(m)
+```
+
+```{python}
+# %%
+import requests
+from datetime import datetime
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+def obtenir_donnees_toulouse():
+    url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query"
+    
+    # Paramètres de la requête pour récupérer toutes les données
+    params_toutes_donnees = {
+        'outFields': '*',
+        'where': '1=1',  # Récupérer toutes les données
+        'f': 'geojson'
+    }
+
+    # Effectuer la requête pour récupérer toutes les données
+    response_toutes_donnees = requests.get(url, params=params_toutes_donnees)
+
+    # Vérifier si la requête a réussi (code de statut 200)
+    if response_toutes_donnees.status_code == 200:
+        # Récupérer les données JSON
+        data_toutes_donnees = response_toutes_donnees.json()
+
+        # Filtrer les données pour Toulouse
+        donnees_toulouse = [feature for feature in data_toutes_donnees['features'] if feature['properties']['nom_com'] == 'TOULOUSE']
+
+        # Préparer les données pour le graphique
+        polluants_par_mois = defaultdict(list)
+
+        if donnees_toulouse:
+            for feature in donnees_toulouse:
+                properties = feature['properties']
+                polluant = properties['nom_poll']
+                concentration = properties['valeur']
+                date_debut_timestamp = properties['date_debut']
+
+                # Convertir le timestamp en date et extraire le mois
+                mois_date_debut = datetime.utcfromtimestamp(date_debut_timestamp / 1000).strftime('%Y-%m')
+
+                polluants_par_mois[polluant].append((mois_date_debut, concentration))
+
+            # Trier les données par mois
+            for polluant, data in polluants_par_mois.items():
+                data.sort(key=lambda x: datetime.strptime(x[0], '%Y-%m'))
+
+                # Calculer la moyenne des concentrations pour chaque mois
+                moyennes_par_mois = defaultdict(float)
+                compteur_par_mois = defaultdict(int)
+
+                for mois, concentration in data:
+                    if concentration is not None:  # Vérifier si la concentration n'est pas None
+                        moyennes_par_mois[mois] += concentration
+                        compteur_par_mois[mois] += 1
+
+                for mois in moyennes_par_mois:
+                    if compteur_par_mois[mois] > 0:
+                        moyennes_par_mois[mois] /= compteur_par_mois[mois]
+
+                polluants_par_mois[polluant] = list(moyennes_par_mois.items())
+
+            # Créer le graphique avec des points plus petits et des lignes en pointillé
+            for polluant, data in polluants_par_mois.items():
+                mois, concentrations = zip(*data)
+                plt.plot(mois, concentrations, marker='o', markersize=5, linestyle='--', linewidth=1, label=polluant)
+
+            plt.xlabel('Mois')
+            plt.ylabel('Concentration (en ug.m-3)')
+            plt.title('Concentration des polluants à Toulouse par mois')
+            plt.xticks(rotation=45, ha='right')  # Pour faire pivoter les noms des mois
+
+            # Afficher une étiquette sur trois mois
+            plt.xticks(mois[::2], mois[::2])
+
+            plt.legend(loc='upper right')
+
+            # Afficher le graphique
+            plt.show()
+        else:
+            print("Aucune donnée trouvée pour Toulouse.")
+    else:
+        print(f"La requête a échoué avec le code d'erreur {response_toutes_donnees.status_code}")
+
+# Exécute la fonction pour obtenir les données et afficher le graphique
+obtenir_donnees_toulouse()
+
+# %%
+```
