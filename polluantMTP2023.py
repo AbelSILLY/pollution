@@ -23,9 +23,10 @@ if response.status_code == 200:
     # Parcourir toutes les entités
     for feature in data['features']:
         nom_polluant = feature['properties']['nom_poll']
+        nom_com = feature['properties']['nom_com']
 
-        # Vérifier si le polluant fait partie de ceux que vous voulez visualiser
-        if nom_polluant in polluants:
+        # Vérifier si le polluant fait partie de ceux que vous voulez visualiser et si la ville est Montpellier
+        if nom_polluant in polluants and nom_com == 'MONTPELLIER':
             date_debut_timestamp = feature['properties']['date_debut'] / 1000  # Convertir en secondes
             date_debut = datetime.utcfromtimestamp(date_debut_timestamp)
 
@@ -65,3 +66,4 @@ if response.status_code == 200:
 
 else:
     print(f"La requête a échoué avec le statut : {response.status_code}")
+
