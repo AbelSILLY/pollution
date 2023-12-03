@@ -46,6 +46,25 @@ format:
 ## Les choix
 - Pas les données de RTE finalement
 - Zooms spaciaux - temporels 
+- Choix des villes 
+
+## Création d'un module 
+
+## Création de classe
+
+## Les difficultés
+
+- Liées au projet
+    - Appréhender le sujet correctement 
+    - Organiser les idées et le travail
+    - Éviter le travail inutile
+    - Coodroner un groupe
+
+- Informatiques
+    - La prise en main des outils
+    - La création d'un module
+    - Le déploiement du site 
+
 
 # Affichage et accessibilité 
 
@@ -68,3 +87,14 @@ On explique pourquoi on choisit cela
 - Trouver les infos facilement 
 
 ## Des idées pour agir ? {transition="fade-in slide-out"}
+- À l'échelle municipale 
+    - 
+    - 
+
+- À l'échelle départementale 
+    - Ecourager le covoiturage 
+    -  
+
+- À l'échelle régionale 
+    - Limiter les vols internes
+    - Développer les lignes ferroviaires
