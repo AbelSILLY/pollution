@@ -1,0 +1,70 @@
+---
+title: "Étude de la pollution de l'air en Occitanie"
+author: "Ibrahim ATTOUMANI, Tristan RIVALDI, Kilian SAINT-CHÉlY, Abel SILLY, Jeanne VIVIER"
+format: 
+    revealjs :
+        transition: slide
+        background-transition: fade
+---
+
+# Une première approche
+
+## Introduction
+
+
+
+## {auto-animate=true}
+
+
+## But de l'étude 
+
+- Quels sont les principaux polluants et quels sont leurs impacts sur notre santé et l'environnement ?
+    -  Apprivoisement du sujet
+    - La première prise en main des données
+
+- Une répartition inégale en Occitanie ? 
+    - Découpage progressif de la carte
+    - Choix des données
+    - Choix des représentations
+
+- L'influence de la météo ?
+    - 
+
+
+# État des lieux 
+
+- Les données mises à notre disposition
+
+
+## Dinner
+
+- Eat spaghetti
+- Drink wine
+
+# Construction du projet
+
+## Les choix
+- Pas les données de RTE finalement
+- Zooms spaciaux - temporels 
+
+# Affichage et accessibilité 
+
+## Graphiques
+- Matplotlib
+- Graphiques horaires pour les données journalières
+- Histogrammes 
+- Courbes 
+On explique pourquoi on choisit cela
+
+
+## Interactivité 
+
+- Carte interactive 
+- Graphiques ineractifs
+
+## Accessibilité du site web
+
+- Page d'accueil
+- Trouver les infos facilement 
+
+## Des idées pour agir ? {transition="fade-in slide-out"}
