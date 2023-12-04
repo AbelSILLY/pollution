@@ -22,16 +22,17 @@ def as_df(data_path_target):
     return df
 
 
-def extraire_donnees_pollution(donnees, station):
+def extraire_donnees_station(donnees, station):
     """
     Extrait les données pour une station spécifique, y compris les polluants, les valeurs et les dates.
+    Par la même occasion on extrait les données d'une ville (une station étant rattachée à une ville)
 
     Args:
         donnees (pd.DataFrame): Le jeu de données contenant les données de pollution.
         station (str): Le nom de la station.
 
     Returns:
-        pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)'.
+        pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'.
     """
     
     df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
@@ -42,5 +43,20 @@ def extraire_donnees_pollution(donnees, station):
     
     date = pd.DataFrame(date)
     df["date_debut"] = date
-    df = df.rename(columns={'date_debut': 'Date', 'nom_poll': 'Polluant', 'Concentration': 'valeur', 'Station': 'nom_station'})
+    #df = df.rename(columns={'date_debut': 'Date','nom_station': 'Station'})
     return df
+
+def extraire_polluant(donnees,polluant):
+   """
+   Extrait les données relatives à un polluant particulier.
+
+   Args:
+   donnees (pd.DataFrame): le dataframe contenant les données
+   polluant (str) : le polluant que l'on souhaite extraire
+
+   Returns:
+   pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'
+   """
+   df = donnees.loc[(donnees["nom_poll"] == polluant), ["nom_poll", "valeur", "date_debut", "nom_station"]]
+   #df = df.rename(columns={'date_debut': 'Date', 'nom_poll': 'Polluant', 'Concentration': 'valeur', 'Station': 'nom_station'})
+   return df
