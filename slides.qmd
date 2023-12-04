@@ -11,9 +11,15 @@ format:
 
 ## Introduction
 
+![](cycles-pollution.png)
 
+
+- Quelles sont les principales causes et effets de la pollution de l'air en Occitanie ?
 
 ## {auto-animate=true}
+
+- 
+
 
 
 ## But de l'étude 
