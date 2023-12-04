@@ -21,6 +21,23 @@ def as_df(data_path_target):
     df = df_raw.dropna()
     return df
 
+def modif_date(df):
+   """
+   Modifie le format de date d'un data frame
+
+   Args:
+   df (pd.DataFrame): le dataframe à modifier
+
+   returns:
+   pd.DataFrame: dataframe avec le bon format de data
+   """
+   date = df['date_debut'] / 1000
+   nrows = date.shape[0]
+   for i in range(nrows):
+      date.iloc[i]  = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m-%d %H:%M:%S')
+   df['date_debut'] = date
+   return df
+
 
 def extraire_donnees_station(donnees, station):
     """
@@ -34,7 +51,6 @@ def extraire_donnees_station(donnees, station):
     Returns:
         pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'.
     """
-    
     df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
     date  = df["date_debut"] / 1000
     nrows = date.shape[0]
