@@ -39,7 +39,99 @@ format:
 
 # État des lieux 
 
-- Les données mises à notre disposition
+```{python}
+
+import matplotlib.pyplot as plt
+
+# Données à afficher
+labels = ['Résidentiel/Tertiaire', 'Transport routier', 'Industrie manufacturière', 'Agriculture', 'Transformation de l\'énergie', 'Autre']
+pourcentages = [62, 17, 11, 6, 2, 2]
+
+# Couleurs
+colors = plt.cm.Paired(range(len(labels)))
+
+# Création du graphique en forme de donuts
+fig, ax = plt.subplots()
+wedges, texts, autotexts = ax.pie(pourcentages, labels=None, autopct='', startangle=90, colors=colors)
+
+# Ajout des pourcentages sans chevauchement
+for i, (text, autotext) in enumerate(zip(texts, autotexts)):
+    angle = wedges[i].theta2 - wedges[i].theta1
+    if angle >= 10:  # Éviter l'affichage des pourcentages pour les petits segments
+        x, y = autotext.get_position()
+        distance = 1.15  # Facteur d'espacement des pourcentages
+        ax.text(x * distance, y * distance, '{:.1f}%'.format(pourcentages[i]), ha='center', va='center')
+
+# Dessiner un cercle au centre pour transformer le pie chart en donut chart
+centre_cercle = plt.Circle((0, 0), 0.70, fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_cercle)
+
+# Ajout de la légende
+legend_labels = ['{} - {:.1f}%'.format(label, percentage) for label, percentage in zip(labels, pourcentages)]
+ax.legend(wedges, legend_labels, title="Secteurs d'activité", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
+
+# Ajustements
+ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.suptitle('D\'après le ministère de l\'environnment', fontstyle='italic' )
+plt.title('Origine des particules PM10 en France (2014)')
+
+# Affichage du graphique
+plt.show()
+
+
+```
+
+## {auto-animate=false}
+```{python}
+import matplotlib.pyplot as plt
+
+# Données à afficher
+labels = ['Résidentiel/Tertiaire', 'Transport routier', 'Industrie manufacturière', 'Agriculture', 'Transformation de l\'énergie', 'Autre']
+pourcentages = [62, 17, 11, 6, 2, 2]
+
+# Couleurs avec transparence (alpha)
+colors = [(0.8, 0.8, 0.8, 0.6), (0.8, 0.8, 0.8, 0.6), (0.8, 0.8, 0.8, 0.6), (0.8, 0.8, 0.8, 0.6), (1.0, 0.65, 0.0, 0.8), (0.8, 0.8, 0.8, 0.6)]  # Opacité réduite pour tous
+
+# Création du graphique en forme de donuts
+fig, ax = plt.subplots()
+wedges, texts, autotexts = ax.pie(pourcentages, labels=None, autopct='', startangle=90, colors=colors)
+
+# Ajout des pourcentages sans chevauchement
+for i, (text, autotext) in enumerate(zip(texts, autotexts)):
+    angle = wedges[i].theta2 - wedges[i].theta1
+    if angle >= 10:  # Éviter l'affichage des pourcentages pour les petits segments
+        x, y = autotext.get_position()
+        distance = 1.15  # Facteur d'espacement des pourcentages
+        ax.text(x * distance, y * distance, '{:.1f}%'.format(pourcentages[i]), ha='center', va='center')
+
+# Dessiner un cercle au centre pour transformer le pie chart en donut chart
+centre_cercle = plt.Circle((0, 0), 0.70, fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_cercle)
+
+# Ajout de la légende
+legend_labels = ['{} - {:.1f}%'.format(label, percentage) for label, percentage in zip(labels, pourcentages)]
+ax.legend(wedges, legend_labels, title="Secteurs d'activité", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
+
+# Ajustements
+ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.suptitle('D\'après le ministère de l\'environnement', fontstyle='italic' )
+plt.title('Origine des particules PM10 en France (2014)')
+
+# Affichage du graphique
+plt.show()
+```
+## Production d'électricité en Occitanie
+
+![](rte.png)
+
+
+
+
+L'utilisation des données de RTE ne nous a pas semblé si pertinante...      
+ _Source : RTE, production d'électricité en 2022 en Occitanie_     
+[(https://www.rte-france.com/actualites/bilan-electrique-2022-occitanie#:~:text=Avec%2029%2C1%20TWh%2C%20la,hauteur%20de%2098%2C5%20%25.)]
 
 
 ## Dinner
