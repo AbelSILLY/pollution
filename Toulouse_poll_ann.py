@@ -1,21 +1,21 @@
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 from datetime import datetime
 from collections import defaultdict
 
-# URL of the GeoJSON API for Toulouse
+# URL de l'API GeoJSON pour Toulouse
 url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=nom_com='TOULOUSE'&f=geojson"
 
-# Get GeoJSON data from the API
+# Récupérer les données GeoJSON depuis l'API
 response = requests.get(url)
 data = response.json()
 
-# Extract relevant data for Toulouse
+# Extraire les données pertinentes pour Toulouse
 features = data['features']
 toulouse_data = [feature['properties'] for feature in features]
 
-# Prepare data for plotting
+# Préparer les données pour le tracé
 pollutants_per_year = defaultdict(list)
 
 for entry in toulouse_data:
@@ -26,11 +26,11 @@ for entry in toulouse_data:
 
     pollutants_per_year[pollutant].append((year, concentration))
 
-# Transform data for plotting (calculate average concentration per year)
+# Transformer les données pour le tracé (calculer la concentration moyenne par année)
 for pollutant, data in pollutants_per_year.items():
     data.sort(key=lambda x: x[0])
 
-    # Calculate average concentrations per year
+    # Calculer les concentrations moyennes par année
     averages_per_year = defaultdict(float)
     counts_per_year = defaultdict(int)
 
@@ -45,13 +45,32 @@ for pollutant, data in pollutants_per_year.items():
 
     pollutants_per_year[pollutant] = list(averages_per_year.items())
 
-# Plotting
-for pollutant, data in pollutants_per_year.items():
-    years, concentrations = zip(*data)
-    plt.plot(years, concentrations, marker='o', linestyle='-', linewidth=1, label=pollutant)
+# Créer un DataFrame pour Plotly Express
+df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
+                  columns=['Pollutant', 'Year', 'Concentration'])
 
-plt.title('Concentration des polluants à Toulouse par année')
-plt.xlabel('Année')
-plt.ylabel('Concentration')
-plt.legend(title='Pollutant', loc='upper right')
-plt.show()
+# Tracé avec Plotly Express
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants à Toulouse par année',
+              template='plotly', height=600)
+
+# Personnaliser le tracé pour ressembler à Matplotlib
+fig.update_traces(
+    line=dict(width=1),  # Épaisseur de la ligne
+    marker=dict(size=8)   # Taille des marqueurs
+)
+
+# Ajouter un curseur pour filtrer les données par année
+fig.update_layout(
+    xaxis=dict(
+        rangeslider=dict(
+            visible=True
+        ),
+        type='linear'  # Assurez-vous que le type d'axe x est 'linear' pour que le curseur fonctionne
+    )
+)
+
+# Afficher le tracé interactif
+fig.show()
+
