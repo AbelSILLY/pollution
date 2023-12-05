@@ -31,6 +31,7 @@ def modif_date(df):
    returns:
    pd.DataFrame: dataframe avec le bon format de data
    """
+   #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
    date = df['date_debut'] / 1000
    nrows = date.shape[0]
    for i in range(nrows):
@@ -38,6 +39,25 @@ def modif_date(df):
    df['date_debut'] = date
    return df
 
+
+def modif_date2(df):
+   """
+   Modifie le format de date d'un data frame, passe du format timestamp au format AAAA-MM
+
+   Args:
+   df (pd.DataFrame): le dataframe à modifier
+
+   returns:
+   pd.DataFrame: dataframe avec le bon format de data
+   """
+   #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
+   date = df['date_debut'] / 1000
+   nrows = date.shape[0]
+   for i in range(nrows):
+      date.iloc[i]  = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m')
+   df['date_debut'] = date
+   df = df.sort_values(by = 'date_debut')
+   return df
 
 def extraire_donnees_station(donnees, station):
     """
@@ -52,13 +72,6 @@ def extraire_donnees_station(donnees, station):
         pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'.
     """
     df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
-    date  = df["date_debut"] / 1000
-    nrows = date.shape[0]
-    for i in range(nrows):
-       date.iloc[i] = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m-%d %H:%M:%S')
-    
-    date = pd.DataFrame(date)
-    df["date_debut"] = date
     #df = df.rename(columns={'date_debut': 'Date','nom_station': 'Station'})
     return df
 
