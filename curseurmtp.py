@@ -1,3 +1,4 @@
+#%%
 import requests
 import pandas as pd
 import plotly.express as px
@@ -25,7 +26,9 @@ for entry in montpellier_data:
     year = datetime.utcfromtimestamp(date_debut_timestamp / 1000).year
 
     pollutants_per_year[pollutant].append((year, concentration))
-
+#%%
+year
+#%%
 # Transformer les données pour le tracé (calculer la concentration moyenne par année)
 for pollutant, data in pollutants_per_year.items():
     data.sort(key=lambda x: x[0])
@@ -44,17 +47,19 @@ for pollutant, data in pollutants_per_year.items():
             averages_per_year[year] /= counts_per_year[year]
 
     pollutants_per_year[pollutant] = list(averages_per_year.items())
-
+#%%
 # Créer un DataFrame pour Plotly Express
 df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
                   columns=['Pollutant', 'Year', 'Concentration'])
+df
 
+#%%
 # Tracé avec Plotly Express
 fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
               labels={'Concentration': 'Concentration', 'Year': 'Année'},
               title='Concentration des polluants à Montpellier par année',
               template='plotly', height=600)
-
+#%%
 # Ajouter un curseur pour filtrer les données par année
 fig.update_layout(
     xaxis=dict(
@@ -64,6 +69,8 @@ fig.update_layout(
         type='linear'  # Assurez-vous que le type d'axe x est 'linear' pour que le curseur fonctionne
     )
 )
-
+#%%
 # Afficher le tracé interactif
 fig.show()
+
+# %%
