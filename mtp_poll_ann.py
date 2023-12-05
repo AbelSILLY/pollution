@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 from datetime import datetime
 from collections import defaultdict
 
@@ -45,13 +45,15 @@ for pollutant, data in pollutants_per_year.items():
 
     pollutants_per_year[pollutant] = list(averages_per_year.items())
 
-# Plotting
-for pollutant, data in pollutants_per_year.items():
-    years, concentrations = zip(*data)
-    plt.plot(years, concentrations, marker='o', linestyle='-', linewidth=1, label=pollutant)
+# Create a DataFrame for Plotly Express
+df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
+                  columns=['Pollutant', 'Year', 'Concentration'])
 
-plt.title('Concentration des polluants à Montpellier par année')
-plt.xlabel('Année')
-plt.ylabel('Concentration')
-plt.legend(title='Pollutant', loc='upper right')
-plt.show()
+# Plotting with Plotly Express
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants à Montpellier par année',
+              template='plotly', height=600)
+
+# Show the interactive plot
+fig.show()
