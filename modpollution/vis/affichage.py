@@ -24,4 +24,16 @@ def plotpoll(df):
     )
     fig.show("notebook")
 
-#def plotpollbis(df):
+def plotpollline(df):
+    """
+    Affiche la concentration d'un polluant en fonction du temps sous forme de linechart.
+    Le curseur permet de naviguer sur le graphe à travers le temps.
+    Args:
+    df (pd.DataFrame): le data frame des données à afficher
+    """
+    fig = px.line(df, x='date_debut', y='valeur', color='nom_poll', markers=True, line_group='nom_poll',
+              labels={'valeur': 'Concentration', 'date_debt': 'Année'},
+              title='Concentration des polluants à Montpellier par année',
+              template='plotly', height=600)
+    fig.update_layout(xaxis=dict(rangeslider=dict(visible=True)))
+    fig.show()
