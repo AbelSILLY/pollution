@@ -1,6 +1,6 @@
 import requests
 import json
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from datetime import datetime
 
 # Remplacez l'URL par votre URL réelle
@@ -15,7 +15,7 @@ if response.status_code == 200:
     weather_data = response.json()
 
     # Préparer les données pour le graphique
-    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13) if i not in [11, 12]}
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}
 
     for result in weather_data["results"]:
         # Convertir la date au format datetime
@@ -23,39 +23,41 @@ if response.status_code == 200:
 
         month = date.month
 
-        # Exclure les mois 11 et 12
-        if month not in [11, 12]:
-            sunshine_hours = result["vv"] / 3600  # vv est en secondes, convertir en heures
-            temperature = result["t"] - 273.15  # Convertir la température de Kelvin à Celsius
+        sunshine_hours = result["vv"] / 3600  # vv est en secondes, convertir en heures
+        temperature = result["t"] - 273.15  # Convertir la température de Kelvin à Celsius
 
-            # Accumuler les heures d'ensoleillement et les températures pour chaque mois
-            months_data[month]["sunshine_hours"].append(sunshine_hours)
-            months_data[month]["temperature"].append(temperature)
+        # Accumuler les heures d'ensoleillement et les températures pour chaque mois
+        months_data[month]["sunshine_hours"].append(sunshine_hours)
+        months_data[month]["temperature"].append(temperature)
 
     # Calculer les moyennes pour chaque mois
     average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
     average_temperature = [sum(data["temperature"]) / len(data["temperature"]) if data["temperature"] else 0 for data in months_data.values()]
 
-    # Créer le graphique avec deux ordonnées (deuxième axe Y)
-    fig, ax1 = plt.subplots(figsize=(10, 6))
+    # Convertir la plage en liste avec juillet et août
+    x_values = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-    ax1.set_xlabel("Mois de l'année")
-    ax1.set_ylabel("Ensoleillement (heures)", color='tab:blue')
-    ax1.plot(range(1, 11), average_sunshine_hours, marker='o', linestyle='-', color='tab:blue', label="Ensoleillement")
-    ax1.tick_params(axis='y', labelcolor='tab:blue')
+    # Créer le graphique interactif avec plotly
+    fig = go.Figure()
 
-    ax2 = ax1.twinx()
-    ax2.set_ylabel("Température (°C)", color='tab:red')
-    ax2.plot(range(1, 11), average_temperature, marker='o', linestyle='-', color='tab:red', label="Température")
-    ax2.tick_params(axis='y', labelcolor='tab:red')
+    # Ajouter la trace pour l'ensoleillement à l'axe de gauche
+    fig.add_trace(go.Scatter(x=x_values, y=average_sunshine_hours, mode='lines+markers', name='Ensoleillement', yaxis='y', line=dict(color='green')))
 
-    fig.tight_layout()
+    # Ajouter la trace pour la température à l'axe de droite
+    fig.add_trace(go.Scatter(x=x_values, y=average_temperature, mode='lines+markers', name='Température', yaxis='y2', line=dict(color='red')))
 
-    # Ajouter les numéros de chaque mois en bas du graphique
-    plt.xticks(range(1, 11), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'])
+    # Ajuster les propriétés du layout pour les deux axes
+    fig.update_layout(
+        title="Moyenne de la quantité d'ensoleillement et de la température par mois",
+        xaxis=dict(title="Mois de l'année"),
+        yaxis=dict(title="Ensoleillement (heures)", color='green'),
+        yaxis2=dict(title="Température (°C)", color='red', overlaying='y', side='right'),
+        showlegend=True
+    )
 
-    plt.title("Moyenne de la quantité d'ensoleillement et de la température par mois (mois 11 et 12 exclus)")
-    plt.show()
+    fig.show()
+
 else:
     print(f"Échec de la requête avec le code d'état {response.status_code}")
     print(response.text)  # Affiche le contenu de la réponse pour déboguer
+
