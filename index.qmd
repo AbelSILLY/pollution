@@ -1,6 +1,19 @@
 ## Premières visualisations
 Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années.
 On remarque une forte concentration en O3 et en NOX chaque année.
+
+```{python}
+import modpollution
+df_a = modpollution.as_df("./modpollution/data/data_a.json")
+df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.extraire_donnees_station(df_a, 'Toulouse-Jacquier Urbain')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+#df_m = modpollution.extraire_polluant(df_m,'PM10')
+#df_m
+modpollution.plotpoll(df_a)
+```
+
+
 ```{python}
 #| echo: false
 import requests
