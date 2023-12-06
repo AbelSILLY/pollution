@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 from datetime import datetime
 from collections import defaultdict
 
@@ -45,13 +45,31 @@ for pollutant, data in pollutants_per_year.items():
 
     pollutants_per_year[pollutant] = list(averages_per_year.items())
 
-# Plotting
-for pollutant, data in pollutants_per_year.items():
-    years, concentrations = zip(*data)
-    plt.plot(years, concentrations, marker='o', linestyle='-', linewidth=1, label=pollutant)
+# Create a DataFrame for Plotly Express
+df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
+                  columns=['Pollutant', 'Year', 'Concentration'])
 
-plt.title('Concentration des polluants en Occitanie par année')
-plt.xlabel('Année')
-plt.ylabel('Concentration')
-plt.legend(title='Pollutant', loc='upper right')
-plt.show()
+# Plot with Plotly Express
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True,
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants en Occitanie par année',
+              template='plotly', height=600)
+
+# Customize the plot
+fig.update_traces(
+    line=dict(width=1),  # Épaisseur de la ligne
+    marker=dict(size=8)   # Taille des marqueurs
+)
+
+# Add a slider to filter data by year
+fig.update_layout(
+    xaxis=dict(
+        rangeslider=dict(
+            visible=True
+        ),
+        type='linear'  # Assurez-vous que le type d'axe x est 'linear' pour que le curseur fonctionne
+    )
+)
+
+# Show the interactive plot
+fig.show()
