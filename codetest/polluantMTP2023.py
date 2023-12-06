@@ -1,7 +1,7 @@
 import requests
 import json
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 from datetime import datetime
 
 url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
@@ -47,23 +47,16 @@ if response.status_code == 200:
     # Grouper par mois et calculer la moyenne
     df_moyenne_mensuelle = df.resample('M').mean()
 
-    # Créer un graphe pour chaque polluant
-    for polluant in polluants:
-        plt.plot(df_moyenne_mensuelle.index, df_moyenne_mensuelle[polluant], label=polluant)
-
-    # Ajouter des étiquettes et une légende
-    plt.xlabel('Mois de l\'année 2023')
-    plt.ylabel('Moyenne de la quantité de polluant')
-    plt.title('Évolution de la moyenne mensuelle de polluants à Montpellier en 2023')
-    plt.legend()
+    # Utiliser Plotly Express pour créer un graphe interactif
+    fig = px.line(df_moyenne_mensuelle, x=df_moyenne_mensuelle.index, y=polluants,
+                  labels={'value': 'Moyenne de la quantité de polluant', 'index': 'Mois de l\'année 2023'},
+                  title='Évolution de la moyenne mensuelle de polluants à Montpellier en 2023')
 
     # Faire pivoter les étiquettes d'axe x pour une meilleure lisibilité
-    plt.xticks(rotation=45, ha='right')
+    fig.update_layout(xaxis=dict(tickangle=45, tickmode='array', tickvals=df_moyenne_mensuelle.index))
 
-    # Afficher le graphe
-    plt.tight_layout()
-    plt.show()
+    # Afficher le graphe interactif
+    fig.show()
 
 else:
     print(f"La requête a échoué avec le statut : {response.status_code}")
-
