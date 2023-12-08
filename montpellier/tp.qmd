@@ -4,6 +4,19 @@ Voici un graphique montrant l'évolution de concentration des polluants à Montp
 
 ```{python}
 #| echo: false
+
+import sys
+sys.path.append('../')
+import modpollution
+df_a = modpollution.as_df("../modpollution/data/data_a.json")
+df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+modpollution.plotpoll(df_a)
+```
+
+
+```{python}
+#| echo: false
 import requests
 import json
 import pandas as pd
