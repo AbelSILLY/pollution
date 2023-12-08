@@ -12,7 +12,7 @@ df_a = modpollution.as_df("./modpollution/data/data_a.json")
 df_a = modpollution.modif_date2(df_a)
 df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
-modpollution.plotpollline(df_a)
+modpollution.plotpollline(df_a,'Moyenne des concentrations par an en Occitanie')
 ```
 
 Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années.
