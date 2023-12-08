@@ -89,3 +89,17 @@ def extraire_polluant(donnees,polluant):
    df = donnees.loc[(donnees["nom_poll"] == polluant), ["nom_poll", "valeur", "date_debut", "nom_station"]]
    #df = df.rename(columns={'date_debut': 'Date', 'nom_poll': 'Polluant', 'Concentration': 'valeur', 'Station': 'nom_station'})
    return df
+
+def extraire_donnees_villes(donnees, ville):
+    """
+   Extrait les données relatives à une ville particulière.
+
+   Args:
+   donnees (pd.DataFrame): le dataframe contenant les données
+   ville (str) : la ville que l'on souhaite extraire
+
+   Returns:
+   pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Ville'
+   """
+    df = donnees.loc[(donnees["nom_com"] == ville), ["nom_com",'nom_poll','valeur','date_debut','nom_station']]
+    return df
