@@ -103,3 +103,16 @@ def extraire_donnees_villes(donnees, ville):
    """
     df = donnees.loc[(donnees["nom_com"] == ville), ["nom_com",'nom_poll','valeur','date_debut','nom_station']]
     return df
+
+def mean_df(df):
+    """
+    Renvoie un dataframe avec les moyennes des concentrations des polluants.
+    Args:
+    df (pd.DataFrame) : le dataframe contenant les données
+    
+    Returns:
+    pd.DataFrame
+    """
+    df = pd.DataFrame(df.groupby(['date_debut','nom_poll'])['valeur'].mean())
+    df = df.reset_index() #"annule" le groupby
+    return df

@@ -7,5 +7,6 @@ from .traitement.traitement import extraire_polluant
 from .traitement.traitement import modif_date
 from .traitement.traitement import modif_date2
 from .traitement.traitement import extraire_donnees_villes
+from .traitement.traitement import mean_df
 from .vis.affichage import plotpoll
 from .vis.affichage import plotpollline
