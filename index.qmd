@@ -1,5 +1,8 @@
 ## Premières visualisations
-
+Les deux graphiques ci-dessous présentent l'évolution de la concentration des différents polluant par années en Occitanie.
+Ils permettent une première visualisation rapide des données annuelles.
+Sur le second graphique le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps.
+Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l'animation se faire.
 
 ```{python}
 #| echo: false
@@ -7,7 +10,9 @@
 import modpollution
 df_a = modpollution.as_df("./modpollution/data/data_a.json")
 df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
+modpollution.plotpollline(df_a)
 ```
 
 Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années.
