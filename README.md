@@ -33,3 +33,35 @@ Pooch permet de gérer un répertoire de données en téléchargeant les fichier
 
 ### RTE 
 Sur l'application éCO2mix gérée par RTE (responsable du transport de l'électricité), nous avons remarqué que les données concernant la production d'électricité en France étaient découpées par région. Nous savons que la production d'électricité est à l'origine d'émissions de CO2 et donc de pollution atmosphérique. Bien que les principaux moyens de production en Occitanie soient neutres en carbonne (nucléaire, barrages, solaire et éolien) il arrive qu'il soit nécessaire de consommer des énergies fossiles. Nous aimerions donc extraire les données concernant la production électrique en Occitanie, afin de les mettre en relation avec la pollution de l'air dans cette même région.
+
+## Auteurs
+
+- [TristanRivaldi](https://github.com/TristanRivaldi)
+- [AbelSILLY](https://github.com/AbelSILLY)
+- [jeannevivierum](https://github.com/jeannevivierum)
+- [atttoum8643f](https://github.com/atttoum8643f)
+- [KilianStC](https://github.com/KilianStC)
+
+
+
+## Licence
+
+Copyright 2023 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
