@@ -1,6 +1,6 @@
 import os
 import requests
-from modpollution.io import url_dm, url_da, url_j, url_meteo, path_target
+from modpollution.io import url_dm, url_da, url_j, url_meteo, url_30j, path_target
 
 class Load:
     """
@@ -14,22 +14,28 @@ class Load:
     target_name : (string) chemin où on stock les données
     """
     
-    def __init__(self, url_m=url_dm,url_a=url_da,url_meteo=url_meteo,target_name=path_target):
+    def __init__(self, url_m=url_dm,url_a=url_da,url_meteo=url_meteo,url_30j=url_30j, target_name=path_target):
         path = path_target
         fname_m = "data_m.json"
         fname_a = "data_a.json"
         fname_j = "data_j.json"
+        fname_30j ="data_30j.json"
         fname_meteo = "data_meteo.json"
+
         data_m = requests.get(url_m)
         data_a = requests.get(url_a)
         data_j = requests.get(url_j)
+        data_30j = requests.get(url_30j)
         meteo = requests.get(url_meteo)
+        
         with open(os.path.join(path_target,fname_m),'w') as output_file:
             output_file.write(data_m.text)
         with open(os.path.join(path_target,fname_a),'w') as output_file:
             output_file.write(data_a.text)
         with open(os.path.join(path_target,fname_meteo),'w') as output_file:
             output_file.write(meteo.text)
+        with open(os.path.join(path_target,fname_30j),'w') as output_file:
+            output_file.write(data_30j.text)
         with open(os.path.join(path_target,fname_j),'w') as output_file:
             output_file.write(data_j.text)
     
