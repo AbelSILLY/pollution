@@ -49,7 +49,7 @@ df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
 df_j = modpollution.extraire_polluant(df_j,'O3')
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montpellier par station (5 dernières années)')
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Montpellier en 2022-2023')
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier en le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier le mois dernier')
 ```
 
 ### NO2

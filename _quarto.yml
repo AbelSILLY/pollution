@@ -3,6 +3,7 @@ project:
   render:
     - index.qmd
     - webpage/montpellier/tp.qmd
+    - webpage/toulouse/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -28,6 +29,7 @@ website:
       collapse-level: 3
       contents:
       - webpage/montpellier/tp.qmd
+      - webpage/toulouse/tp.qmd
 
 format:
   html:

@@ -9,6 +9,8 @@ def plotpoll(df):
     Args:
     df (pd.DataFrame): le data frame des données à afficher
     """
+    vmin=np.min(df['valeur'])
+    vmax=np.max(df['valeur'])
     tmin = np.min(df["date_debut"])
     tmax=  np.max(df["date_debut"])
     fig = px.scatter(
@@ -19,7 +21,7 @@ def plotpoll(df):
         animation_group = 'nom_poll',
         color="nom_poll",
         range_x=[tmin, tmax],
-        range_y=[0, 90],
+        range_y=[vmin-5, vmax+5],
         size='valeur'
     )
     fig.show("notebook")
