@@ -15,7 +15,7 @@ if response.status_code == 200:
     weather_data = response.json()
 
     # Préparer les données pour le graphique
-    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 11)}  # Exclure les mois de novembre et décembre
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}  # Inclure tous les mois
 
     for result in weather_data["results"]:
         # Convertir la date au format datetime
@@ -40,8 +40,8 @@ if response.status_code == 200:
     average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
     average_temperature = [sum(data["temperature"]) / len(data["temperature"]) if data["temperature"] else 0 for data in months_data.values()]
 
-    # Convertir la plage en liste sans novembre et décembre
-    x_values = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
+    # Convertir la plage en liste avec juillet et août
+    x_values = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     # Créer le graphique interactif avec plotly
     fig = go.Figure()
