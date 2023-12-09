@@ -3,8 +3,9 @@
 import modpollution
 
 
+modpollution.Load()
 
-#donnees = df_30j
-station = 'Montpellier - Prés d Arènes Urbain'
-graph_horaire(donnees,station)
+donnees = modpollution.as_df('./modpollution/data/data_30j.json')
+station = 'Agathois-Piscénois - Périurbain'
+modpollution.graph_horaire(donnees,station)
 # %%
