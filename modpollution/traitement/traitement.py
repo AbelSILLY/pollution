@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 from datetime import datetime
+import modpollution
 def as_df(data_path_target):
     """
     Cette fonction retourne un (pandas) data frame prêt pour l'affichage
@@ -19,6 +20,18 @@ def as_df(data_path_target):
     df_raw = pd.DataFrame(data_list)
     df = df_raw.dropna()
     return df
+
+def as_df_csv(data_path_target):
+   """
+   Cette fonction retourne un (pandas) data frame prêt pour l'affichage
+   Args :
+   data_path_target (str or path like object): le chemin vers les données
+   """
+   df = pd.read_csv(data_path_target)
+   df = df.dropna()
+   df = modpollution.modif_date_csv(df)
+   return df
+
 
 def as_df_meteo(data_path_target):
    """
@@ -140,6 +153,21 @@ def extraire_donnees_villes(donnees, ville):
     df = donnees.loc[(donnees["nom_com"] == ville), ["nom_com",'nom_poll','valeur','date_debut','nom_station']]
     return df
 
+def extraire_donnees_depart(donnees, departement):
+    """
+   Extrait les données relatives à une ville particulière.
+
+   Args:
+   donnees (pd.DataFrame): le dataframe contenant les données
+   departement (str) : le département que l'on souhaite extraire
+
+   Returns:
+   pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Ville'
+   """
+    df = donnees.loc[(donnees["nom_com"] == departement), ["nom_dept","nom_com",'nom_poll','valeur','date_debut','nom_station']]
+    return df
+
+
 def mean_df(df):
     """
     Renvoie un dataframe avec les moyennes des concentrations des polluants.
@@ -150,5 +178,18 @@ def mean_df(df):
     pd.DataFrame
     """
     df = pd.DataFrame(df.groupby(['date_debut','nom_poll'])['valeur'].mean())
+    df = df.reset_index() #"annule" le groupby
+    return df
+
+def mean_by_dep(df):
+    """
+    Renvoie un dataframe avec les moyennes des concentrations des polluants par station.
+    Args:
+    df (pd.DataFrame) : le dataframe contenant les données
+    
+    Returns:
+    pd.DataFrame
+    """
+    df = pd.DataFrame(df.groupby(['date_debut','nom_poll','nom_station'])['valeur'].mean())
     df = df.reset_index() #"annule" le groupby
     return df
