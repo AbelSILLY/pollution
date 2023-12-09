@@ -47,6 +47,7 @@ def modif_date(df):
    for i in range(nrows):
       date.iloc[i]  = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m-%d %H:%M:%S')
    df['date_debut'] = date
+   df = df.sort_values(by = 'date_debut')
    return df
 
 def modif_date_meteo(df):
