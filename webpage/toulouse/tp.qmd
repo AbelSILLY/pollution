@@ -1,0 +1,67 @@
+# Toulouse
+Evolution des concentrations de polluant sur 5 ans.
+```{python}
+#| echo: false
+
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df("../../modpollution/data/data_a.json")
+df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+
+## O3
+
+```{python}
+#| echo: false
+
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df("../../modpollution/data/data_a.json")
+df_m = modpollution.as_df("../../modpollution/data/data_m.json")
+df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date2(df_m)
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df('../../modpollution/data/data_j.json')
+df_j = modpollution.modif_date(df_j)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Toulouse par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Toulouse en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Toulouse le mois dernier')
+```
+
+
+# NO2
+
+```{python}
+#| echo: false
+
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df("../../modpollution/data/data_a.json")
+df_m = modpollution.as_df("../../modpollution/data/data_m.json")
+df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'NO2')
+df_m = modpollution.modif_date2(df_m)
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'NO2')
+df_j = modpollution.as_df('../../modpollution/data/data_j.json')
+df_j = modpollution.modif_date(df_j)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'NO2')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NO2 à Toulouse par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NO2 à Toulouse en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NO2 à Toulouse le mois dernier')
+
+```
