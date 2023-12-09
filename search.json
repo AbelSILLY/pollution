@@ -16,22 +16,71 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Premières visualisations",
+    "title": "Étude de la pollution de l’air en Occitanie",
     "section": "",
-    "text": "Les deux graphiques ci-dessous présentent l’évolution de la concentration des différents polluant par années en Occitanie. Ils permettent une première visualisation rapide des données annuelles. Sur le second graphique le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l’animation se faire.\n\n\n\n                                                \n\n\n\n                                                \n\n\nLe graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années. On remarque une forte concentration en O3 et en NOX chaque année.\n\n\n\n\n\nLe graphique ce-dessous présente une autre visualisation des mêmes données qui nous permet de voir l’évolution dans le temps de la concentration (s’il y en a une).\n\n\n\n\n\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n\n\n Back to top"
+    "text": "La pollution de l’air est principalement dûes aux activités humaines, et impactent notre environnement et notre santé.\nSur ce site, vous trouverez une étude de l’évolution de la pollution de l’air en Occitanie. Cette étude permet une visulalisation de l’évolution des concentrations de polluants en fonction du temps."
+  },
+  {
+    "objectID": "index.html#qualité-de-lair-en-occitanie",
+    "href": "index.html#qualité-de-lair-en-occitanie",
+    "title": "Étude de la pollution de l’air en Occitanie",
+    "section": "Qualité de l’air en Occitanie",
+    "text": "Qualité de l’air en Occitanie\n\n\n\n\n\nCette première carte permet de voir la concentration de polluants de l’air sur l’année 2023. Plus le point rouge est gros, plus la concentration est élevée. On remarque que le département de l’Hérault a été le plus touché par la pollution de l’air lors de cette dernière année. On pourra retrouver plus d’information à ce sujet dans la page dédiée à ce département.\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nCette carte interractive permet de voir tout les pics de pollution de l’air au cours de la dernière année. Ces pics sont répertoriés sous forme d’Alertes, dont on connaît la date. La plupart de ces alertes concernent les particules PM10 (surtout durant les mois d’hiver), ainsi que l’O3 (plutôt en été).\nCela n’a rien d’étonnant quand on comprend l’origine et l’impact des polluants. Ces pourquoi on propose un court descriptifs des polluants étudiés."
+  },
+  {
+    "objectID": "index.html#description-des-différents-polluants",
+    "href": "index.html#description-des-différents-polluants",
+    "title": "Étude de la pollution de l’air en Occitanie",
+    "section": "Description des différents polluants",
+    "text": "Description des différents polluants\n\nPM 10\nLes particules PM10 sont des particules fines dont le diamètre inférieur à 10 µm. Elles peuvent provenir de différentes sources comme les chantiers, les carrières ou encore l’industrie manufacturière. Ces particules provoquent une altération de la santé respiratoire.\n\n\nPM2.5\nLes particules PM2.5 sont des particules fines dont le diamètre est inférieur à 2.5 µm. Elles entraîne de plus une altération de la santé cardiovasculaire, et proviennent princiaplement du secteur résidentiel et du transport routier.\n\n\nNOX\nLes NOX regroupent différents oxydes d’azote : monoxyde d’azote, dioxyde d’azote et protoxyde d’azote. Ces composés chimiques composés d’oxygène et d’azote sont des polluants atmosphériques qui contribuent fortement à l’effet de serre. Ce sont des indicateurs des activités de combustion, notamment le trafic routier.\n\nNO2\nLe dioxyde d’azote (NO2) a pour source principale le trafic routier. Il entraine une diminution de la fonction pulmonaire, et, à des concentrations dépassant 200 μg/m3, sur de courtes durées, c’est un gaz toxique entraînant une inflammation importante des voies respiratoires. Ce gaz participe au phénomène des pluies acides, qui appauvrissent les milieux naturels.\n\n\nNO\n\n\n\n\n\n\n\nOn se propose donc de visualiser les principaux polluants de notre étude."
+  },
+  {
+    "objectID": "index.html#visualisation-des-concentrations-des-principaux-polluants-en-occitanie-en-2023",
+    "href": "index.html#visualisation-des-concentrations-des-principaux-polluants-en-occitanie-en-2023",
+    "title": "Étude de la pollution de l’air en Occitanie",
+    "section": "Visualisation des concentrations des principaux polluants en Occitanie en 2023",
+    "text": "Visualisation des concentrations des principaux polluants en Occitanie en 2023"
+  },
+  {
+    "objectID": "index.html#évolution-des-concentrations-des-polluants-au-fil-du-temps",
+    "href": "index.html#évolution-des-concentrations-des-polluants-au-fil-du-temps",
+    "title": "Étude de la pollution de l’air en Occitanie",
+    "section": "Évolution des concentrations des polluants au fil du temps",
+    "text": "Évolution des concentrations des polluants au fil du temps\n\nÉvolution des concentrations des polluants au cours des 5 dernières années\n\n\n\n                                                \n\n\nLe graphique ci-dessus représente l’évolution de la concentration des différents polluant par années en Occitanie.\nIls permettent une première visualisation rapide des données annuelles. On remarque que les concentrations des polluants sont plutôt stables, avec une petite chute en 2020, lors de la pandémie du Covid-19.\nCe graphique est interractif! Le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps.\n\n\n\n                                                \n\n\nLe second graphique représente exactement les mêmes données, mais de manière annimée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l’animation se faire."
   },
   {
     "objectID": "webpage/montpellier/tp.html",
     "href": "webpage/montpellier/tp.html",
     "title": "Montpellier",
     "section": "",
-    "text": "Voici un graphique montrant l’évolution de concentration des polluants à Montpellier de 2018 à 2023."
+    "text": "La ville de Montpellier est la seconde ville la plus peuplée de la région Occitanie. C’est la préfecture du département de l’Hérault, et est une métropole dynamique.\nAttractive par son climat méditéranéen, la ville voit sa population grandir.\nNous nous proposons d’étudier l’évolution de la pollution de l’air de cette métropole."
   },
   {
-    "objectID": "webpage/montpellier/tp.html#o3",
-    "href": "webpage/montpellier/tp.html#o3",
+    "objectID": "webpage/montpellier/tp.html#évolution-de-la-pollution-de-lair-au-cours-des-5-dernières-années",
+    "href": "webpage/montpellier/tp.html#évolution-de-la-pollution-de-lair-au-cours-des-5-dernières-années",
     "title": "Montpellier",
-    "section": "O3",
-    "text": "O3"
+    "section": "Évolution de la pollution de l’air au cours des 5 dernières années",
+    "text": "Évolution de la pollution de l’air au cours des 5 dernières années\n\n\n\n                                                \n\n\nLe graphique ci dessus montre l’évolution de concentration des polluants à Montpellier de 2018 à 2023.\nOn remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d’activités dûe à la pandémie du Covid-19.\nLa concentration en NO2 (dioxyde d’azote), dont les émissions sont principalement dûes au trafic routier, connaît une décroissance lente depuis ces 5 dernières années.\nCette tendance était suivie par le monoxyde d’azote (NO), mais la concentration de ce polluant augmente considérablement en 2023.\nL’oxyde d’azote (NOX), regroupe essentiellement les molécules NO et NO2, et c’est pourquoi son évolution suit globalement celle du monoxyde d’azote."
+  },
+  {
+    "objectID": "webpage/montpellier/tp.html#étude-par-polluants",
+    "href": "webpage/montpellier/tp.html#étude-par-polluants",
+    "title": "Montpellier",
+    "section": "Étude par polluants",
+    "text": "Étude par polluants\n\nO3\n\n\n\n                                                \n\n\n\n                                                \n\n\n\n                                                \n\n\n\n\nNO2\n\n\n\n                                                \n\n\n\n                                                \n\n\n\n                                                \n\n\n\n\nNOX"
+  },
+  {
+    "objectID": "webpage/montpellier/tp.html#météo",
+    "href": "webpage/montpellier/tp.html#météo",
+    "title": "Montpellier",
+    "section": "Météo",
+    "text": "Météo\nNous cherchons maintenant à établir un lien entre la pollution de l’air et les conditions météorologiques. Le graphique ci-dessous retrace l’évolution de la température et de l’ensoleillement au long de l’année 2023."
+  },
+  {
+    "objectID": "webpage/montpellier/tp.html#une-amélioration-à-venir",
+    "href": "webpage/montpellier/tp.html#une-amélioration-à-venir",
+    "title": "Montpellier",
+    "section": "Une amélioration à venir ?",
+    "text": "Une amélioration à venir ?\nDepuis quelques années, la ville de Montpellier s’engage à limiter les déplacements automobiles, avec notamment mise en place de nombreuses pistes cyclables, la construction d’une nouvelle ligne de tramway, un agrandissement des zones piétonnes, et la gratuité des transports en communs. La majorité de la pollution de l’air provenant des transports, on put espérer à l’avenir voir une amélioration de la qualité de l’air à Montpellier. Toutefois, les zones littorales étant les principales touchées par le réchauffement climatique en France et les conditions météorologiques difficiles à prédire, il est difficile de faire une conclusion trop optimiste."
   }
 ]
