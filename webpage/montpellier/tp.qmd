@@ -4,12 +4,12 @@ Voici un graphique montrant l'évolution de concentration des polluants à Montp
 
 ```{python}
 #| echo: false
-
+import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = modpollution.as_df("../../modpollution/data/data_a.json")
-df_a = modpollution.modif_date2(df_a)
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_a = modpollution.modif_date_csv(df_a)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
@@ -19,20 +19,21 @@ modpollution.plotpoll(df_a)
 
 ```{python}
 #| echo: false
-
+import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = modpollution.as_df("../../modpollution/data/data_a.json")
-df_m = modpollution.as_df("../../modpollution/data/data_m.json")
-df_a = modpollution.modif_date2(df_a)
+import pandas as pd
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m = modpollution.modif_date2(df_m)
+df_m = modpollution.modif_date_csv(df_m)
 df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
 df_m = modpollution.extraire_polluant(df_m,'O3')
-df_j = modpollution.as_df('../../modpollution/data/data_j.json')
-df_j = modpollution.modif_date(df_j)
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j)
 df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
 df_j = modpollution.extraire_polluant(df_j,'O3')
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montpellier par station (5 dernières années)')
@@ -44,20 +45,21 @@ modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Mo
 
 ```{python}
 #| echo: false
-
+import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = modpollution.as_df("../../modpollution/data/data_a.json")
-df_m = modpollution.as_df("../../modpollution/data/data_m.json")
-df_a = modpollution.modif_date2(df_a)
+import pandas as pd
+df_a = pd.read_csv('../../modpollution/data/data_a.csv')
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.extraire_polluant(df_a,'NO2')
-df_m = modpollution.modif_date2(df_m)
+df_m = modpollution.modif_date_csv(df_m)
 df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
 df_m = modpollution.extraire_polluant(df_m,'NO2')
-df_j = modpollution.as_df('../../modpollution/data/data_j.json')
-df_j = modpollution.modif_date(df_j)
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j)
 df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
 df_j = modpollution.extraire_polluant(df_j,'NO2')
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NO2 à Montpellier par station (5 dernières années)')
