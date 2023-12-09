@@ -35,9 +35,13 @@ def plotpollline(df,color,titre):
     color (str): ce que l'on veut distinguer sur le graphe
     titre (str): titre du graphe
     """
+    vmin=np.min(df['valeur'])
+    vmax=np.max(df['valeur'])
+    tmin = np.min(df["date_debut"])
+    tmax=  np.max(df["date_debut"])
     fig = px.line(df, x='date_debut', y='valeur', color=color, markers=True, line_group='nom_poll',
-              labels={'valeur': 'Concentration', 'date_debt': 'Année'},
-              title=titre,
-              template='plotly', height=600)
+                  labels={'valeur': 'Concentration', 'date_debt': 'Année'},
+                  title=titre, range_y=[vmin-5,vmax+5],
+                  template='plotly', height=600)
     fig.update_layout(xaxis=dict(rangeslider=dict(visible=True)))
     fig.show()

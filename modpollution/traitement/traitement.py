@@ -60,6 +60,20 @@ def modif_date_meteo(df):
    """
    df['date'] = pd.to_datetime(df['date'],utc = True)
    df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   df = df.sort_values(by = 'date')
+   return df
+
+def modif_date_csv(df):
+   """
+   Modifie le format de date des fichiers météo
+   Args:
+   df (pd.DataFrame): le dataframe à modifier
+   returns:
+   pd.DataFrame: le dataframe avec le bon format de date
+   """
+   df['date_debut'] = pd.to_datetime(df['date_debut'],utc = True)
+   df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   df = df.sort_values(by = 'date_debut')
    return df
 
 def modif_date2(df):
