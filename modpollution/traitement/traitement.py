@@ -6,7 +6,6 @@ def as_df(data_path_target):
     Cette fonction retourne un (pandas) data frame prêt pour l'affichage
     Args :
     data_path_target (str or path like object): le chemin vers les données
-    fname (str) : nom du fichier
     """
     with open(data_path_target) as f:
      data = json.load(f)
@@ -21,6 +20,17 @@ def as_df(data_path_target):
     df = df_raw.dropna()
     return df
 
+def as_df_meteo(data_path_target):
+   """
+   Renvoie une data frame à partir des données météo
+   Args:
+   data_path_target (str or path like object): le chemin vers les données
+   """
+   with open(data_path_target) as f:
+      data = json.load(f)
+   df = pd.DataFrame(data['results'])
+   return df
+
 def modif_date(df):
    """
    Modifie le format de date d'un data frame
@@ -29,7 +39,7 @@ def modif_date(df):
    df (pd.DataFrame): le dataframe à modifier
 
    returns:
-   pd.DataFrame: dataframe avec le bon format de data
+   pd.DataFrame: dataframe avec le bon format de date
    """
    #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
    date = df['date_debut'] / 1000
@@ -39,6 +49,17 @@ def modif_date(df):
    df['date_debut'] = date
    return df
 
+def modif_date_meteo(df):
+   """
+   Modifie le format de date des fichiers météo
+   Args:
+   df (pd.DataFrame): le dataframe à modifier
+   returns:
+   pd.DataFrame: le dataframe avec le bon format de date
+   """
+   df['date'] = pd.to_datetime(df['date'],utc = True)
+   df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   return df
 
 def modif_date2(df):
    """
@@ -48,7 +69,7 @@ def modif_date2(df):
    df (pd.DataFrame): le dataframe à modifier
 
    returns:
-   pd.DataFrame: dataframe avec le bon format de data
+   pd.DataFrame: dataframe avec le bon format de date
    """
    #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
    date = df['date_debut'] / 1000
