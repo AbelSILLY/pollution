@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 .DS_Store/.quarto/
 /_site/
 .nojekyll
-
-/.quarto/
-=======
-.DS_Store
-test.py
+*test.py*
 *__pycache__*
->>>>>>> brancheAbel
+/.quarto/
+*/tp_files/*
+*tp_files*
