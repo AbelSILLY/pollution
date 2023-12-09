@@ -1,10 +1,6 @@
 import os
 import requests
-<<<<<<< HEAD
-from modpollution.io import url_dm, url_da, url_j, url_meteo, url_30j, path_target
-=======
 from modpollution.io import url_dm, url_da, url_dj, url_meteo, path_target, url_dah, url_dmcsv, url_dacsv,url_djcsv
->>>>>>> 13df187d7dfb5cb94482d27169d8c87b0a5aa102
 
 class Load:
     """
@@ -18,23 +14,15 @@ class Load:
     target_name : (string) chemin où on stock les données
     """
     
-<<<<<<< HEAD
-    def __init__(self, url_m=url_dm,url_a=url_da,url_meteo=url_meteo,url_30j=url_30j, target_name=path_target):
-=======
     def __init__(self,url_jcsv=url_djcsv,url_j=url_dj,url_mcsv=url_dmcsv, url_m=url_dm,url_a=url_da,url_acsv=url_dacsv,url_meteo=url_meteo,target_name=path_target,url_ah=url_dah):
->>>>>>> 13df187d7dfb5cb94482d27169d8c87b0a5aa102
         path = path_target
         fname_m = "data_m.json"
         fname_mcsv = 'data_m.csv'
         fname_a = "data_a.json"
         fname_acsv='data_a.csv'
         fname_j = "data_j.json"
-<<<<<<< HEAD
-        fname_30j ="data_30j.json"
-=======
         fname_jcsv='data_j.csv'
         fname_ah = 'data_ah.json'
->>>>>>> 13df187d7dfb5cb94482d27169d8c87b0a5aa102
         fname_meteo = "data_meteo.json"
 
         data_m = requests.get(url_m)
@@ -42,15 +30,9 @@ class Load:
         data_a = requests.get(url_a)
         data_acsv = requests.get(url_acsv)
         data_j = requests.get(url_j)
-<<<<<<< HEAD
-        data_30j = requests.get(url_30j)
-        meteo = requests.get(url_meteo)
-        
-=======
         data_jcsv=requests.get(url_jcsv)
         meteo = requests.get(url_meteo)
         data_ah = requests.get(url_ah)
->>>>>>> 13df187d7dfb5cb94482d27169d8c87b0a5aa102
         with open(os.path.join(path_target,fname_m),'w') as output_file:
             output_file.write(data_m.text)
         with open(os.path.join(path_target,fname_mcsv),'w') as output_file:

@@ -61,9 +61,6 @@ for idx, row in geopollu.iterrows():
 # Ajouter le légende
 ax.set_title('Concentration moyenne de tous les polluants')
 plt.show()
-
-# Enregistrer le plot en tant que fichier SVG
-fig.savefig('La_quantité_de_polluant.svg', format='svg')
 ```
 
 Cette première carte permet de voir la concentration de polluants de l'air sur l'année 2023. Plus le point rouge est gros, plus la concentration est élevée. On remarque que le département de l'Hérault a été le plus touché par la pollution de l'air lors de cette dernière année. On pourra retrouver plus d'information à ce sujet dans la page dédiée à ce département.  
