@@ -175,26 +175,20 @@ if response.status_code == 200:
     weather_data = response.json()
 
     # Préparer les données pour le graphique
-    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}  # Inclure tous les mois
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}
 
-    for result in weather_data["results"]:
+    for result in weather_data.get("results", []):
         # Convertir la date au format datetime
-        date = datetime.fromisoformat(result["date"].split("+")[0])
+        date = datetime.fromisoformat(result.get("date", "").split("+")[0])
 
         month = date.month
 
         # Accumuler les heures d'ensoleillement et les températures pour chaque mois
-        if "vv" in result:
-            sunshine_hours = result["vv"] / 3600  # vv est en secondes, convertir en heures
-            months_data[month]["sunshine_hours"].append(sunshine_hours)
-        else:
-            months_data[month]["sunshine_hours"].append(0)
+        sunshine_hours = result.get("vv", 0) / 3600  # vv est en secondes, convertir en heures
+        temperature = result.get("t", 0) - 273.15  # Convertir la température de Kelvin à Celsius
 
-        if "t" in result:
-            temperature = result["t"] - 273.15  # Convertir la température de Kelvin à Celsius
-            months_data[month]["temperature"].append(temperature)
-        else:
-            months_data[month]["temperature"].append(0)
+        months_data[month]["sunshine_hours"].append(sunshine_hours)
+        months_data[month]["temperature"].append(temperature)
 
     # Calculer les moyennes pour chaque mois
     average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
