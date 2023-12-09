@@ -5,3 +5,5 @@ numpy==1.24.3
 seaborn==0.12.2
 folium==0.15.0
 plotly==5.18.0
+geopandas==0.14.1
+IPython==7.12.0

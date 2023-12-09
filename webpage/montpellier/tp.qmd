@@ -1,6 +1,10 @@
 # Montpellier
 
-Voici un graphique montrant l'évolution de concentration des polluants à Montpellier de 2018 à 2023.
+La ville de Montpellier est la seconde ville la plus peuplée de la région Occitanie. C'est la préfecture du département de l'Hérault, et est une métropole dynamique.    
+Attractive par son climat méditéranéen, la ville voit sa population grandir.    
+Nous nous proposons d'étudier l'évolution de la pollution de l'air de cette métropole.   
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
 
 ```{python}
 #| echo: false
@@ -15,7 +19,15 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
-## O3
+Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
+On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
+La concentration en NO2 (dioxyde d'azote), dont les émissions sont principalement dûes au trafic routier, connaît une décroissance lente depuis ces 5 dernières années.   
+Cette tendance était suivie par le monoxyde d'azote (NO), mais la concentration de ce polluant augmente considérablement en 2023.   
+L'oxyde d'azote (NOX), regroupe essentiellement les molécules NO et NO2, et c'est pourquoi son évolution suit globalement celle du monoxyde d'azote.    
+
+## Étude par polluants 
+
+### O3
 
 ```{python}
 #| echo: false
@@ -41,7 +53,7 @@ modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Mo
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier le mois dernier')
 ```
 
-# NO2
+### NO2
 
 ```{python}
 #| echo: false
@@ -69,7 +81,7 @@ modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NO2 �
 ```
 
 
-# NOX
+### NOX
 
 
 
@@ -139,6 +151,10 @@ else:
     print(f"La requête a échoué avec le statut : {response.status_code}")
 ```
 
+## Météo 
+
+Nous cherchons maintenant à établir un lien entre la pollution de l'air et les conditions météorologiques. 
+Le graphique ci-dessous retrace l'évolution de la température et de l'ensoleillement au long de l'année 2023. 
 
 ```{python}
 #| echo : false
@@ -192,7 +208,7 @@ if response.status_code == 200:
 
     # Ajuster les propriétés du layout pour les deux axes
     fig.update_layout(
-        title="Moyenne de la quantité d'ensoleillement et de la température par mois",
+        title="Moyenne de la quantité d'ensoleillement et de la température par mois sur l'année 2023",
         xaxis=dict(title="Mois de l'année"),
         yaxis=dict(title="Ensoleillement (heures)", color='green'),
         yaxis2=dict(title="Température (°C)", color='red', overlaying='y', side='right'),
@@ -206,3 +222,13 @@ else:
     print(response.text)  # Affiche le contenu de la réponse pour déboguer
 
 ```
+
+
+
+
+
+## Une amélioration à venir ?
+
+Depuis quelques années, la ville de Montpellier s'engage à limiter les déplacements automobiles, avec notamment mise en place de nombreuses pistes cyclables, la construction d'une nouvelle ligne de tramway, un agrandissement des zones piétonnes, et la gratuité des transports en communs.
+La majorité de la pollution de l'air provenant des transports, on put espérer à l'avenir voir une amélioration de la qualité de l'air à Montpellier.
+Toutefois, les zones littorales étant les principales touchées par le réchauffement climatique en France et les conditions météorologiques difficiles à prédire, il est difficile de faire une conclusion trop optimiste. 

@@ -24,6 +24,7 @@ class Load:
         fname_jcsv='data_j.csv'
         fname_ah = 'data_ah.json'
         fname_meteo = "data_meteo.json"
+
         data_m = requests.get(url_m)
         data_mcsv = requests.get(url_mcsv)
         data_a = requests.get(url_a)
@@ -42,6 +43,8 @@ class Load:
             output_file.write(data_acsv.text)
         with open(os.path.join(path_target,fname_meteo),'w') as output_file:
             output_file.write(meteo.text)
+        with open(os.path.join(path_target,fname_30j),'w') as output_file:
+            output_file.write(data_30j.text)
         with open(os.path.join(path_target,fname_j),'w') as output_file:
             output_file.write(data_j.text)
         with open(os.path.join(path_target,fname_jcsv),'w') as output_file:
