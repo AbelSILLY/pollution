@@ -2,7 +2,7 @@ project:
   type: website
   render:
     - index.qmd
-    - montpellier/tp.qmd
+    - webpage/montpellier/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -15,13 +15,19 @@ website:
     background: primary
     search: true
     left:
-      - sidebar:montpellier
+      - sidebar:departement
+      - sidebar:villes
   sidebar:
-    - id: montpellier
-      title: "Montpellier"
+    - id: departement
+      title: "Département"
       collapse-level: 3
       contents:
         - montpellier/tp.qmd
+    - id: villes
+      title: "Villes"
+      collapse-level: 3
+      contents:
+      - webpage/montpellier/tp.qmd
 
 format:
   html:
