@@ -164,7 +164,7 @@ def extraire_donnees_depart(donnees, departement):
    Returns:
    pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Ville'
    """
-    df = donnees.loc[(donnees["nom_com"] == departement), ["nom_dept","nom_com",'nom_poll','valeur','date_debut','nom_station']]
+    df = donnees.loc[(donnees["nom_dept"] == departement), ["nom_dept","nom_com",'nom_poll','valeur','date_debut','nom_station']]
     return df
 
 
