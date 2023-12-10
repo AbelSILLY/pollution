@@ -35,20 +35,20 @@ class Load:
         data_ah = requests.get(url_ah)
         with open(os.path.join(path_target,fname_m),'w') as output_file:
             output_file.write(data_m.text)
-        with open(os.path.join(path_target,fname_mcsv),'w') as output_file:
-            output_file.write(data_mcsv.text)
+        with open(os.path.join(path_target,fname_mcsv),'wb') as output_file:
+            output_file.write(data_mcsv.content)
         with open(os.path.join(path_target,fname_a),'w') as output_file:
             output_file.write(data_a.text)
-        with open(os.path.join(path_target,fname_acsv),'w') as output_file:
-            output_file.write(data_acsv.text)
+        with open(os.path.join(path_target,fname_acsv),'wb') as output_file:
+            output_file.write(data_acsv.content)
         with open(os.path.join(path_target,fname_meteo),'w') as output_file:
             output_file.write(meteo.text)
         #with open(os.path.join(path_target,fname_30j),'w') as output_file:
         #    output_file.write(data_30j.text)
         with open(os.path.join(path_target,fname_j),'w') as output_file:
             output_file.write(data_j.text)
-        with open(os.path.join(path_target,fname_jcsv),'w') as output_file:
-            output_file.write(data_jcsv.text)
+        with open(os.path.join(path_target,fname_jcsv),'wb') as output_file:
+            output_file.write(data_jcsv.content)
         with open(os.path.join(path_target,fname_ah),'w') as output_file:
             output_file.write(data_ah.text)
     

@@ -27,7 +27,7 @@ def as_df_csv(data_path_target):
    Args :
    data_path_target (str or path like object): le chemin vers les données
    """
-   df = pd.read_csv(data_path_target)
+   df = pd.read_csv(data_path_target,encoding='UTF-8-SIG')
    df = df.dropna()
    df = modpollution.modif_date_csv(df)
    return df
