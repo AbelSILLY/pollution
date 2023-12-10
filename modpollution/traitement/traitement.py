@@ -2,6 +2,7 @@ import pandas as pd
 import json
 from datetime import datetime
 import modpollution
+
 def as_df(data_path_target):
     """
     Cette fonction retourne un (pandas) data frame prêt pour l'affichage
@@ -199,3 +200,4 @@ def mean_by_dep(df):
     df = pd.DataFrame(df.groupby(['date_debut','nom_poll','nom_station'])['valeur'].mean())
     df = df.reset_index() #"annule" le groupby
     return df
+
