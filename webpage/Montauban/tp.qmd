@@ -248,7 +248,7 @@ df_j = modpollution.extraire_polluant(df_j,'PM10')
 
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Montauban en 2022-2023')
 ```
-L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effect que cette concentration est nettement plus élevée en hiver que durant les mois d'été, et connaît ces principaux pics en décembre et février.
+L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effet que cette concentration est nettement plus élevée en hiver que durant les mois d'été, et connaît ces principaux pics en décembre et février.
 
 
 ```{python}

@@ -114,3 +114,79 @@ modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX �
 ```
 
 L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les concentrations d'oxydes d'azote sont plutôt élevées. On remarque qu'elles le sont particulièrement du vendredi au lundi, probablement à cause du chauffage des foyers, ainsi que des déplacements. 
+
+### PM10
+
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie. Après quelques recherches, il semble qu'il y ai quelques industries aux alentours de Montauban, comme par exemple "Aumont industrie" pouvant être responsables d'émissions de particules PM10.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Albi par station (5 dernières années)')
+```
+
+Sur les 5 ans étudiés, on remarque une décroissance de la concentration en particules PM10 jusqu'en 2020 (année du Covid-19), puis cette concentration réaugmente avec la reprise des activités jusqu'à atteindre son pic en 2022. 
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Albi en 2022-2023')
+```
+
+L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effet que cette concentration est nettement plus élevée en hiver que durant les mois d'été, et connaît ces principaux pics en décembre et février, le mois le plus froid de l'année.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Albi le mois dernier')
+```
+
+Au cours du dernier mois, on remarque que les concentrations en PM10 augmentent surtout pendant les week-ends, et les journées particulièrement froides.
+
+### PM2.5
+
+La ville d'Albi étant de taille moyenne, nous n'avons pas réussi à trouver de données concernant les particules PM2.5.
