@@ -2,6 +2,7 @@ project:
   type: website
   render:
     - index.qmd
+    - webpage/test/tp.qmd
     - webpage/montpellier/tp.qmd
     - webpage/toulouse/tp.qmd
     - webpage/Herault/tp.qmd
@@ -9,6 +10,14 @@ project:
     - webpage/Montauban/tp.qmd
     - webpage/Albi/tp.qmd
     - webpage/comparatif_moyennes_villes/tp.qmd
+    - webpage/Lourdes/tp.qmd
+    - webpage/La_Calmette/tp.qmd
+    - webpage/comparatif_petites_villes/tp.qmd
+    - webpage/HauteGaronne/tp.qmd
+    - webpage/Tarn/tp.qmd
+    - webpage/HautesPyrenees/tp.qmd
+    - webpage/Gard/tp.qmd
+    - webpage/PourAllerPlusLoin/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -24,13 +33,17 @@ website:
     left:
       - sidebar:departement
       - sidebar:villes
-      - sidebar:pour_aller_plus_loin
+      - sidebar:pourallerplusloin
   sidebar:
     - id: departement
       title: "Département"
       collapse-level: 3
       contents:
         - webpage/Herault/tp.qmd
+        - webpage/HauteGaronne/tp.qmd
+        - webpage/Tarn/tp.qmd
+        - webpage/HautesPyrenees/tp.qmd
+        - webpage/Gard/tp.qmd
     - id: villes
       title: "Villes"
       collapse-level: 3
@@ -41,11 +54,14 @@ website:
       - webpage/Montauban/tp.qmd
       - webpage/Albi/tp.qmd
       - webpage/comparatif_moyennes_villes/tp.qmd
-    - id: pour_aller_plus_loin
+      - webpage/Lourdes/tp.qmd
+      - webpage/La_Calmette/tp.qmd
+      - webpage/comparatif_petites_villes/tp.qmd
+    - id: pourallerplusloin
       title: "Pour aller plus loin"
       collapse-level: 3
       contents:
-      - webpage/test/tp.qmd
+      - webpage/PourAllerPlusLoin/tp.qmd
 
 
 format:
