@@ -21,15 +21,16 @@ def as_df(data_path_target):
     df = df_raw.dropna()
     return df
 
-def as_df_csv(data_path_target):
+def as_df_csv(data_path_target,annee):
    """
    Cette fonction retourne un (pandas) data frame prêt pour l'affichage
    Args :
+   annee (bool): True si df désigne un dataframe relatif à des données annuelles, False sinon
    data_path_target (str or path like object): le chemin vers les données
    """
    df = pd.read_csv(data_path_target,encoding='UTF-8-SIG')
    df = df.dropna()
-   df = modpollution.modif_date_csv(df)
+   df = modpollution.modif_date_csv(df,annee)
    return df
 
 
@@ -39,9 +40,9 @@ def as_df_meteo(data_path_target):
    Args:
    data_path_target (str or path like object): le chemin vers les données
    """
-   with open(data_path_target) as f:
-      data = json.load(f)
-   df = pd.DataFrame(data['results'])
+   df = pd.read_csv(data_path_target,delimiter=';')
+   df = modpollution.modif_date_meteo(df)
+   df = df[['Date','Température (°C)','Vitesse du vent moyen 10 mn','Nebulosité totale','Nom','department (name)']]
    return df
 
 def modif_date(df):
@@ -71,21 +72,25 @@ def modif_date_meteo(df):
    returns:
    pd.DataFrame: le dataframe avec le bon format de date
    """
-   df['date'] = pd.to_datetime(df['date'],utc = True)
-   df['date'] = df['date'].dt.strftime('%Y-%m-%d %H:%M:%S')
-   df = df.sort_values(by = 'date')
+   df['Date'] = pd.to_datetime(df['Date'],utc = True)
+   df['Date'] = df['Date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   df = df.sort_values(by = 'Date')
    return df
 
-def modif_date_csv(df):
+def modif_date_csv(df,annee):
    """
    Modifie le format de date des fichiers météo
    Args:
    df (pd.DataFrame): le dataframe à modifier
+   annee (bool): True si df désigne un dataframe relatif à des données annuelles, False sinon
    returns:
    pd.DataFrame: le dataframe avec le bon format de date
    """
    df['date_debut'] = pd.to_datetime(df['date_debut'],utc = True)
-   df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   if annee == True:
+      df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d')
+   else:
+      df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d %H:%M:%S')
    df = df.sort_values(by = 'date_debut')
    return df
 
