@@ -32,7 +32,7 @@ website:
     left:
       - sidebar:departement
       - sidebar:villes
-      - sidebar:pour_aller_plus_loin
+      - sidebar:pourallerplusloin
   sidebar:
     - id: departement
       title: "Département"
@@ -56,7 +56,7 @@ website:
       - webpage/Lourdes/tp.qmd
       - webpage/La_Calmette/tp.qmd
       - webpage/comparatif_petites_villes/tp.qmd
-    - id: pour_aller _plus _loin
+    - id: pourallerplusloin
       title: "Pour aller plus loin"
       collapse-level: 3
       contents:
