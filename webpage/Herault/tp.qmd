@@ -8,7 +8,7 @@ sys.path.append('../..')
 import modpollution
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_a = modpollution.extraire_donnees_depart(df_a,'HERAULT')
-df_moy = modpollution.mean_by_dep(df_a)
+df_moy = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_moy)
 ```
 
