@@ -1,5 +1,11 @@
 # Hérault
 
+L'Hérault est un département côtier d'Occitanie, attractif par son climat méditéranéen et sa capitale dynamique. Le département connaît une forte croissance démographique depuis quelques années.   
+Nous nous proposons d'étudier la qualité de l'air de ce département.
+
+## Évolution de la concentration de polluants au cours des 5 dernières années 
+
+On commence par étudier l'évolution générale des polluants au cours des 5 dernières années, au travers d'une petite animation.
 ```{python}
 #| echo: false
 import pandas as pd
@@ -11,6 +17,8 @@ df_a = modpollution.extraire_donnees_depart(df_a,'HERAULT')
 df_moy = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_moy)
 ```
+
+
 
 ```{python}
 #| echo: false
@@ -92,7 +100,13 @@ fig.show()
 
 
 ```
-## O3
+
+Les concentrations de polluants sont plutôt constantes, avec une légère baisse en 2020. Ces concentrations sont raisonnables et respectent les seuils de recommandations par l'OMS (voir section À propos).
+On remarque quand même une forte augmentation des oxydes d'azote entre 2022 et 2023.
+
+## Étude par polluants
+
+### O3
 
 ```{python}
 #| echo: false

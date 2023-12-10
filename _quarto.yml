@@ -5,6 +5,10 @@ project:
     - webpage/montpellier/tp.qmd
     - webpage/toulouse/tp.qmd
     - webpage/Herault/tp.qmd
+    - webpage/comparatif_grandes_villes/tp.qmd
+    - webpage/montauban/tp.qmd
+    - webpage/albi/tp.qmd
+    - webpage/comparatif_moyennes_villes/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -20,6 +24,7 @@ website:
     left:
       - sidebar:departement
       - sidebar:villes
+      - sidebar:pour_aller_plus_loin
   sidebar:
     - id: departement
       title: "Département"
@@ -32,6 +37,16 @@ website:
       contents:
       - webpage/montpellier/tp.qmd
       - webpage/toulouse/tp.qmd
+      - webpage/comparatif_grandes_villes/tp.qmd
+      - webpage/montauban/tp.qmd
+      - webpage/albi/tp.qmd
+      - webpage/comparatif_moyennes_villes/tp.qmd
+    - id: pour aller plus loin
+      title: "Pour aller plus loin"
+      collapse-level: 3
+      contents:
+      - webpage/test/tp.qmd
+
 
 format:
   html:
