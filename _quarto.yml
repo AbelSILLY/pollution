@@ -7,8 +7,8 @@ project:
     - webpage/toulouse/tp.qmd
     - webpage/Herault/tp.qmd
     - webpage/comparatif_grandes_villes/tp.qmd
-    - webpage/montauban/tp.qmd
-    - webpage/albi/tp.qmd
+    - webpage/Montauban/tp.qmd
+    - webpage/Albi/tp.qmd
     - webpage/comparatif_moyennes_villes/tp.qmd
     - webpage/Lourdes/tp.qmd
     - webpage/La_Calmette/tp.qmd
@@ -42,13 +42,13 @@ website:
       - webpage/montpellier/tp.qmd
       - webpage/toulouse/tp.qmd
       - webpage/comparatif_grandes_villes/tp.qmd
-      - webpage/montauban/tp.qmd
-      - webpage/albi/tp.qmd
+      - webpage/Montauban/tp.qmd
+      - webpage/Albi/tp.qmd
       - webpage/comparatif_moyennes_villes/tp.qmd
       - webpage/Lourdes/tp.qmd
       - webpage/La_Calmette/tp.qmd
       - webpage/comparatif_petites_villes/tp.qmd
-    - id: pour aller plus loin
+    - id: pour_aller _plus _loin
       title: "Pour aller plus loin"
       collapse-level: 3
       contents:

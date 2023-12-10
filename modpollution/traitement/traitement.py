@@ -43,6 +43,7 @@ def as_df_meteo(data_path_target):
    df = pd.read_csv(data_path_target,delimiter=';')
    df = modpollution.modif_date_meteo(df)
    df = df[['Date','Température (°C)','Vitesse du vent moyen 10 mn','Nebulosité totale','Nom','department (name)']]
+   df = df.dropna()
    return df
 
 def modif_date(df):
