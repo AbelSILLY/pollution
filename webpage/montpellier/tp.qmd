@@ -152,6 +152,168 @@ modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX �
 ```
 
 
+### NOX
+
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',True)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
+
+```
+
+
+```{python}
+#| echo: false
+import requests
+import json
+import pandas as pd
+import plotly.express as px
+from datetime import datetime
+
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Envoyer une requête GET à l'URL
+response = requests.get(url)
+
+# Vérifier si la requête a réussi (statut 200)
+if response.status_code == 200:
+    # Charger les données JSON
+    data = response.json()
+
+    # Liste des polluants que vous voulez visualiser
+    polluants = ['NO2', 'NOX', 'PM2.5', 'NO', 'PM10', 'O3']
+
+    # Créer un DataFrame pandas à partir des données
+    df = pd.DataFrame()
+
+    # Parcourir toutes les entités
+    for feature in data['features']:
+        nom_polluant = feature['properties']['nom_poll']
+        nom_com = feature['properties']['nom_com']
+
+        # Vérifier si le polluant fait partie de ceux que vous voulez visualiser et si la ville est Montpellier
+        if nom_polluant in polluants and nom_com == 'MONTPELLIER':
+            date_debut_timestamp = feature['properties']['date_debut'] / 1000  # Convertir en secondes
+            date_debut = datetime.utcfromtimestamp(date_debut_timestamp)
+
+            # Filtrer les données pour les mois de janvier à novembre 2023
+            if date_debut.year == 2023 and date_debut.month in range(1, 12):
+                date_debut_str = date_debut.strftime('%Y-%m')
+                valeur_polluant = feature['properties']['valeur']
+
+                # Ajouter les données au DataFrame
+                df = pd.concat([df, pd.DataFrame({nom_polluant: [valeur_polluant]}, index=[date_debut_str])])
+
+    # Convertir les colonnes de dates en format de date pandas
+    df.index = pd.to_datetime(df.index)
+
+    # Trier les données par date
+    df = df.sort_index()
+
+    # Grouper par mois et calculer la moyenne
+    df_moyenne_mensuelle = df.resample('M').mean()
+
+    # Utiliser Plotly Express pour créer un graphe interactif
+    fig = px.line(df_moyenne_mensuelle, x=df_moyenne_mensuelle.index, y=polluants,
+                  labels={'value': 'Moyenne de la quantité de polluant', 'index': 'Mois de l\'année 2023'},
+                  title='Évolution de la moyenne mensuelle de polluants à Montpellier en 2023')
+
+    # Faire pivoter les étiquettes d'axe x pour une meilleure lisibilité
+    fig.update_layout(xaxis=dict(tickangle=45, tickmode='array', tickvals=df_moyenne_mensuelle.index))
+
+    # Afficher le graphe interactif
+    fig.show()
+
+else:
+    print(f"La requête a échoué avec le statut : {response.status_code}")
+```
+
+## Météo 
+
+Nous cherchons maintenant à établir un lien entre la pollution de l'air et les conditions météorologiques. 
+Le graphique ci-dessous retrace l'évolution de la température et de l'ensoleillement au long de l'année 2023. 
+
+```{python}
+#| echo : false
+import requests
+import json
+import plotly.graph_objects as go
+from datetime import datetime
+
+# Remplacez l'URL par celle que vous avez fournie
+url = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/donnees-synop-essentielles-omm/records?limit=100&refine=nom%3A%22MONTPELLIER%22"
+
+# Effectuer la requête HTTP
+response = requests.get(url)
+
+# Gérer les erreurs
+if response.status_code == 200:
+    # Charger les données JSON
+    weather_data = response.json()
+
+    # Préparer les données pour le graphique
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}
+
+    for result in weather_data.get("results", []):
+        # Convertir la date au format datetime
+        date = datetime.fromisoformat(result.get("date", "").split("+")[0])
+
+        month = date.month
+
+        # Accumuler les heures d'ensoleillement et les températures pour chaque mois
+        sunshine_hours = result.get("vv", 0) / 3600  # vv est en secondes, convertir en heures
+        temperature = result.get("t", 0) - 273.15  # Convertir la température de Kelvin à Celsius
+
+        months_data[month]["sunshine_hours"].append(sunshine_hours)
+        months_data[month]["temperature"].append(temperature)
+
+    # Calculer les moyennes pour chaque mois
+    average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
+    average_temperature = [sum(data["temperature"]) / len(data["temperature"]) if data["temperature"] else 0 for data in months_data.values()]
+
+    # Convertir la plage en liste avec juillet et août
+    x_values = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    # Créer le graphique interactif avec plotly
+    fig = go.Figure()
+
+    # Ajouter la trace pour l'ensoleillement à l'axe de gauche
+    fig.add_trace(go.Scatter(x=x_values, y=average_sunshine_hours, mode='lines+markers', name='Ensoleillement', yaxis='y', line=dict(color='green')))
+
+    # Ajouter la trace pour la température à l'axe de droite
+    fig.add_trace(go.Scatter(x=x_values, y=average_temperature, mode='lines+markers', name='Température', yaxis='y2', line=dict(color='red')))
+
+    # Ajuster les propriétés du layout pour les deux axes
+    fig.update_layout(
+        title="Moyenne de la quantité d'ensoleillement et de la température par mois",
+        xaxis=dict(title="Mois de l'année"),
+        yaxis=dict(title="Ensoleillement (heures)", color='green'),
+        yaxis2=dict(title="Température (°C)", color='red', overlaying='y', side='right'),
+        showlegend=True
+    )
+
+    fig.show()
+
+else:
+    print(f"Échec de la requête avec le code d'état {response.status_code}")
+    print(response.text)  # Affiche le contenu de la réponse pour déboguer
 
 
 
