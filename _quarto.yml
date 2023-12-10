@@ -2,6 +2,7 @@ project:
   type: website
   render:
     - index.qmd
+    - webpage/test/tp.qmd
     - webpage/montpellier/tp.qmd
     - webpage/toulouse/tp.qmd
     - webpage/Herault/tp.qmd
@@ -9,6 +10,9 @@ project:
     - webpage/montauban/tp.qmd
     - webpage/albi/tp.qmd
     - webpage/comparatif_moyennes_villes/tp.qmd
+    - webpage/Lourdes/tp.qmd
+    - webpage/La_Calmette/tp.qmd
+    - webpage/comparatif_petites_villes/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -41,6 +45,9 @@ website:
       - webpage/montauban/tp.qmd
       - webpage/albi/tp.qmd
       - webpage/comparatif_moyennes_villes/tp.qmd
+      - webpage/Lourdes/tp.qmd
+      - webpage/La_Calmette/tp.qmd
+      - webpage/comparatif_petites_villes/tp.qmd
     - id: pour aller plus loin
       title: "Pour aller plus loin"
       collapse-level: 3

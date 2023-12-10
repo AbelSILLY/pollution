@@ -19,9 +19,9 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
-Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
-On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
-L'oxyde d'azote (NOX), qui regroupe essentiellement les molécules NO et NO2, connait une légère décroissance sur cette période d'observation.  
+Le graphique ci dessus montre l'évolution de concentration des polluants à Albi de 2018 à 2023.   
+On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.     
+Mais on souligne quand même une certaine constance dans les valeurs des concentrations.
 Les concentrations des polluants sont plutôt faible, respectant les recommandations de l'OMS.
 
 ## Étude par polluants 
@@ -73,16 +73,16 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montauban en 2022-2023')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Albi en 2022-2023')
 
 
 ```
@@ -100,16 +100,16 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montauban le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Albi le mois dernier')
 
 ```
 
@@ -117,7 +117,7 @@ L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les 
 
 ### PM10
 
-Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie. Après quelques recherches, il semble qu'il y ai quelques industries aux alentours de Montauban, comme par exemple "Aumont industrie" pouvant être responsables d'émissions de particules PM10.
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie.
 
 ```{python}
 #| echo: false
