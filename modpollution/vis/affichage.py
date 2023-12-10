@@ -20,7 +20,7 @@ def plotpoll(df):
         animation_frame = 'date_debut',
         animation_group = 'nom_poll',
         color="nom_poll",
-        range_x=[tmin, tmax],
+        range_x=[tmin, tmax],#pour bien se placer sur le graphe
         range_y=[vmin-5, vmax+5],
         size='valeur'
     )
@@ -42,17 +42,17 @@ def plotpollline(df,color,titre):
     fig = px.line(df, x='date_debut', y='valeur', color=color, markers=True, line_group='nom_poll',
                   labels={'valeur': 'Concentration', 'date_debut': 'Année'},
                   title=titre, range_y=[vmin-5,vmax+5],
-                  template='plotly', #height=600
+                  template='plotly'
                   )
     fig.update_layout(xaxis=dict(rangeslider=dict(visible=True)))
     fig.show()
 
 def plotmeteo(df,y,titre):
     """
-    Affiche la température en fonction du temps. 
+    Affiche la température ou la vitesse du vent en fonction du temps. 
     Args:
     df (pd.DataFrame): le data frame des données à afficher
-    x (str): ordonnées
+    x (str): ordonnées ('Température °C' ou 'Vitesse du vent moyen 10 mn' )
     """
     vmin=np.min(df[y])
     vmax=np.max(df[y])

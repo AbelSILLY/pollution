@@ -8,10 +8,14 @@ class Load:
 
     Paramètres:
     -----------
-    url_m : (string) chemin vers les données mensuelles
-    url_a : (string) chemin vers les données annuelles
-    url_j : (string) chemin vers les données journalières
-    target_name : (string) chemin où on stock les données
+    url_meto_hp : (string) url des données météo Haute-Pyrénées
+    url_meteo_mtp : (string) url des données météo de Montpellier
+    url_meteo_toul: (stirng) url des données météo de Toulouse
+    url_mcsv : (string) url des données mensuelles
+    url_acsv : (string) url des données annuelles
+    url_jcsv : (string) url des données journalières
+    url_30jcsv : (string) url des données horaires
+    path_target : (string) chemin où on stock les données
     """
     
     def __init__(self,url_30j_csv = url_30jcsv ,url_jcsv=url_jcsv,

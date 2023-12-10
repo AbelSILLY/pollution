@@ -57,14 +57,9 @@ def modif_date(df):
    returns:
    pd.DataFrame: dataframe avec le bon format de date
    """
-   #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
-   date = df['date_debut'] / 1000
-   nrows = date.shape[0]
-   for i in range(nrows):
-      date.iloc[i]  = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m-%d %H:%M:%S')
-   df['date_debut'] = date
-   df = df.sort_values(by = 'date_debut')
+   df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
    return df
+
 
 def modif_date_meteo(df):
    """
@@ -81,7 +76,7 @@ def modif_date_meteo(df):
 
 def modif_date_csv(df,annee):
    """
-   Modifie le format de date des fichiers météo
+   Modifie le format de date des fichiers météo avec un format différent selon le type de dataframe
    Args:
    df (pd.DataFrame): le dataframe à modifier
    annee (bool): True si df désigne un dataframe relatif à des données annuelles, False sinon
@@ -106,18 +101,12 @@ def modif_date2(df):
    returns:
    pd.DataFrame: dataframe avec le bon format de date
    """
-   #df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
-   date = df['date_debut'] / 1000
-   nrows = date.shape[0]
-   for i in range(nrows):
-      date.iloc[i]  = datetime.utcfromtimestamp(date.iloc[i]).strftime('%Y-%m')
-   df['date_debut'] = date
-   df = df.sort_values(by = 'date_debut')
-   return df
+   df['date_debut'] = pd.to_datetime(df['date_debut'], unit='ms').dt.strftime('%Y-%m')
+
 
 def extraire_donnees_station(donnees, station):
     """
-    Extrait les données pour une station spécifique, y compris les polluants, les valeurs et les dates.
+    Extrait les données pour une station spécifique.
     Par la même occasion on extrait les données d'une ville (une station étant rattachée à une ville)
 
     Args:
@@ -128,7 +117,6 @@ def extraire_donnees_station(donnees, station):
         pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'.
     """
     df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
-    #df = df.rename(columns={'date_debut': 'Date','nom_station': 'Station'})
     return df
 
 def extraire_polluant(donnees,polluant):
@@ -142,8 +130,7 @@ def extraire_polluant(donnees,polluant):
    Returns:
    pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Station'
    """
-   df = donnees.loc[(donnees["nom_poll"] == polluant), ["nom_poll", "valeur", "date_debut", "nom_station"]]
-   #df = df.rename(columns={'date_debut': 'Date', 'nom_poll': 'Polluant', 'Concentration': 'valeur', 'Station': 'nom_station'})
+   df = donnees.loc[(donnees["nom_poll"] == polluant), ["nom_com","nom_dept","nom_poll", "valeur", "date_debut", "nom_station"]]
    return df
 
 def extraire_donnees_villes(donnees, ville):
@@ -162,7 +149,7 @@ def extraire_donnees_villes(donnees, ville):
 
 def extraire_donnees_depart(donnees, departement):
     """
-   Extrait les données relatives à une ville particulière.
+   Extrait les données relatives à un département particulier.
 
    Args:
    donnees (pd.DataFrame): le dataframe contenant les données
