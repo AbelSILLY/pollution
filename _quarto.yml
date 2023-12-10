@@ -4,6 +4,7 @@ project:
     - index.qmd
     - webpage/montpellier/tp.qmd
     - webpage/toulouse/tp.qmd
+    - webpage/Herault/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -11,6 +12,7 @@ website:
   title: "Projet Pollution"
   site-url: https://abelsilly.github.io/pollution/
   repo-url: https://github.com/AbelSILLY/pollution
+  repo-actions: [source, issue]
   navbar:
     title: "Pollution"
     background: primary
@@ -23,7 +25,7 @@ website:
       title: "Département"
       collapse-level: 3
       contents:
-        - montpellier/tp.qmd
+        - webpage/Herault/tp.qmd
     - id: villes
       title: "Villes"
       collapse-level: 3

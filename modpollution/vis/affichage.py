@@ -40,8 +40,23 @@ def plotpollline(df,color,titre):
     tmin = np.min(df["date_debut"])
     tmax=  np.max(df["date_debut"])
     fig = px.line(df, x='date_debut', y='valeur', color=color, markers=True, line_group='nom_poll',
-                  labels={'valeur': 'Concentration', 'date_debt': 'Année'},
+                  labels={'valeur': 'Concentration', 'date_debut': 'Année'},
                   title=titre, range_y=[vmin-5,vmax+5],
-                  template='plotly', height=600)
+                  template='plotly', #height=600
+                  )
     fig.update_layout(xaxis=dict(rangeslider=dict(visible=True)))
+    fig.show()
+
+def plotmeteo(df,titre):
+    """
+    Affiche la température en fonction du temps. 
+    Args:
+    df (pd.DataFrame): le data frame des données à afficher
+    """
+    vmin=np.min(df['tc'])
+    vmax=np.max(df['tc'])
+    fig= px.line(df, x='date',y='tc',color='nom',markers=True,
+                 labels={'tc': 'Température', 'date': 'Date'},title=titre,
+                 range_y=[vmin-5,vmax+5],template='plotly'
+                 )
     fig.show()

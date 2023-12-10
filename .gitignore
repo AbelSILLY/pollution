@@ -6,3 +6,4 @@
 /.quarto/
 */tp_files/*
 *tp_files*
+*.html
