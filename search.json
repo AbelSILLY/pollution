@@ -1,10 +1,24 @@
 [
   {
-    "objectID": "webpage/Herault/tp.html#o3",
-    "href": "webpage/Herault/tp.html#o3",
+    "objectID": "webpage/Herault/tp.html",
+    "href": "webpage/Herault/tp.html",
     "title": "Hérault",
-    "section": "O3",
-    "text": "O3"
+    "section": "",
+    "text": "L’Hérault est un département côtier d’Occitanie, attractif par son climat méditéranéen et sa capitale dynamique. Le département connaît une forte croissance démographique depuis quelques années.\nNous nous proposons d’étudier la qualité de l’air de ce département."
+  },
+  {
+    "objectID": "webpage/Herault/tp.html#évolution-de-la-concentration-de-polluants-au-cours-des-5-dernières-années",
+    "href": "webpage/Herault/tp.html#évolution-de-la-concentration-de-polluants-au-cours-des-5-dernières-années",
+    "title": "Hérault",
+    "section": "Évolution de la concentration de polluants au cours des 5 dernières années",
+    "text": "Évolution de la concentration de polluants au cours des 5 dernières années\nOn commence par étudier l’évolution générale des polluants au cours des 5 dernières années, au travers d’une petite animation.\n\n\n\n                                                \n\n\n\n\n\n                                                \n\n\nLes concentrations de polluants sont plutôt constantes, avec une légère baisse en 2020. Ces concentrations sont raisonnables et respectent les seuils de recommandations par l’OMS (voir section À propos). On remarque quand même une forte augmentation des oxydes d’azote entre 2022 et 2023."
+  },
+  {
+    "objectID": "webpage/Herault/tp.html#étude-par-polluants",
+    "href": "webpage/Herault/tp.html#étude-par-polluants",
+    "title": "Hérault",
+    "section": "Étude par polluants",
+    "text": "Étude par polluants\n\nO3"
   },
   {
     "objectID": "webpage/Herault/tp.html#pm10",
@@ -46,14 +60,14 @@
     "href": "webpage/montpellier/tp.html#étude-par-polluants",
     "title": "Montpellier",
     "section": "Étude par polluants",
-    "text": "Étude par polluants\n\nO3\n\n\n\n                                                \n\n\n\n                                                \n\n\n\n                                                \n\n\n\n\nNO2\n\n\n\n                                                \n\n\n\n                                                \n\n\n\n                                                \n\n\n\n\nNOX"
+    "text": "Étude par polluants\nLes mesures de concentration de polluants sont effectuées à différents endroits de la villes, appelés stations dans notre étude.\n\nO3\nSeule la station Près d’Arène mesure les concentrations en O3 à Montpellier. Cette station se situe proche de l’autoroute A9, et permet ainsi de capter les émissions dûes au trafic routier.\nL’Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.\nOn commencera par étudier l’évolution de la concentration en Ozone sur 5 ans.\n\n\n\n                                                \n\n\nCe graphique montre une nette diminution de la cocnentration en O3 entre 2019 et 2020, ce qu’on peu expliquer par la baisse générale d’activités du fait de la pandémie. Toutefois, le niveau de concentration reste plutôt bas depuis 2021, bien qu’on remarque une légère augmentation au cours de la dernière année.\nOn s’intéresse à présent à l’évolution annuelle de la concentration d’O3 dans l’air.\n\n\n\n                                                \n\n\nOn remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d’étés. Ayant connaissance du mode de création des molécules d’O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d’ensoleillement à Montpellier sur l’année\n\ninsérer graph météo\nEnfin, pour avoir une vision plus précise des variation de concentration en O3 dans l’air à Montpellier, on pourra regarder l’évolution de la concentration journalière en O3 sur l’année.\n\n\n\n                                                \n\n\nLe graphique n’étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. La tendance générale suit quand même celle de l’année, visible dans le graphique précédent.\n\n\n\nNOX\nLe polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d’azote. Ils sont principalement dûs au trafic routiers, et sont enregistrer par plusieurs stations à Montpellier.\n\n\n\n                                                \n\n\n\n                                                \n\n\n\n                                                \n\n\n\n\nNOX"
   },
   {
     "objectID": "webpage/montpellier/tp.html#météo",
     "href": "webpage/montpellier/tp.html#météo",
     "title": "Montpellier",
     "section": "Météo",
-    "text": "Météo\nNous cherchons maintenant à établir un lien entre la pollution de l’air et les conditions météorologiques. Le graphique ci-dessous retrace l’évolution de la température et de l’ensoleillement au long de l’année 2023."
+    "text": "Météo\nNous cherchons maintenant à établir un lien entre la pollution de l’air et les conditions météorologiques. Le graphique ci-dessous retrace l’évolution de la température et de l’ensoleillement au long de l’année 2023.\n#| echo : false import requests import json import plotly.graph_objects as go from datetime import datetime"
   },
   {
     "objectID": "webpage/montpellier/tp.html#une-amélioration-à-venir",
@@ -74,7 +88,7 @@
     "href": "index.html#qualité-de-lair-en-occitanie",
     "title": "Étude de la pollution de l’air en Occitanie",
     "section": "Qualité de l’air en Occitanie",
-    "text": "Qualité de l’air en Occitanie\n\n\n\n\n\nCette première carte permet de voir la concentration de polluants de l’air sur l’année 2023. Plus le point rouge est gros, plus la concentration est élevée. On remarque que le département de l’Hérault a été le plus touché par la pollution de l’air lors de cette dernière année. On pourra retrouver plus d’information à ce sujet dans la page dédiée à ce département.\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nCette carte interractive permet de voir tout les pics de pollution de l’air au cours de la dernière année. Ces pics sont répertoriés sous forme d’Alertes, dont on connaît la date. La plupart de ces alertes concernent les particules PM10 (surtout durant les mois d’hiver), ainsi que l’O3 (plutôt en été).\nCela n’a rien d’étonnant quand on comprend l’origine et l’impact des polluants. Ces pourquoi on propose un court descriptifs des polluants étudiés."
+    "text": "Qualité de l’air en Occitanie\n\n\n\n\n\nCette première carte permet de voir la concentration de polluants de l’air sur l’année 2023. Plus le point rouge est gros, plus la concentration est élevée. On retrouvera plus d’informations dans le section Départements.\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nCette carte interractive permet de voir tout les pics de pollution de l’air au cours de la dernière année. Ces pics sont répertoriés sous forme d’Alertes, dont on connaît la date. La plupart de ces alertes concernent les particules PM10 (surtout durant les mois d’hiver), ainsi que l’O3 (plutôt en été).\nCela n’a rien d’étonnant quand on comprend l’origine et l’impact des polluants. Ces pourquoi on propose un court descriptifs des polluants étudiés."
   },
   {
     "objectID": "index.html#description-des-différents-polluants",
@@ -95,20 +109,27 @@
     "href": "index.html#évolution-des-concentrations-des-polluants-au-fil-du-temps",
     "title": "Étude de la pollution de l’air en Occitanie",
     "section": "Évolution des concentrations des polluants au fil du temps",
-    "text": "Évolution des concentrations des polluants au fil du temps\n\nÉvolution des concentrations des polluants au cours des 5 dernières années\n\n\n\n                                                \n\n\nLe graphique ci-dessus représente l’évolution de la concentration des différents polluant par années en Occitanie.\nIls permettent une première visualisation rapide des données annuelles. On remarque que les concentrations des polluants sont plutôt stables, avec une petite chute en 2020, lors de la pandémie du Covid-19.\nCe graphique est interractif! Le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps.\n\n\n\n                                                \n\n\nLe second graphique représente exactement les mêmes données, mais de manière annimée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l’animation se faire."
+    "text": "Évolution des concentrations des polluants au fil du temps\n\nÉvolution des concentrations des polluants au cours des 5 dernières années\n\n\n\n                                                \n\n\nLe graphique ci-dessus représente l’évolution de la concentration des différents polluant par années en Occitanie.\nIls permettent une première visualisation rapide des données annuelles. On remarque que les concentrations des polluants sont plutôt stables, avec une petite chute en 2020, lors de la pandémie du Covid-19.\nCe graphique est interractif! Le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps.\n\n\n\n                                                \n\n\nLe second graphique représente exactement les mêmes données, mais de manière animée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l’animation se faire."
   },
   {
     "objectID": "webpage/toulouse/tp.html",
     "href": "webpage/toulouse/tp.html",
     "title": "Toulouse",
     "section": "",
-    "text": "Evolution des concentrations de polluant sur 5 ans."
+    "text": "Toulouse est la capitale de la région Occitanie. C’est la quatrième ville la plus peuplée de France, et est réputée pour son activité dans l’aéronautique. Vous trouverez ci dessous une étude de la qualité de l’air de cette métropole."
   },
   {
-    "objectID": "webpage/toulouse/tp.html#o3",
-    "href": "webpage/toulouse/tp.html#o3",
+    "objectID": "webpage/toulouse/tp.html#évolution-de-la-pollution-de-lair-au-cours-des-5-dernières-années",
+    "href": "webpage/toulouse/tp.html#évolution-de-la-pollution-de-lair-au-cours-des-5-dernières-années",
     "title": "Toulouse",
-    "section": "O3",
-    "text": "O3"
+    "section": "Évolution de la pollution de l’air au cours des 5 dernières années",
+    "text": "Évolution de la pollution de l’air au cours des 5 dernières années\n\n\n\n                                                \n\n\n\n\n\n                                                \n\n\nLes deux graphiques ci-dessus permettent de visualiser la concentration des polluants en fonction du temps. On peut remarquer une lente décroissance des oxydes d’azote (NOX) qui suit celle des polluants NO et NO2. La concentration du polluant O3 (Ozone) reste quand à elle plutôt constante au fil des années, avant une légère baisse entre 2020 et 2021, probablement dûe à la diminution des activées lors de la pandémie."
+  },
+  {
+    "objectID": "webpage/toulouse/tp.html#étude-par-polluants",
+    "href": "webpage/toulouse/tp.html#étude-par-polluants",
+    "title": "Toulouse",
+    "section": "Étude par polluants",
+    "text": "Étude par polluants\n\nOzone (O3)\nL’Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.\nOn commencera par étudier l’évolution de la concentration en Ozone sur 5 ans.\nPlusieurs stations enregistrent la concentration en O3 à Toulouse. Elles sont principalement situées au bord de la Garonne, plutôt dans le centre de la ville.\n\n\n\n                                                \n\n\nAu cours des 5 dernières années, on assiste à une forte diminution de la concentration en O3 en 2020, lors de la pandémie mondiale. À la reprise des activités, la concentration a rapidement augmenté pour retrouver des valeurs similaires à celles mesurées en 2018 - 2019.\nOn regarde à présent l’évolution de la concentration en O3 au cours de la dernière année.\n\n\n\n                                                \n\n\nLa concentration en O3 à Toulouse au long d’une année est très variable. Durant les mois d’hiver, on assiste à une importante diminution de cette concentration, contre une forte augmentation en été.\nAyant connaissance de la production des molécules d’O3, on se propose de comparer l’allure de cette courbe avec celle de l’ensoleillement et de la température à Toulouse au cours de la dernière année.\n\ninsérer graph météo\n\n\n\n                                                \n\n\nCe graphique représente l’évolution de la concentration en O3 à Toulouse au cours de la dernière année. Cette concentration à été mesurée à différents endroits, appelés station dans l’étude, de la ville de Toulouse.\nLe graphique n’étant pas très lisible, il est possible de n’afficher qu’une seule des station en cliquant sur la légende.\n\n\n\nNOX"
   }
 ]
