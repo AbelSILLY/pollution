@@ -17,5 +17,6 @@ from .traitement.traitement import mean_by_dep
 from .vis.affichage import plotpoll
 from .vis.affichage import plotpollline
 from .vis.affichage import plotmeteo
+from .vis.affichage import plotbis
 from .vis.visu import horaire
 from .vis.visu import graph_horaire
