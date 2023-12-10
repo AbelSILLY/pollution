@@ -1,6 +1,6 @@
-# Montauban
-Mautauban est une ville de taille moyenne, comptant environ 60 000 habitants. Située dans le département du Tarn et Garonne, elle en est la préfecture. Elle est exposée à un climat océanique altéré et possède un patrimoine natuel remarquable.    
-Nous proposons une étude de la qualité de l'air de cette ville.
+# Lourdes
+Lourdes est une commune française située dans l'ouest du département des Hautes-Pyrénées. La ville compte environ 13 000
+habitants et est exposée à un climat océanique. Entourée par les montagnes, la ville possède un patrimoine naturel remarquable.
 
 ## Évolution de la pollution de l'air au cours des 5 dernières années
 
@@ -13,24 +13,23 @@ sys.path.append('../..')
 import modpollution
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_a = modpollution.modif_date_csv(df_a,True)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
 Le graphique ci dessus montre l'évolution de concentration des polluants à Montauban de 2021 à 2023.   
-La concentration de polluants est plutôt constante et faible, en dehors de l'O3 qui connait une légère croissance au cours de ces années.  
+La concentration de polluants au fil des années semble plutôt constante.
 
 ## Étude par polluants 
 
-
 ### O3
 
-La ville de Montauban étant de taille moyenne, seule une station enregistre les concentrations d'Ozone, et les données sont incomplètes. Les mesures sont effectuées dans une zone urbaine.   
+La ville de Lourdes est une petite ville.  seule une station enregistre les concentrations d'Ozone, et les mesures sont effectuées dans une zone urbaine.   
 
 L'Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.    
 
-On commencera par étudier l'évolution de la concentration en Ozone sur 3 ans. (Nous n'avons pas les données nécessaires pour mener une étude sur 5 ans).
+On commencera par étudier l'évolution de la concentration en Ozone sur 5 ans.
 
 ```{python}
 #| echo: false
@@ -41,18 +40,18 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'O3')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'O3')
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montauban par station (5 dernières années)')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Lourdes par station (5 dernières années)')
 
 ```
 
-On remarque une augmentation plutôt linéaire de la concentration d'O3 dans l'air depuis 2021. Cette concentration reste dans les normes de santé indiquées par l'OMS.
+On remarque que la concentration en O3 a connu une forte décroissance durant la période du Covid-19. Cette concentration a ensuite réaugmenté, probablement avec la reprise des pélerianges et des activités en général.
 
     
         
@@ -61,25 +60,22 @@ On s'intéresse à présent à l'évolution annuelle de la concentration d'O3 da
 
 ```{python}
 #| echo: false
-import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
 import pandas as pd
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_m = pd.read_csv("../../modpollution/data/data_m.csv")
-df_a = modpollution.modif_date_csv(df_a,2023)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m = modpollution.modif_date_csv(df_m,2023)
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'O3')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'O3')
 
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Montauban en 2022-2023')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Lourdes en 2022-2023')
 
 ```
 
@@ -100,16 +96,16 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'O3')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'O3')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'O3')
 
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montauban le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Lourdes le mois dernier')
 ```
 
 Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. 
@@ -130,16 +126,16 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montauban par station (3 dernières années)')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Lourdes par station (3 dernières années)')
 
 
 ```
@@ -157,16 +153,16 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montauban en 2022-2023')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Lourdes en 2022-2023')
 
 
 ```
@@ -184,25 +180,27 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
 
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montauban le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Lourdes le mois dernier')
 
 ```
 
-L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les concentrations d'oxydes d'azote sont plutôt élevées. On remarque qu'elles le sont particulièrement du vendredi au lundi, probablement à cause du chauffage des foyers, ainsi que des déplacements. 
+L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les concentrations d'oxydes d'azote sont plutôt élevées. On remarque qu'elles le sont particulièrement du vendredi au lundi, probablement à cause du chauffage des foyers, ainsi que des déplacements. Le 7 décembre, la concentration enregistrée est particulièrement élevée.    
+Il est natuel de se demander si la température y est pour quelque chose.
 
+##### INSERER GRAPH TEMPERATURE
 
 ### PM10
 
-Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie. Après quelques recherches, il semble qu'il y ai quelques industries aux alentours de Montauban, comme par exemple "Aumont industrie" pouvant être responsables d'émissions de particules PM10.
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie. 
 
 ```{python}
 #| echo: false
@@ -213,18 +211,18 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM10')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM10')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM10')
 
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Montauban par station (3 dernières années)')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Lourdes par station (3 dernières années)')
 ```
 
-Sur les 3 ans étudiés, la concentration de particules PM10 ne varie pas énormément, et connaît même une légère décroissance.
+Sur les 5 ans étudiés, la concentration de particules PM10 ne varie pas énormément, bien qu'on remarque une petite croissance entre les années 2021 et 2022.
 
 
 ```{python}
@@ -236,17 +234,18 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM10')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM10')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM10')
 
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Montauban en 2022-2023')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Lourdes en 2022-2023')
 ```
-L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effet que cette concentration est nettement plus élevée en hiver que durant les mois d'été, et connaît ces principaux pics en décembre et février.
+
+L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effet que cette concentration est connaît un pic durant le mois de février, le plus froid de l'année.
 
 
 ```{python}
@@ -258,15 +257,15 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM10')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM10')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM10')
 
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Montauban le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Lourdes le mois dernier')
 ```
 
 Au cours du dernier mois, on remarque que les concentrations en PM10 augmentent surtout pendant les week-ends, et les journées particulièrement froides.
@@ -284,18 +283,18 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM2.5')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM10')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM2.5')
 
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 à Montauban par station (3 dernières années)')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 à Lourdes par station (2 dernières années)')
 ```
 
-On remarque une tendance décroissante de la concentration particules PM2.5 dans l'air entre 2021 et 2023.
+Les données ne nous permettent pas de faire une interprétation appronfondie de l'évolution des particules PM2.5 au fil du temps.
 
 
 ```{python}
@@ -307,15 +306,15 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM2.5')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM2.5')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM10')
 
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 à Montauban en 2022-2023')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 à Lourdes en 2022-2023')
 ```
 
 Au cours de l'année, les concentrations les plus élevées sont observées durant les mois d'hiver. On remarquera que l'allure des courbes des particules PM2.5 et PM10 sont très similaires.
@@ -329,15 +328,15 @@ import modpollution
 import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
 df_a = modpollution.extraire_polluant(df_a,'PM10')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
 df_m = modpollution.extraire_polluant(df_m,'PM2.5')
 df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
 df_j = modpollution.extraire_polluant(df_j,'PM2.5')
 
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 à Montauban le mois dernier')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 à Lourdes le mois dernier')
 ```
 
 De même que pour les particules PM10, la concentration en particules PM2.5 observée au cours du mois dernier est particulièrement élevée durant les week-ends et les jours froids.
