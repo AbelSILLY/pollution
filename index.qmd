@@ -153,10 +153,12 @@ Le dioxyde d’azote (NO2) a pour source principale le trafic routier. Il entrai
 Ce gaz participe au phénomène des pluies acides, qui appauvrissent les milieux naturels.
 
 #### NO
+Le monoxyde d'azote NO est émis lors des phénomènes de combustion. Le NO2 est issu de l'oxydation du NO. 
+Les sources principales sont les véhicules (près de 60%) et les installations de combustion (centrales thermiques, chauffages...).
 
-### 
-
-### 
+### O3
+L’ozone (O3) est un polluant dit « secondaire », c’est-à-dire qu’il n’est pas rejeté directement dans l’atmosphère et n’est pas rejeté directement par les activités humaines. Les températures élevées et le fort rayonnement lumineux vont favoriser les réactions chimiques dans les basses couches de l’atmosphère produisant de l’ozone à partir des polluants NOX notamment.
+Il est déclenché par le rayonnement solaire, c’est pourquoi on retrouve des concentrations d’ozone plus présents en été et en journée – souvent entre mai et septembre.
 
 On se propose donc de visualiser les principaux polluants de notre étude. 
 
