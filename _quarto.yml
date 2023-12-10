@@ -13,6 +13,10 @@ project:
     - webpage/Lourdes/tp.qmd
     - webpage/La_Calmette/tp.qmd
     - webpage/comparatif_petites_villes/tp.qmd
+    - webpage/HauteGaronne/tp.qmd
+    - webpage/Tarn/tp.qmd
+    - webpage/HautesPyrenees/tp.qmd
+    - webpage/Gard/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -35,6 +39,10 @@ website:
       collapse-level: 3
       contents:
         - webpage/Herault/tp.qmd
+        - webpage/HauteGaronne/tp.qmd
+        - webpage/Tarn/tp.qmd
+        - webpage/HautesPyrenees/tp.qmd
+        - webpage/Gard/tp.qmd
     - id: villes
       title: "Villes"
       collapse-level: 3
