@@ -18,14 +18,10 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
-Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
-On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
-La concentration en NO2 (dioxyde d'azote), dont les émissions sont principalement dûes au trafic routier, connaît une décroissance lente depuis ces 5 dernières années.   
-Cette tendance était suivie par le monoxyde d'azote (NO), mais la concentration de ce polluant augmente considérablement en 2023.   
-L'oxyde d'azote (NOX), regroupe essentiellement les molécules NO et NO2, et c'est pourquoi son évolution suit globalement celle du monoxyde d'azote.    
+Le graphique ci dessus montre l'évolution de concentration des polluants à Montauban de 2021 à 2023.   
+La concentration de polluants est plutôt constante et faible, en dehors de l'O3 qui connait une légère croissance au cours de ces années.  
 
 ## Étude par polluants 
-
 
 
 ### O3
@@ -124,7 +120,35 @@ La tendance générale suit quand même celle de l'année, visible dans le graph
 
 ### NOX
 
-Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.  
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.     
+On commence par étudier l'évolution du polluant NOX sur les 3 dernières années.
+ 
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montauban par station (3 dernières années)')
+
+
+```
+
+On remarque que la concentration d'oxydes d'azote connaît une léégère diminution au cours de ces trois dernières années. 
+
+Étudions maintenant la concentration de ce polluant sur un an.
 
 ```{python}
 #| echo: false
@@ -137,20 +161,185 @@ df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
 df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
-df_m = modpollution.modif_date_csv(df_m,2023)
+
 df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
 df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montauban par station (5 dernières années)')
+
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montauban en 2022-2023')
+
+
+```
+
+On remarque une forte concentration du polluant NOX lors des mois d'hiver, qui diminue en été. Les oxydes d'azotes étant princiaplement dûs aux activiés humaines (dont le chauffage) et auu transport, l'allure de la courbe retransmet bien ce phoénomène.
+
+Pour regarder de plus près la concentration de NOX, on se propose de faire une étude sur le mois dernier.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montauban le mois dernier')
 
 ```
 
+L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les concentrations d'oxydes d'azote sont plutôt élevées. On remarque qu'elles le sont particulièrement du vendredi au lundi, probablement à cause du chauffage des foyers, ainsi que des déplacements. 
 
 
+### PM10
+
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie. Après quelques recherches, il semble qu'il y ai quelques industries aux alentours de Montauban, comme par exemple "Aumont industrie" pouvant être responsables d'émissions de particules PM10.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Montauban par station (3 dernières années)')
+```
+
+Sur les 3 ans étudiés, la concentration de particules PM10 ne varie pas énormément, et connaît même une légère décroissance.
 
 
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Montauban en 2022-2023')
+```
+L'étude de la concentration des particules PM10 sur un an présente plus d'intérêt. On remarque en effect que cette concentration est nettement plus élevée en hiver que durant les mois d'été, et connaît ces principaux pics en décembre et février.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Montauban le mois dernier')
+```
+
+Au cours du dernier mois, on remarque que les concentrations en PM10 augmentent surtout pendant les week-ends, et les journées particulièrement froides.
+
+### PM2.5
+
+Les particules PM2.5 sont les plus dangereuses pour notre organisme, c'est pourquoi on les retrouve en plus faible concentration. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 à Montauban par station (3 dernières années)')
+```
+
+On remarque une tendance décroissante de la concentration particules PM2.5 dans l'air entre 2021 et 2023.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 à Montauban en 2022-2023')
+```
+
+Au cours de l'année, les concentrations les plus élevées sont observées durant les mois d'hiver. On remarquera que l'allure des courbes des particules PM2.5 et PM10 sont très similaires.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 à Montauban le mois dernier')
+```
+
+De même que pour les particules PM10, la concentration en particules PM2.5 observée au cours du mois dernier est particulièrement élevée durant les week-ends et les jours froids.

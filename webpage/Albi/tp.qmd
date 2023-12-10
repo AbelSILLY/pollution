@@ -1,1 +1,116 @@
 # Albi
+
+Albi est une ville de taille moyenne, comptant environ 50 000 habitants. Située dans le département du Tarn, elle en est la préfecture. Elle est exposée à un climat méditéranéen altéré par les fleuves et rivières alentours, et possède un patrimoine natuel remarquable.    
+Nous proposons une étude de la qualité de l'air de cette ville.
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
+On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
+L'oxyde d'azote (NOX), qui regroupe essentiellement les molécules NO et NO2, connait une légère décroissance sur cette période d'observation.  
+Les concentrations des polluants sont plutôt faible, respectant les recommandations de l'OMS.
+
+## Étude par polluants 
+
+Albi étant une ville de taille moyenne, seule une station enregistre les concentrations de polluants.
+
+### O3 
+
+Malheureusement, la sation d'Albi n'a pas enregistré les concentrations en O3, ou bien les données sont manquantes. On ne pourra donc pas faire une étude sur le sujet.
+
+### NOX
+
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.     
+On commence par étudier l'évolution du polluant NOX sur les 3 dernières années.
+ 
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'ALBI')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'ALBI')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Albi par station ( dernières années)')
+
+
+```
+
+On remarque que la concentration d'oxydes d'azote connaît une léégère diminution au cours de ces trois dernières années. 
+
+Étudions maintenant la concentration de ce polluant sur un an.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montauban en 2022-2023')
+
+
+```
+
+On remarque une forte concentration du polluant NOX lors des mois d'hiver, qui diminue en été. Les oxydes d'azotes étant princiaplement dûs aux activiés humaines (dont le chauffage) et auu transport, l'allure de la courbe retransmet bien ce phoénomène.
+
+Pour regarder de plus près la concentration de NOX, on se propose de faire une étude sur le mois dernier.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montauban le mois dernier')
+
+```
+
+L'étude étant réalsiée à cheval sur les mois de Novembre et Décembre, les concentrations d'oxydes d'azote sont plutôt élevées. On remarque qu'elles le sont particulièrement du vendredi au lundi, probablement à cause du chauffage des foyers, ainsi que des déplacements. 
