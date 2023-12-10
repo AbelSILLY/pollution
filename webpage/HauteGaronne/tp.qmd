@@ -7,7 +7,7 @@ Nous nous proposons d'étudier la qualité de l'air de ce département.
 ## Évolution de la concentration de polluants au cours des 5 dernières années 
 
 On commence par étudier l'évolution générale des polluants au cours des 5 dernières années, au travers d'une petite animation.
-## Général
+
 
 ```{python}
 #| echo: false
