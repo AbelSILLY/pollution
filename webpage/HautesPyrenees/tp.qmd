@@ -1,6 +1,7 @@
 # Hautes Pyrénées
-
-## Général
+Les Hautes-Pyrénées sont un département français de la région Occitanie. Sa préfecture est la ville de Tarbes.Nous nous proposons d’étudier la qualité de l’air de ce département.
+## Évolution de la concentration de polluants au cours des 5 dernières années
+On commence par étudier l’évolution générale des polluants au cours des 5 dernières années, au travers d’une petite animation.
 
 ```{python}
 #| echo: false
@@ -20,6 +21,7 @@ sys.path.append('../..')
 import modpollution
 modpollution.plotdep('HAUTES-PYRENEES','Moyenne des concentrations des polluants dans le Gard')
 ```
+Les concentrations de polluants sont plutôt constantes.
 
 ## Étude par polluants
 
