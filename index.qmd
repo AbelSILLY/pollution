@@ -278,7 +278,7 @@ for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['no
 import modpollution
 import warnings 
 warnings.filterwarnings("ignore")
-df_a = modpollution.as_df_csv("./modpollution/data/data_a.csv")
+df_a = modpollution.as_df_csv("./modpollution/data/data_a.csv",True)
 df_a = modpollution.mean_df(df_a)
 
 modpollution.plotpollline(df_a,color='nom_poll',titre='Moyenne des concentrations par an en Occitanie')
@@ -298,8 +298,7 @@ Ce graphique est interractif! Le curseur vous permet de selectionner une zone pa
 import modpollution
 import warnings 
 warnings.filterwarnings("ignore")
-df_a = modpollution.as_df("./modpollution/data/data_a.json")
-df_a = modpollution.modif_date2(df_a)
+df_a = modpollution.as_df_csv("./modpollution/data/data_a.csv",True)
 df_a = modpollution.mean_df(df_a)
 
 modpollution.plotpoll(df_a)
