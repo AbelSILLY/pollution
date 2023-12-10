@@ -1,6 +1,13 @@
 # Haute-Garonne
 
-## Général
+
+La Haute-Garonne est un département situé dans le Languedoc et en Gascogne dans la région Occitanie. Sa préfecture est la ville de Toulouse, qui est aussi le chef-lieu de la région Occitanie.   
+Nous nous proposons d'étudier la qualité de l'air de ce département.
+
+## Évolution de la concentration de polluants au cours des 5 dernières années 
+
+On commence par étudier l'évolution générale des polluants au cours des 5 dernières années, au travers d'une petite animation.
+
 
 ```{python}
 #| echo: false
@@ -21,6 +28,8 @@ sys.path.append('../..')
 import modpollution
 modpollution.plotdep('HAUTE-GARONNE','Moyenne des concentrations des polluants en Haute-Garonne')
 ```
+
+Les concentrations de polluants sont plutôt constantes, avec une légère baisse en 2020.
 
 ## Étude par polluants
 

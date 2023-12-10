@@ -1,6 +1,8 @@
 # Gard
 
-## Général
+Le Gard est un département français situé dans la région Occitanie. Il tient son nom de la rivière le Gard, localement appelé le Gardon, qui le traverse. L'Insee et la Poste lui attribuent le code 30. Sa préfecture est Nîmes.Nous nous proposons d’étudier la qualité de l’air de ce département.
+
+##  Évolution de la concentration de polluants au cours des 5 dernières années 
 
 ```{python}
 #| echo: false
