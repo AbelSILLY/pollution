@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://abelsilly.github.io/pollution/webpage/toulouse/tp.html</loc>
-    <lastmod>2023-12-10T09:02:43.078Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abelsilly.github.io/pollution/index.html</loc>
-    <lastmod>2023-12-10T09:02:31.878Z</lastmod>
+    <loc>https://abelsilly.github.io/pollution/webpage/Herault/tp.html</loc>
+    <lastmod>2023-12-10T09:52:29.511Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/montpellier/tp.html</loc>
-    <lastmod>2023-12-10T09:02:38.066Z</lastmod>
+    <lastmod>2023-12-10T09:52:20.339Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abelsilly.github.io/pollution/index.html</loc>
+    <lastmod>2023-12-10T09:52:14.147Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abelsilly.github.io/pollution/webpage/toulouse/tp.html</loc>
+    <lastmod>2023-12-10T09:52:25.419Z</lastmod>
   </url>
 </urlset>
