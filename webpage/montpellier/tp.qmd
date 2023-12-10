@@ -11,8 +11,7 @@ Nous nous proposons d'étudier l'évolution de la pollution de l'air de cette m�
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
