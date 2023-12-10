@@ -1,5 +1,10 @@
 # Toulouse
-Evolution des concentrations de polluant sur 5 ans.
+
+Toulouse est la capitale de la région Occitanie. C'est la quatrième ville la plus peuplée de France, et est réputée pour son activité dans l'aéronautique. 
+Vous trouverez ci dessous une étude de la qualité de l'air de cette métropole.
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
+
 ```{python}
 #| echo: false
 import pandas as pd
@@ -13,8 +18,17 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
+Le graphique ci-dessus permet de visualiser la concentration des polluants en fonction du temps. On peut remarquer une lente décroissance des oxydes d'azote (NOX) qui suit celle des polluants NO et NO2. La concentration du polluant O3 (Ozone) reste quand à elle plutôt constante au fil des années, avant une légère baisse entre 2020 et 2021, probablement dûe à la diminution des activées lors de la pandémie. 
 
-## O3
+
+## Étude par polluants 
+
+
+
+### Ozone (O3)
+
+
+Le polluant Ozone est 
 
 ```{python}
 #| echo: false
@@ -34,11 +48,58 @@ df_j = pd.read_csv('../../modpollution/data/data_j.csv')
 df_j = modpollution.modif_date_csv(df_j)
 df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
 df_j = modpollution.extraire_polluant(df_j,'O3')
+
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Toulouse par station (5 dernières années)')
+
+```
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m)
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Toulouse en 2022-2023')
+
+```
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m)
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Toulouse le mois dernier')
 ```
 
+Ce graphique représente l'évolution de la concentration en O3 à Toulouse au cours de la dernière année. Cette concentration à été mesurée à différents endroits, appelés station dans l'étude, de la ville de Toulouse.    
+Le graphique n'étant pas très lisible, il est possible de n'afficher qu'une seule des station en cliquant sur la légende.
 
 # NO2
 
