@@ -17,6 +17,7 @@ project:
     - webpage/Tarn/tp.qmd
     - webpage/HautesPyrenees/tp.qmd
     - webpage/Gard/tp.qmd
+    - webpage/PourAllerPlusLoin/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -60,7 +61,7 @@ website:
       title: "Pour aller plus loin"
       collapse-level: 3
       contents:
-      - webpage/test/tp.qmd
+      - webpage/PourAllerPlusLoin/tp.qmd
 
 
 format:
