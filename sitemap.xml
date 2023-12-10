@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://abelsilly.github.io/pollution/webpage/Gard/tp.html</loc>
+    <lastmod>2023-12-10T17:53:21.902Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abelsilly.github.io/pollution/webpage/HauteGaronne/tp.html</loc>
+    <lastmod>2023-12-10T17:53:07.014Z</lastmod>
+  </url>
+  <url>
     <loc>https://abelsilly.github.io/pollution/webpage/Lourdes/tp.html</loc>
-    <lastmod>2023-12-10T17:12:45.462Z</lastmod>
+    <lastmod>2023-12-10T17:52:53.454Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/Montauban/tp.html</loc>
-    <lastmod>2023-12-10T17:12:22.898Z</lastmod>
+    <lastmod>2023-12-10T17:52:31.346Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/toulouse/tp.html</loc>
-    <lastmod>2023-12-10T17:12:01.450Z</lastmod>
+    <lastmod>2023-12-10T17:52:10.062Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/index.html</loc>
-    <lastmod>2023-12-10T17:11:48.498Z</lastmod>
+    <lastmod>2023-12-10T17:51:56.830Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/montpellier/tp.html</loc>
-    <lastmod>2023-12-10T17:11:56.202Z</lastmod>
+    <lastmod>2023-12-10T17:52:04.878Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/Herault/tp.html</loc>
-    <lastmod>2023-12-10T17:12:09.154Z</lastmod>
+    <lastmod>2023-12-10T17:52:17.790Z</lastmod>
   </url>
   <url>
     <loc>https://abelsilly.github.io/pollution/webpage/Albi/tp.html</loc>
-    <lastmod>2023-12-10T17:12:31.526Z</lastmod>
+    <lastmod>2023-12-10T17:52:39.862Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abelsilly.github.io/pollution/webpage/La_Calmette/tp.html</loc>
+    <lastmod>2023-12-10T17:52:59.350Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abelsilly.github.io/pollution/webpage/HautesPyrenees/tp.html</loc>
+    <lastmod>2023-12-10T17:53:14.482Z</lastmod>
   </url>
 </urlset>
