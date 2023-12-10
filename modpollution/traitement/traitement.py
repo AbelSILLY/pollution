@@ -142,9 +142,9 @@ def extraire_donnees_villes(donnees, ville):
    ville (str) : la ville que l'on souhaite extraire
 
    Returns:
-   pd.DataFrame: Données extraites avec les colonnes : 'Date', 'Polluant', 'Concentration (µg/m³)', 'Ville'
+   pd.DataFrame: Données extraites avec les colonnes :'Département' 'Date', 'Polluant', 'Concentration (µg/m³)', 'Ville'
    """
-    df = donnees.loc[(donnees["nom_com"] == ville), ["nom_com",'nom_poll','valeur','date_debut','nom_station']]
+    df = donnees.loc[(donnees["nom_com"] == ville), ["nom_dept","nom_com",'nom_poll','valeur','date_debut','nom_station']]
     return df
 
 def extraire_donnees_depart(donnees, departement):
