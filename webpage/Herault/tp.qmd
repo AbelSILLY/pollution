@@ -136,11 +136,10 @@ modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en O3 pa
 ```
 
 
-## PM10
+### PM10
 
 ```{python}
 #| echo: false
-import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
@@ -162,14 +161,12 @@ df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
 df_j = modpollution.extraire_donnees_depart(df_j,'HERAULT')
 df_j = modpollution.extraire_polluant(df_j,'PM10')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 par stations le mois dernier')
-
 ```
 
-## PM2.5
+### PM2.5
 
 ```{python}
 #| echo: false
-import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
@@ -191,14 +188,12 @@ df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
 df_j = modpollution.extraire_donnees_depart(df_j,'HERAULT')
 df_j = modpollution.extraire_polluant(df_j,'PM2.5')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 par stations le mois dernier')
-
 ```
 
-## NOX
+### NOX
 
 ```{python}
 #| echo: false
-import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
@@ -220,5 +215,4 @@ df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
 df_j = modpollution.extraire_donnees_depart(df_j,'HERAULT')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX par stations le mois dernier')
-
 ```

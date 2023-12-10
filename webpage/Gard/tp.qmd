@@ -1,0 +1,134 @@
+# Gard
+
+## Général
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_depart(df_a,'GARD')
+df_moy = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_moy)
+```
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+modpollution.plotdep('GARD','Moyenne des concentrations des polluants dans le Gard')
+```
+
+
+## Étude par polluants
+
+### O3
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+
+##### Pollution sur 5 ans #####
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_depart(df_a,'GARD')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en O3 par stations sur 5 ans')
+
+##### Pollution sur 1 an #####
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m = modpollution.extraire_donnees_depart(df_m,'GARD')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en O3 par stations sur 1 an')
+
+##### Pollution sur 1 mois #####
+df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
+df_j = modpollution.extraire_donnees_depart(df_j,'GARD')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en O3 par stations le mois dernier')
+```
+
+### PM10
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+
+##### Pollution sur 5 ans #####
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_depart(df_a,'GARD')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 par stations sur 5 ans')
+
+##### Pollution sur 1 an #####
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m = modpollution.extraire_donnees_depart(df_m,'GARD')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 par stations sur 1 an')
+
+##### Pollution sur 1 mois #####
+df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
+df_j = modpollution.extraire_donnees_depart(df_j,'GARD')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 par stations le mois dernier')
+```
+
+### PM2.5
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+
+##### Pollution sur 5 ans #####
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_depart(df_a,'GARD')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 par stations sur 5 ans')
+
+##### Pollution sur 1 an #####
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m = modpollution.extraire_donnees_depart(df_m,'GARD')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 par stations sur 1 an')
+
+##### Pollution sur 1 mois #####
+df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
+df_j = modpollution.extraire_donnees_depart(df_j,'GARD')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 par stations le mois dernier')
+```
+
+
+### NOX
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+
+##### Pollution sur 5 ans #####
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_depart(df_a,'GARD')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX par stations sur 5 ans')
+
+##### Pollution sur 1 an #####
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m = modpollution.extraire_donnees_depart(df_m,'GARD')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX par stations sur 1 an')
+
+##### Pollution sur 1 mois #####
+df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
+df_j = modpollution.extraire_donnees_depart(df_j,'GARD ')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX par stations le mois dernier')
+```
