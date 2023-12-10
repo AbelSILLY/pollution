@@ -118,19 +118,9 @@ import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_m = pd.read_csv("../../modpollution/data/data_m.csv")
-df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
 df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
 df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m = modpollution.modif_date_csv(df_m,2023)
-df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
-df_m = modpollution.extraire_polluant(df_m,'O3')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
-df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
-df_j = modpollution.extraire_polluant(df_j,'O3')
-
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Toulouse par station (5 dernières années)')
 
 ```
@@ -145,25 +135,26 @@ import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_m = pd.read_csv("../../modpollution/data/data_m.csv")
-df_a = modpollution.modif_date_csv(df_a,2023)
-df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
-df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m = modpollution.modif_date_csv(df_m,2023)
+
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
 df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
 df_m = modpollution.extraire_polluant(df_m,'O3')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
-df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
-df_j = modpollution.extraire_polluant(df_j,'O3')
-
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Toulouse en 2022-2023')
 
 ```
 
 La concentration en O3 à Toulouse au long d'une année est très variable. Durant les mois d'hiver, on assiste à une importante diminution de cette concentration, contre une forte augmentation en été.    
 Ayant connaissance de la production des molécules d'O3, on se propose de comparer l'allure de cette courbe avec celle de l'ensoleillement et de la température à Toulouse au cours de la dernière année.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_toul.csv')
+modpollution.plotmeteo(df,y= 'Température (°C)',titre='Evolution de la Température à Toulouse sur 1 an')
+```
 
 
 ##### insérer graph météo
@@ -174,23 +165,14 @@ import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_m = pd.read_csv("../../modpollution/data/data_m.csv")
-df_a = modpollution.modif_date_csv(df_a,2023)
-df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
-df_a = modpollution.extraire_polluant(df_a,'O3')
-df_m = modpollution.modif_date_csv(df_m,2023)
-df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
-df_m = modpollution.extraire_polluant(df_m,'O3')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.as_df_csv('../../modpollution/data/data_j.csv',False)
 df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
 df_j = modpollution.extraire_polluant(df_j,'O3')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Toulouse le mois dernier')
 ```
 
 Ce graphique représente l'évolution de la concentration en O3 à Toulouse au cours de la dernière année. Cette concentration à été mesurée à différents endroits, appelés station dans l'étude, de la ville de Toulouse.    
-Le graphique n'étant pas très lisible, il est possible de n'afficher qu'une seule des station en cliquant sur la légende.
+Le graphique n'étant pas très lisible, il est possible de n'afficher qu'une seule des station en cliquant sur la légende et également de zoomer à l'aide du curseur.
 
 ### NOX
 
@@ -200,22 +182,18 @@ import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = pd.read_csv("../../modpollution/data/data_a.csv")
-df_m = pd.read_csv("../../modpollution/data/data_m.csv")
-df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
 df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
 df_a = modpollution.extraire_polluant(df_a,'NOX')
-df_m = modpollution.modif_date_csv(df_m,2023)
 df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
 df_m = modpollution.extraire_polluant(df_m,'NOX')
-df_j = pd.read_csv('../../modpollution/data/data_j.csv')
-df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.as_df_csv('../../modpollution/data/data_j.csv',False)
 df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Toulouse par station (5 dernières années)')
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Toulouse en 2022-2023')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Toulouse le mois dernier')
-
 ```
 
 
