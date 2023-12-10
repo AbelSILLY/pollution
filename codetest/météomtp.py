@@ -3,7 +3,7 @@ import json
 import plotly.graph_objects as go
 from datetime import datetime
 
-# Remplacez l'URL par votre URL réelle
+# Remplacez l'URL par celle que vous avez fournie
 url = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/donnees-synop-essentielles-omm/records?limit=100&refine=nom%3A%22MONTPELLIER%22"
 
 # Effectuer la requête HTTP
@@ -15,7 +15,7 @@ if response.status_code == 200:
     weather_data = response.json()
 
     # Préparer les données pour le graphique
-    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}  # Inclure tous les mois
 
     for result in weather_data["results"]:
         # Convertir la date au format datetime
@@ -23,12 +23,18 @@ if response.status_code == 200:
 
         month = date.month
 
-        sunshine_hours = result["vv"] / 3600  # vv est en secondes, convertir en heures
-        temperature = result["t"] - 273.15  # Convertir la température de Kelvin à Celsius
-
         # Accumuler les heures d'ensoleillement et les températures pour chaque mois
-        months_data[month]["sunshine_hours"].append(sunshine_hours)
-        months_data[month]["temperature"].append(temperature)
+        if "vv" in result:
+            sunshine_hours = result["vv"] / 3600  # vv est en secondes, convertir en heures
+            months_data[month]["sunshine_hours"].append(sunshine_hours)
+        else:
+            months_data[month]["sunshine_hours"].append(0)
+
+        if "t" in result:
+            temperature = result["t"] - 273.15  # Convertir la température de Kelvin à Celsius
+            months_data[month]["temperature"].append(temperature)
+        else:
+            months_data[month]["temperature"].append(0)
 
     # Calculer les moyennes pour chaque mois
     average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
@@ -60,4 +66,8 @@ if response.status_code == 200:
 else:
     print(f"Échec de la requête avec le code d'état {response.status_code}")
     print(response.text)  # Affiche le contenu de la réponse pour déboguer
+
+
+
+
 

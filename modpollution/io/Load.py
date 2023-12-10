@@ -1,6 +1,6 @@
 import os
 import requests
-from modpollution.io import url_dm, url_da, url_j, url_meteo, path_target
+from modpollution.io import url_meteo_mtp,url_meteo_toul, path_target, url_mcsv, url_acsv,url_jcsv, url_30jcsv
 
 class Load:
     """
@@ -14,22 +14,35 @@ class Load:
     target_name : (string) chemin où on stock les données
     """
     
-    def __init__(self, url_m=url_dm,url_a=url_da,url_meteo=url_meteo,target_name=path_target):
-        path = path_target
-        fname_m = "data_m.json"
-        fname_a = "data_a.json"
-        fname_j = "data_j.json"
-        fname_meteo = "data_meteo.json"
-        data_m = requests.get(url_m)
-        data_a = requests.get(url_a)
-        data_j = requests.get(url_j)
-        meteo = requests.get(url_meteo)
-        with open(os.path.join(path_target,fname_m),'w') as output_file:
-            output_file.write(data_m.text)
-        with open(os.path.join(path_target,fname_a),'w') as output_file:
-            output_file.write(data_a.text)
-        with open(os.path.join(path_target,fname_meteo),'w') as output_file:
-            output_file.write(meteo.text)
-        with open(os.path.join(path_target,fname_j),'w') as output_file:
-            output_file.write(data_j.text)
-    
+    def __init__(self,url_30j_csv = url_30jcsv ,url_jcsv=url_jcsv,url_mcsv=url_mcsv,url_acsv=url_acsv,url_meteo_toul=url_meteo_toul,url_meteo_mtp=url_meteo_mtp,path_target=path_target):
+        fname_mcsv = 'data_m.csv'
+        fname_acsv='data_a.csv'
+        fname_jcsv='data_j.csv'
+        fname_30j = 'data_30j.csv'
+        fname_meteo_mtp = "data_meteo_mtp.csv"
+        fname_meteo_toul = "data_meteo_toul.csv"
+
+        
+        data_mcsv = requests.get(url_mcsv)
+        data_acsv = requests.get(url_acsv)
+        data_jcsv = requests.get(url_jcsv)
+        data_30j = requests.get(url_30j_csv)
+        
+        meteo_mtp = requests.get(url_meteo_mtp)
+        meteo_toul = requests.get(url_meteo_toul)
+        ##### import csv pollution #####
+        with open(os.path.join(path_target,fname_mcsv),'wb') as output_file:
+            output_file.write(data_mcsv.content)
+        with open(os.path.join(path_target,fname_acsv),'wb') as output_file:
+            output_file.write(data_acsv.content)
+        with open(os.path.join(path_target,fname_jcsv),'wb') as output_file:
+            output_file.write(data_jcsv.content)
+        with open(os.path.join(path_target,fname_30j),'wb') as output_file:
+            output_file.write(data_30j.content)
+        
+        #### imoprt csv météo #####
+        with open(os.path.join(path_target,fname_meteo_mtp),'wb') as output_file:
+            output_file.write(meteo_mtp.content)
+        with open(os.path.join(path_target,fname_meteo_toul),'wb') as output_file:
+            output_file.write(meteo_toul.content)
+        

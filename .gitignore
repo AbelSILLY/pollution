@@ -4,3 +4,6 @@
 *test.py*
 *__pycache__*
 /.quarto/
+*/tp_files/*
+*tp_files*
+*.html

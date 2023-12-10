@@ -1,0 +1,305 @@
+# Montpellier
+
+La ville de Montpellier est la seconde ville la plus peuplée de la région Occitanie. C'est la préfecture du département de l'Hérault, et est une métropole dynamique.    
+Attractive par son climat méditéranéen, la ville voit sa population grandir.    
+Nous nous proposons d'étudier l'évolution de la pollution de l'air de cette métropole.   
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
+On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
+La concentration en NO2 (dioxyde d'azote), dont les émissions sont principalement dûes au trafic routier, connaît une décroissance lente depuis ces 5 dernières années.   
+Cette tendance était suivie par le monoxyde d'azote (NO), mais la concentration de ce polluant augmente considérablement en 2023.   
+L'oxyde d'azote (NOX), regroupe essentiellement les molécules NO et NO2, et c'est pourquoi son évolution suit globalement celle du monoxyde d'azote.    
+
+## Étude par polluants 
+
+Les mesures de concentration de polluants sont effectuées à différents endroits de la villes, appelés stations dans notre étude. 
+
+### O3
+
+Seule la station Près d'Arène mesure les concentrations en O3 à Montpellier. Cette station se situe proche de l'autoroute A9, et permet ainsi de capter les émissions dûes au trafic routier.   
+
+L'Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.    
+
+On commencera par étudier l'évolution de la concentration en Ozone sur 5 ans.
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montpellier par station (5 dernières années)')
+
+```
+
+Ce graphique montre une nette diminution de la cocnentration en O3 entre 2019 et 2020, ce qu'on peu expliquer par la baisse générale d'activités du fait de la pandémie. Toutefois, le niveau de concentration reste plutôt bas depuis 2021, bien qu'on remarque une légère augmentation au cours de la dernière année.   
+
+    
+        
+
+On s'intéresse à présent à l'évolution annuelle de la concentration d'O3 dans l'air. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Montpellier en 2022-2023')
+
+```
+
+On remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d'étés. Ayant connaissance du mode de création des molécules d'O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d'ensoleillement à Montpellier sur l'année
+
+#### insérer graph météo
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+
+df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_mtp.csv')
+modpollution.plotmeteo(df,y= 'Température (°C)',titre='Evolution de la Température à Montpellier sur 1 an')
+```
+
+
+Enfin, pour avoir une vision plus précise des variation de concentration en O3 dans l'air à Montpellier, on pourra regarder l'évolution de la concentration journalière en O3 sur l'année.
+
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier le mois dernier')
+```
+
+Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. 
+La tendance générale suit quand même celle de l'année, visible dans le graphique précédent.
+
+
+### NOX
+
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote. Ils sont principalement dûs au trafic routiers, et sont enregistrer par plusieurs stations à Montpellier. 
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
+
+```
+
+
+### NOX
+
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',True)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
+
+```
+
+
+```{python}
+#| echo: false
+import requests
+import json
+import pandas as pd
+import plotly.express as px
+from datetime import datetime
+
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Envoyer une requête GET à l'URL
+response = requests.get(url)
+
+# Vérifier si la requête a réussi (statut 200)
+if response.status_code == 200:
+    # Charger les données JSON
+    data = response.json()
+
+    # Liste des polluants que vous voulez visualiser
+    polluants = ['NO2', 'NOX', 'PM2.5', 'NO', 'PM10', 'O3']
+
+    # Créer un DataFrame pandas à partir des données
+    df = pd.DataFrame()
+
+    # Parcourir toutes les entités
+    for feature in data['features']:
+        nom_polluant = feature['properties']['nom_poll']
+        nom_com = feature['properties']['nom_com']
+
+        # Vérifier si le polluant fait partie de ceux que vous voulez visualiser et si la ville est Montpellier
+        if nom_polluant in polluants and nom_com == 'MONTPELLIER':
+            date_debut_timestamp = feature['properties']['date_debut'] / 1000  # Convertir en secondes
+            date_debut = datetime.utcfromtimestamp(date_debut_timestamp)
+
+            # Filtrer les données pour les mois de janvier à novembre 2023
+            if date_debut.year == 2023 and date_debut.month in range(1, 12):
+                date_debut_str = date_debut.strftime('%Y-%m')
+                valeur_polluant = feature['properties']['valeur']
+
+                # Ajouter les données au DataFrame
+                df = pd.concat([df, pd.DataFrame({nom_polluant: [valeur_polluant]}, index=[date_debut_str])])
+
+    # Convertir les colonnes de dates en format de date pandas
+    df.index = pd.to_datetime(df.index)
+
+    # Trier les données par date
+    df = df.sort_index()
+
+    # Grouper par mois et calculer la moyenne
+    df_moyenne_mensuelle = df.resample('M').mean()
+
+    # Utiliser Plotly Express pour créer un graphe interactif
+    fig = px.line(df_moyenne_mensuelle, x=df_moyenne_mensuelle.index, y=polluants,
+                  labels={'value': 'Moyenne de la quantité de polluant', 'index': 'Mois de l\'année 2023'},
+                  title='Évolution de la moyenne mensuelle de polluants à Montpellier en 2023')
+
+    # Faire pivoter les étiquettes d'axe x pour une meilleure lisibilité
+    fig.update_layout(xaxis=dict(tickangle=45, tickmode='array', tickvals=df_moyenne_mensuelle.index))
+
+    # Afficher le graphe interactif
+    fig.show()
+
+else:
+    print(f"La requête a échoué avec le statut : {response.status_code}")
+```
+
+## Météo 
+
+Nous cherchons maintenant à établir un lien entre la pollution de l'air et les conditions météorologiques. 
+Le graphique ci-dessous retrace l'évolution de la température et de l'ensoleillement au long de l'année 2023. 
+
+```{python}
+#| echo : false
+import requests
+import json
+import plotly.graph_objects as go
+from datetime import datetime
+
+# Remplacez l'URL par celle que vous avez fournie
+url = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/donnees-synop-essentielles-omm/records?limit=100&refine=nom%3A%22MONTPELLIER%22"
+
+# Effectuer la requête HTTP
+response = requests.get(url)
+
+# Gérer les erreurs
+if response.status_code == 200:
+    # Charger les données JSON
+    weather_data = response.json()
+
+    # Préparer les données pour le graphique
+    months_data = {i: {"sunshine_hours": [], "temperature": []} for i in range(1, 13)}
+
+    for result in weather_data.get("results", []):
+        # Convertir la date au format datetime
+        date = datetime.fromisoformat(result.get("date", "").split("+")[0])
+
+        month = date.month
+
+        # Accumuler les heures d'ensoleillement et les températures pour chaque mois
+        sunshine_hours = result.get("vv", 0) / 3600  # vv est en secondes, convertir en heures
+        temperature = result.get("t", 0) - 273.15  # Convertir la température de Kelvin à Celsius
+
+        months_data[month]["sunshine_hours"].append(sunshine_hours)
+        months_data[month]["temperature"].append(temperature)
+
+    # Calculer les moyennes pour chaque mois
+    average_sunshine_hours = [sum(data["sunshine_hours"]) / len(data["sunshine_hours"]) if data["sunshine_hours"] else 0 for data in months_data.values()]
+    average_temperature = [sum(data["temperature"]) / len(data["temperature"]) if data["temperature"] else 0 for data in months_data.values()]
+
+    # Convertir la plage en liste avec juillet et août
+    x_values = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    # Créer le graphique interactif avec plotly
+    fig = go.Figure()
+
+    # Ajouter la trace pour l'ensoleillement à l'axe de gauche
+    fig.add_trace(go.Scatter(x=x_values, y=average_sunshine_hours, mode='lines+markers', name='Ensoleillement', yaxis='y', line=dict(color='green')))
+
+    # Ajouter la trace pour la température à l'axe de droite
+    fig.add_trace(go.Scatter(x=x_values, y=average_temperature, mode='lines+markers', name='Température', yaxis='y2', line=dict(color='red')))
+
+    # Ajuster les propriétés du layout pour les deux axes
+    fig.update_layout(
+        title="Moyenne de la quantité d'ensoleillement et de la température par mois",
+        xaxis=dict(title="Mois de l'année"),
+        yaxis=dict(title="Ensoleillement (heures)", color='green'),
+        yaxis2=dict(title="Température (°C)", color='red', overlaying='y', side='right'),
+        showlegend=True
+    )
+
+    fig.show()
+
+else:
+    print(f"Échec de la requête avec le code d'état {response.status_code}")
+    print(response.text)  # Affiche le contenu de la réponse pour déboguer
+
+```
+
+
+## Une amélioration à venir ?
+
+Depuis quelques années, la ville de Montpellier s'engage à limiter les déplacements automobiles, avec notamment mise en place de nombreuses pistes cyclables, la construction d'une nouvelle ligne de tramway, un agrandissement des zones piétonnes, et la gratuité des transports en communs.
+La majorité de la pollution de l'air provenant des transports, on put espérer à l'avenir voir une amélioration de la qualité de l'air à Montpellier.
+Toutefois, les zones littorales étant les principales touchées par le réchauffement climatique en France et les conditions météorologiques difficiles à prédire, il est difficile de faire une conclusion trop optimiste. 

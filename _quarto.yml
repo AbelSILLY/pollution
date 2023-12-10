@@ -2,7 +2,13 @@ project:
   type: website
   render:
     - index.qmd
-    - montpellier/tp.qmd
+    - webpage/montpellier/tp.qmd
+    - webpage/toulouse/tp.qmd
+    - webpage/Herault/tp.qmd
+    - webpage/comparatif_grandes_villes/tp.qmd
+    - webpage/Montauban/tp.qmd
+    - webpage/Albi/tp.qmd
+    - webpage/comparatif_moyennes_villes/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -10,18 +16,37 @@ website:
   title: "Projet Pollution"
   site-url: https://abelsilly.github.io/pollution/
   repo-url: https://github.com/AbelSILLY/pollution
+  repo-actions: [source, issue]
   navbar:
     title: "Pollution"
     background: primary
     search: true
     left:
-      - sidebar:montpellier
+      - sidebar:departement
+      - sidebar:villes
+      - sidebar:pour_aller_plus_loin
   sidebar:
-    - id: montpellier
-      title: "Montpellier"
+    - id: departement
+      title: "Département"
       collapse-level: 3
       contents:
-        - montpellier/tp.qmd
+        - webpage/Herault/tp.qmd
+    - id: villes
+      title: "Villes"
+      collapse-level: 3
+      contents:
+      - webpage/montpellier/tp.qmd
+      - webpage/toulouse/tp.qmd
+      - webpage/comparatif_grandes_villes/tp.qmd
+      - webpage/Montauban/tp.qmd
+      - webpage/Albi/tp.qmd
+      - webpage/comparatif_moyennes_villes/tp.qmd
+    - id: pour_aller_plus_loin
+      title: "Pour aller plus loin"
+      collapse-level: 3
+      contents:
+      - webpage/test/tp.qmd
+
 
 format:
   html:

@@ -1,0 +1,156 @@
+# Montauban
+Mautauban est une ville de taille moyenne, comptant environ 60 000 habitants. Située dans le département du Tarn et Garonne, elle en est la préfecture. Elle est exposée à un climat océanique altéré et possède un patrimoine natuel remarquable.    
+Nous proposons une étude de la qualité de l'air de cette ville.
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+Le graphique ci dessus montre l'évolution de concentration des polluants à Montpellier de 2018 à 2023.   
+On remarque une faible diminution de la concentration des polluants durant les années 2020 et 2021, probablement liée à la baisse générale d'activités dûe à la pandémie du Covid-19.   
+La concentration en NO2 (dioxyde d'azote), dont les émissions sont principalement dûes au trafic routier, connaît une décroissance lente depuis ces 5 dernières années.   
+Cette tendance était suivie par le monoxyde d'azote (NO), mais la concentration de ce polluant augmente considérablement en 2023.   
+L'oxyde d'azote (NOX), regroupe essentiellement les molécules NO et NO2, et c'est pourquoi son évolution suit globalement celle du monoxyde d'azote.    
+
+## Étude par polluants 
+
+
+
+### O3
+
+La ville de Montauban étant de taille moyenne, seule une station enregistre les concentrations d'Ozone, et les données sont incomplètes. Les mesures sont effectuées dans une zone urbaine.   
+
+L'Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.    
+
+On commencera par étudier l'évolution de la concentration en Ozone sur 3 ans. (Nous n'avons pas les données nécessaires pour mener une étude sur 5 ans).
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montauban par station (5 dernières années)')
+
+```
+
+On remarque une augmentation plutôt linéaire de la concentration d'O3 dans l'air depuis 2021. Cette concentration reste dans les normes de santé indiquées par l'OMS.
+
+    
+        
+
+On s'intéresse à présent à l'évolution annuelle de la concentration d'O3 dans l'air. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m,2023)
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Montauban en 2022-2023')
+
+```
+
+On remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d'étés. Ayant connaissance du mode de création des molécules d'O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d'ensoleillement à Montauban sur l'année.
+
+#### insérer graph météo
+
+
+Enfin, pour avoir une vision plus précise des variation de concentration en O3 dans l'air à Montauban, on pourra regarder l'évolution de la concentration journalière en O3 sur l'année.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m,2023)
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montauban le mois dernier')
+```
+
+Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. 
+La tendance générale suit quand même celle de l'année, visible dans le graphique précédent.
+
+
+### NOX
+
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.  
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+df_m = modpollution.modif_date_csv(df_m,2023)
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTAUBAN')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTAUBAN')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montauban par station (5 dernières années)')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montauban en 2022-2023')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montauban le mois dernier')
+
+```
+
+
+
+
+
