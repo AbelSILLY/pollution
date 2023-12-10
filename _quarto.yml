@@ -13,6 +13,10 @@ project:
     - webpage/Lourdes/tp.qmd
     - webpage/La_Calmette/tp.qmd
     - webpage/comparatif_petites_villes/tp.qmd
+    - webpage/HauteGaronne/tp.qmd
+    - webpage/Tarn/tp.qmd
+    - webpage/HautesPyrenees/tp.qmd
+    - webpage/Gard/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -28,13 +32,17 @@ website:
     left:
       - sidebar:departement
       - sidebar:villes
-      - sidebar:pour_aller_plus_loin
+      - sidebar:pourallerplusloin
   sidebar:
     - id: departement
       title: "Département"
       collapse-level: 3
       contents:
         - webpage/Herault/tp.qmd
+        - webpage/HauteGaronne/tp.qmd
+        - webpage/Tarn/tp.qmd
+        - webpage/HautesPyrenees/tp.qmd
+        - webpage/Gard/tp.qmd
     - id: villes
       title: "Villes"
       collapse-level: 3
@@ -48,7 +56,7 @@ website:
       - webpage/Lourdes/tp.qmd
       - webpage/La_Calmette/tp.qmd
       - webpage/comparatif_petites_villes/tp.qmd
-    - id: pour_aller _plus _loin
+    - id: pourallerplusloin
       title: "Pour aller plus loin"
       collapse-level: 3
       contents:
