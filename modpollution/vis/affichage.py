@@ -54,8 +54,8 @@ def plotmeteo(df,y,titre):
     df (pd.DataFrame): le data frame des données à afficher
     x (str): ordonnées
     """
-    vmin=np.min(df['Température (°C)'])
-    vmax=np.max(df['Température (°C)'])
+    vmin=np.min(df[y])
+    vmax=np.max(df[y])
     fig= px.line(df, x='Date',y=y,markers=True,
                  labels={'Température (°C)': 'Température', 'Date': 'Date'},title=titre,
                  range_y=[vmin-5,vmax+5],template='plotly'
