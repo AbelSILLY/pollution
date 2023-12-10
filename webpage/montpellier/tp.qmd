@@ -8,10 +8,12 @@ Nous nous proposons d'étudier l'évolution de la pollution de l'air de cette m�
 
 ```{python}
 #| echo: false
+import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_a = modpollution.modif_date_csv(df_a,True)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
@@ -37,13 +39,20 @@ On commencera par étudier l'évolution de la concentration en Ozone sur 5 ans.
 
 ```{python}
 #| echo: false
+import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
+import pandas as pd
 df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
 df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
 df_a = modpollution.extraire_polluant(df_a,'O3')
-
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'O3')
 modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Montpellier par station (5 dernières années)')
 
 ```
@@ -61,174 +70,25 @@ import pandas as pd
 import sys
 sys.path.append('../..')
 import modpollution
-df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+import pandas as pd
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m,2023)
 df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
 df_m = modpollution.extraire_polluant(df_m,'O3')
-
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'O3')
 
 modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Montpellier en 2022-2023')
 
 ```
 
 On remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d'étés. Ayant connaissance du mode de création des molécules d'O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d'ensoleillement à Montpellier sur l'année
-
-#### insérer graph météo
-```{python}
-#| echo: false
-import pandas as pd
-import sys
-sys.path.append('../..')
-import modpollution
-
-df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_mtp.csv')
-modpollution.plotmeteo(df,y= 'Température (°C)',titre='Evolution de la Température à Montpellier sur 1 an')
-```
-
-
-Enfin, pour avoir une vision plus précise des variation de concentration en O3 dans l'air à Montpellier, on pourra regarder l'évolution de la concentration journalière en O3 sur l'année.
-
-
-```{python}
-#| echo: false
-import sys
-sys.path.append('../..')
-import modpollution
-
-df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
-df_j = modpollution.extraire_polluant(df_j,'O3')
-
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier le mois dernier')
-```
-
-Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. 
-La tendance générale suit quand même celle de l'année, visible dans le graphique précédent.
-
-
-### NOX
-
-Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote. Ils sont principalement dûs au trafic routiers, et sont enregistrer par plusieurs stations à Montpellier. 
-
-```{python}
-#| echo: false
-import sys
-sys.path.append('../..')
-import modpollution
-df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
-df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
-df_a = modpollution.extraire_polluant(df_a,'NOX')
-
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
-df_m = modpollution.extraire_polluant(df_m,'NOX')
-df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
-
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
-df_j = modpollution.extraire_polluant(df_j,'NOX')
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
-
-```
-
-
-### NOX
-
-
-
-```{python}
-#| echo: false
-import pandas as pd
-import sys
-sys.path.append('../..')
-import modpollution
-import pandas as pd
-df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
-df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
-df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
-df_a = modpollution.extraire_polluant(df_a,'NOX')
-df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
-df_m = modpollution.extraire_polluant(df_m,'NOX')
-df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',True)
-df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
-df_j = modpollution.extraire_polluant(df_j,'NOX')
-modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
-modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
-modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
-
-```
-
-
-```{python}
-#| echo: false
-import requests
-import json
-import pandas as pd
-import plotly.express as px
-from datetime import datetime
-
-url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-
-# Envoyer une requête GET à l'URL
-response = requests.get(url)
-
-# Vérifier si la requête a réussi (statut 200)
-if response.status_code == 200:
-    # Charger les données JSON
-    data = response.json()
-
-    # Liste des polluants que vous voulez visualiser
-    polluants = ['NO2', 'NOX', 'PM2.5', 'NO', 'PM10', 'O3']
-
-    # Créer un DataFrame pandas à partir des données
-    df = pd.DataFrame()
-
-    # Parcourir toutes les entités
-    for feature in data['features']:
-        nom_polluant = feature['properties']['nom_poll']
-        nom_com = feature['properties']['nom_com']
-
-        # Vérifier si le polluant fait partie de ceux que vous voulez visualiser et si la ville est Montpellier
-        if nom_polluant in polluants and nom_com == 'MONTPELLIER':
-            date_debut_timestamp = feature['properties']['date_debut'] / 1000  # Convertir en secondes
-            date_debut = datetime.utcfromtimestamp(date_debut_timestamp)
-
-            # Filtrer les données pour les mois de janvier à novembre 2023
-            if date_debut.year == 2023 and date_debut.month in range(1, 12):
-                date_debut_str = date_debut.strftime('%Y-%m')
-                valeur_polluant = feature['properties']['valeur']
-
-                # Ajouter les données au DataFrame
-                df = pd.concat([df, pd.DataFrame({nom_polluant: [valeur_polluant]}, index=[date_debut_str])])
-
-    # Convertir les colonnes de dates en format de date pandas
-    df.index = pd.to_datetime(df.index)
-
-    # Trier les données par date
-    df = df.sort_index()
-
-    # Grouper par mois et calculer la moyenne
-    df_moyenne_mensuelle = df.resample('M').mean()
-
-    # Utiliser Plotly Express pour créer un graphe interactif
-    fig = px.line(df_moyenne_mensuelle, x=df_moyenne_mensuelle.index, y=polluants,
-                  labels={'value': 'Moyenne de la quantité de polluant', 'index': 'Mois de l\'année 2023'},
-                  title='Évolution de la moyenne mensuelle de polluants à Montpellier en 2023')
-
-    # Faire pivoter les étiquettes d'axe x pour une meilleure lisibilité
-    fig.update_layout(xaxis=dict(tickangle=45, tickmode='array', tickvals=df_moyenne_mensuelle.index))
-
-    # Afficher le graphe interactif
-    fig.show()
-
-else:
-    print(f"La requête a échoué avec le statut : {response.status_code}")
-```
-
-## Météo 
-
-Nous cherchons maintenant à établir un lien entre la pollution de l'air et les conditions météorologiques. 
-Le graphique ci-dessous retrace l'évolution de la température et de l'ensoleillement au long de l'année 2023. 
 
 ```{python}
 #| echo : false
@@ -297,6 +157,272 @@ else:
 
 ```
 
+On remarque que les allures des courbes de la concentration en O3 et celle de l'ensoleillement / température, ont des allures similaires.   
+Ceci est cohérent avec ce que nous nous attendions à observer. Pour mieux comprendre le lien entre ensoleillement et O3, le lecteur est invité à aller sans la section "pour aller plus loin".
+    
+       
+
+
+Enfin, pour avoir une vision plus précise des variation de concentration en O3 dans l'air à Montpellier, on pourra regarder l'évolution de la concentration journalière en O3 sur l'année.   
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_m = pd.read_csv("../../modpollution/data/data_m.csv")
+df_a = modpollution.modif_date_csv(df_a,2023)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m = modpollution.modif_date_csv(df_m,2023)
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = pd.read_csv('../../modpollution/data/data_j.csv')
+df_j = modpollution.modif_date_csv(df_j,2023)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Montpellier le mois dernier')
+```
+
+Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises. 
+La tendance générale suit quand même celle de l'année, visible dans le graphique précédent.
+
+
+### NOX
+
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.     
+Plusieurs stations mesurent la concentration des polluants NOX dans l'air à Montpellier. Pour une meilleure lisibilité des graphiques suivant, il est possible de sélectionner les station en cliquant sur la légende.   
+
+On commence par étudier l'évolution du polluant NOX sur les 5 dernières années.
+ 
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Montpellier par station (5 dernières années)')
+
+
+```
+
+On remarque que la concentration d'oxydes d'azote connaît une léégère diminution au cours de ces trois dernières années. Les concentrations mesurées dans les zones urbaines sont légèrement supérieures à celles mesurées dans la station Près d'Arène. La station Liberte trafic meseure quand à elle, des concentrations significativement plus élevées (bien qu'on ne dispose d'informations que pour l'année 2023). Cela est surement du au fait que la station prend des mesure dans un endroit où le trafic est important.
+
+Étudions maintenant la concentration de ce polluant sur un an.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Montpellier en 2022-2023')
+```
+
+Sur ce second graphique, la différence de concentrations en NOX mesurée dans les chacune des stations est flagrante. On les stations proches d'endroits de fort trafic routier mesurent des concentrations bien plus élevées.   
+L'allure de chacune des courbes se ressemble, avec une augmentation des concentrations en hiver.
+
+Pour regarder de plus près la concentration de NOX, on se propose de faire une étude sur le mois dernier.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Montpellier le mois dernier')
+
+```
+
+Sur le mois qui vient de s'écouler, la différence des concentrations mesurées entre les stations est toujours visible. La encore, les allures de chacune des courbes se ressemblent. On remarque un plus grande concentration de NOX durant les week-ends.
+
+
+### PM10
+
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie.    
+Seules deux stations mesurent les concentrations de particules PM10. L'une dans une zone urbaine, et l'autre dans une zone à fort trafic.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Montpellier par station (5 dernières années)')
+```
+
+Sur les 5 ans étudiés, la concentration de particules PM10 ne varie pas énormément. Elle connaît un léger essort en 2022.
+    
+
+Sur l'année 2022-2023, une autre station mesurant les concentrations dans une zone à haut trafique propose des mesures.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Montpellier en 2022-2023')
+```
+On remarque que les deux stations "Trafic" mesurent des concentrations très similaires au long de l'année, légèrement suppérieures à celles mesurées en zone urbaine. On remarque que les concentrations sont particulièrement élevées durant les mois d'hiver.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Montpellier le mois dernier')
+```
+
+Au cours du dernier mois, on remarque que les concentrations en PM10 augmentent surtout pendant les week-ends, et les journées particulièrement froides.
+
+### PM2.5
+
+Les particules PM2.5 sont les plus dangereuses pour notre organisme, c'est pourquoi on les retrouve en plus faible concentration. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 à Montpellier par station (5 dernières années)')
+```
+
+On remarque une tendance décroissante de la concentration particules PM2.5 dans l'air entre 2018 et 2020, puis une augmentation jusqu'en 2022.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 à Montpellier en 2022-2023')
+```
+
+Au cours de l'année, les concentrations les plus élevées sont observées durant les mois d'hiver. On remarquera que l'allure des courbes des particules PM2.5 et PM10 sont très similaires.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'MONTPELLIER')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'MONTPELLIER')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 à Montpellier le mois dernier')
+```
+
+De même que pour les particules PM10, la concentration en particules PM2.5 observée au cours du mois dernier est particulièrement élevée durant les week-ends et les jours froids.
 
 ## Une amélioration à venir ?
 

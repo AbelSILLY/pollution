@@ -1,6 +1,10 @@
 # Tarn
 
-## Général
+Le Tarn est un département français de la région Occitanie, traversé par la rivière Tarn qui lui a donné son nom.Nous nous proposons d’étudier la qualité de l’air de ce département.
+
+## Évolution de la concentration de polluants au cours des 5 dernières années
+
+On commence par étudier l’évolution générale des polluants au cours des 5 dernières années, au travers d’une petite animation.
 
 ```{python}
 #| echo: false

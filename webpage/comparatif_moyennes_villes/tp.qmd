@@ -1,0 +1,39 @@
+# Étude comparative de Montauban et Albi
+
+Albi et Montauban sont deux villes de taille moyenne, avec un nombre d'habitant proche.
+On se propose de comparer leur concentration de polluants.   
+Cette étude sera rapide, vous retrouverez des études plus détaillées dans les sections dédiées à ces villes.
+
+## Montauban
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTAUBAN')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+## Albi
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'ALBI')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+## Interprétation
+Ne disposant pas des inforamtions concernat les concentrations en O3 à Albi, on ne traitera pas de ce polluant dans cette étude comparative. De la même façons, les données disponibles pour Montauban ne débutant qu'en 2021, on regardera les concentrations à Albi sur la même période de temps.   
+
+Les concentrations moyennes de polluants sont légèrement plus élevées à Montauban qu'à Albi. La différence se fait principalement sur les Oxydes d'azote, mais reste légère. 

@@ -1,0 +1,51 @@
+# Étude comparative entre Lourdes et La Calmette
+
+Lourdes et La Calmette sont deux petites villes d'Occitanie. Lourdes compte presque le triple d'habitants de La Calmette, mais ces deux communes restent comparables.    
+N'ayant que peu de données à notre disposition, on comparera la concentration en O3 de ces deux villages.
+
+## Lourdes
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LOURDES')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LOURDES')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LOURDES')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Lourdes par station (5 dernières années)')
+
+```
+
+## La Calmette
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LA CALMETTE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LA CALMETTE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LA CALMETTE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à La Calmette par station (5 dernières années)')
+
+```
+
+
+## Interprétation
+On remarque que les concentration en Ozone dans ces deux communes sur 5 ans sont plutôt similaires. Les deux courbes ont la même allure. Bien que Lourdes soit un peu plus peuplée que La Calmette, on y enregistre des concentrations légèrement plus faibles. Cela peut s'expliquer par des raisons géographiques. Lourdes est située dans la chaîne des Pyrénées, et plutôt éloignée de plus grandes villes. En revanche, La Calmette, où il fait plus chaud et plus souvent soleil, est située à proximité de Nîmes. Ces deux facteurs sont probalement responsables d'une concentration en Ozone légèrement plus importante.
