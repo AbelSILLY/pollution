@@ -59,10 +59,11 @@ sys.path.append('../..')
 import modpollution
 import pandas as pd
 df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_hp.csv')
+df['Date'] = pd.to_datetime(df['Date'])
 #### moyenne par jour des températures ####
 df['month'] = df['Date'].dt.month
 mean = df.groupby('month')['Température (°C)'].mean().reset_index()
-mean['Date'] = mean['month'].apply(lamda x : pd.to_datetime(f'{2022}-{x:02}', format='%Y-%m'))
+mean['Date'] = mean['month'].apply(lambda x : pd.to_datetime(f'{2022}-{x:02}', format='%Y-%m'))
 mean.drop('month',axis=1,inplace=True)
 modpollution.plotmeteo(mean,y='Température (°C)',titre='Evolution de la température en Hautes-Pyrénées en 2022')
 
@@ -145,8 +146,25 @@ modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX p
 
 ##### Pollution sur 1 mois #####
 df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
-df_j = modpollution.extraire_donnees_depart(df_j,'HAUTES-PYRENEES ')
+df_j = modpollution.extraire_donnees_depart(df_j,'HAUTES-PYRENEES')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX par stations le mois dernier')
 ```
 
+#### Météo ####
+
+```{python}
+#| echo: false
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_hp.csv')
+#### moyenne par jour de la vitesse du vent ####
+df['Date'] = pd.to_datetime(df['Date'])
+df['month'] = df['Date'].dt.month
+mean = df.groupby('month')['Vitesse du vent moyen 10 mn'].mean().reset_index()
+mean['Date'] = mean['month'].apply(lambda x : pd.to_datetime(f'{2022}-{x:02}', format='%Y-%m'))
+mean.drop('month',axis=1,inplace=True)
+modpollution.plotmeteo(mean,y='Vitesse du vent moyen 10 mn',titre='Evolution de la vitesse du vent en Hautes-Pyrénées en 2022')
+```
