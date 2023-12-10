@@ -10,5 +10,25 @@ df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv")
 df_a = modpollution.extraire_donnees_depart(df_a,'HERAULT')
 df_moy = modpollution.mean_by_dep(df_a)
 modpollution.plotpoll(df_moy)
-modpollution.plotpollline(df_a)
 ```
+
+# O3
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+
+df = modpollution.as_df_csv("../../modpollution/data/data_m.csv")
+df = modpollution.extraire_donnees_depart(df,'HERAULT')
+df = modpollution.extraire_polluant(df,'O3')
+modpollution.plotpollline(df,color='nom_station',titre='Concentration en O3 par stations')
+df_j = modpollution.as_df_csv("../../modpollution/data/data_j.csv")
+df_j = modpollution.extraire_donnees_depart(df_j,'HERAULT')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en O3 par stations')
+
+```
+
