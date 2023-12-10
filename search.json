@@ -238,6 +238,20 @@
     "text": "Étude par polluants\n\nO3\nLa Calmette étant un petit village, seule les données concernant la concentration en O3 sont répertoriées.\nL’Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.\nOn commencera par étudier l’évolution de la concentration en Ozone sur 5 ans.\n\n\n\n                                                \n\n\n\n\n\n                                                \n\n\nCes deux graphiques représente l’évolution de la concentration en O3 durant les 5 dernières années. On remarque une chute drastique de cette concentration en 2020, lors de la pandémie. Cette concentration agmente ensuite de manière plutôt linéaire jusqu’en 2023.\nOn s’intéresse à présent à l’évolution annuelle de la concentration d’O3 dans l’air.\n\n\n\n                                                \n\n\nOn remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d’étés. Ayant connaissance du mode de création des molécules d’O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d’ensoleillement à Montauban sur l’année.\n\ninsérer graph météo\nEnfin, pour avoir une vision plus précise des variation de concentration en O3 dans l’air à Montauban, on pourra regarder l’évolution de la concentration journalière en O3 sur l’année.\n\n\n\n                                                \n\n\nLe graphique n’étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises.\nÉtant donné que l’étude es faite à cheval sur les mois de Novembre et Décembre, les concentrations en O3 mesurées sont plutôt élevées et constantes en moyenne journalières.\n\n\n\nNOX - PM10 - PM2.5\nLa Clamette étant un tout petit village, les données pour les autres polluants ne sont pas répertoriées."
   },
   {
+    "objectID": "webpage/Tarn/tp.html",
+    "href": "webpage/Tarn/tp.html",
+    "title": "Tarn",
+    "section": "",
+    "text": "Le Tarn est un département français de la région Occitanie, traversé par la rivière Tarn qui lui a donné son nom.Nous nous proposons d’étudier la qualité de l’air de ce département."
+  },
+  {
+    "objectID": "webpage/Tarn/tp.html#évolution-de-la-concentration-de-polluants-au-cours-des-5-dernières-années",
+    "href": "webpage/Tarn/tp.html#évolution-de-la-concentration-de-polluants-au-cours-des-5-dernières-années",
+    "title": "Tarn",
+    "section": "Évolution de la concentration de polluants au cours des 5 dernières années",
+    "text": "Évolution de la concentration de polluants au cours des 5 dernières années\nOn commence par étudier l’évolution générale des polluants au cours des 5 dernières années, au travers d’une petite animation."
+  },
+  {
     "objectID": "webpage/Tarn/tp.html#étude-par-polluants",
     "href": "webpage/Tarn/tp.html#étude-par-polluants",
     "title": "Tarn",
