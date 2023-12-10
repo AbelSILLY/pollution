@@ -63,11 +63,8 @@ ax.set_title('Concentration moyenne de tous les polluants')
 plt.show()
 ```
 
-Cette première carte permet de voir la concentration de polluants de l'air sur l'année 2023. Plus le point rouge est gros, plus la concentration est élevée. On remarque que le département de l'Hérault a été le plus touché par la pollution de l'air lors de cette dernière année. On pourra retrouver plus d'information à ce sujet dans la page dédiée à ce département.  
+Cette première carte permet de voir la concentration de polluants de l'air sur l'année 2023. Plus le point rouge est gros, plus la concentration est élevée. On retrouvera plus d'informations dans le section Départements.  
 
-   
-      
-         
 
 
 
@@ -307,7 +304,7 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
-Le second graphique représente exactement les mêmes données, mais de manière annimée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l'animation se faire.
+Le second graphique représente exactement les mêmes données, mais de manière animée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l'animation se faire.
 
 ```{python}
 #| echo: false
