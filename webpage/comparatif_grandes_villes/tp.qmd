@@ -1,0 +1,44 @@
+# Étude comparative entre Toulouse et Montpellier
+
+Toulouse et Montpellier étant les deux plus grandes villes d'Occitanie, on se propose de comparer leur concentration de polluants.   
+Cette étude sera rapide, vous retrouverez des études plus détaillées dans les sections dédiées à ces villes.
+
+## Évolution des concentrations sur les 5 dernières années
+
+### Montpellier
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'MONTPELLIER')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+
+### Toulouse
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+
+### Interprétation
+On remarque que les concentrations de polluants sur l'année sont globalement légèrement plus faibles à Montpellier qu'à Toulouse.    
+Jusqu'en 2023, Toulouse enregistrait des concentrations en NOX nettement supérieures à celles de Montpellier. Toutefois, on remarque une forte augmentation de cette dernière à Montpellier en 2023. Cela est probablement du à l'ouverture d'une nouvelle station de mesure proche d'un endroit à fort trafic.    
+    
+        
+
+En conclusion, les concentrations de polluants dans ces deux métropoles sont à peu près équivalentes. Toulouse étant légèrement plus grande, ces concentrations de polluants sont aussi légèrement plus élevées. Plus de monde implique directement plus de logement à chauffer et plus de trafic ! 

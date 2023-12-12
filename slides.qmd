@@ -16,11 +16,6 @@ format:
 
 - Quelles sont les principales causes et effets de la pollution de l'air en Occitanie ?
 
-## {auto-animate=true}
-
-- 
-
-
 
 ## But de l'étude 
 
@@ -33,11 +28,253 @@ format:
     - Choix des données
     - Choix des représentations
 
-- L'influence de la météo ?
-    - 
+- L'influence de la météo
 
 
-# État des lieux 
+## Arborescence du projet
+
+# Module Modpollution
+
+## Module Modpollution
+
+- Modpollution
+    - data
+        - fichiers .csv
+        - fichiers. json
+    - io 
+        - La classe Load 
+        -  init
+    
+    Sous modules
+    - traitement : fonctions de traitement des données
+    - vis : fonctions de visualisation 
+
+
+## Les données
+- Extraction des données
+
+
+## La Classe
+
+
+## Les sous-modules
+
+- Traitement
+
+- Affichage 
+
+# L'affichage
+
+## Graphiques
+
+```{python}
+#| echo: false
+#import pandas as pd
+#import sys
+#sys.path.append('../..')
+#import modpollution
+#df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+#df_a = modpollution.modif_date_csv(df_a,True)
+#df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+#df_a = modpollution.mean_df(df_a)
+#modpollution.plotpoll(df_a)
+```
+
+
+```{python}
+#| echo: false
+import requests
+import pandas as pd
+import plotly.express as px
+from datetime import datetime
+from collections import defaultdict
+
+# URL de l'API GeoJSON pour Toulouse
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=nom_com='TOULOUSE'&f=geojson"
+
+# Récupérer les données GeoJSON depuis l'API
+response = requests.get(url)
+data = response.json()
+
+# Extraire les données pertinentes pour Toulouse
+features = data['features']
+toulouse_data = [feature['properties'] for feature in features]
+
+# Préparer les données pour le tracé
+pollutants_per_year = defaultdict(list)
+
+for entry in toulouse_data:
+    pollutant = entry['nom_poll']
+    concentration = entry['valeur']
+    date_debut_timestamp = entry['date_debut']
+    year = datetime.utcfromtimestamp(date_debut_timestamp / 1000).year
+
+    pollutants_per_year[pollutant].append((year, concentration))
+
+# Transformer les données pour le tracé (calculer la concentration moyenne par année)
+for pollutant, data in pollutants_per_year.items():
+    data.sort(key=lambda x: x[0])
+
+    # Calculer les concentrations moyennes par année
+    averages_per_year = defaultdict(float)
+    counts_per_year = defaultdict(int)
+
+    for year, concentration in data:
+        if concentration is not None:
+            averages_per_year[year] += concentration
+            counts_per_year[year] += 1
+
+    for year in averages_per_year:
+        if counts_per_year[year] > 0:
+            averages_per_year[year] /= counts_per_year[year]
+
+    pollutants_per_year[pollutant] = list(averages_per_year.items())
+
+# Créer un DataFrame pour Plotly Express
+df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
+                  columns=['Pollutant', 'Year', 'Concentration'])
+
+# Tracé avec Plotly Express
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants à Toulouse par année',
+              template='plotly', height=600)
+
+# Personnaliser le tracé pour ressembler à Matplotlib
+fig.update_traces(
+    line=dict(width=1),  # Épaisseur de la ligne
+    marker=dict(size=8)   # Taille des marqueurs
+)
+
+# Ajouter un curseur pour filtrer les données par année
+fig.update_layout(
+    xaxis=dict(
+        rangeslider=dict(
+            visible=True
+        ),
+        type='linear'  # Assurez-vous que le type d'axe x est 'linear' pour que le curseur fonctionne
+    )
+)
+
+# Afficher le tracé interactif
+fig.show()
+
+```
+
+
+
+## Cartes
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import folium
+import requests
+import warnings 
+warnings.filterwarnings("ignore")
+
+# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
+couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
+
+# Définir l'URL
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+# url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Effectuer une requête pour récupérer les données GeoJSON
+response = requests.get(url)
+data = response.json()
+
+# Créer un GeoDataFrame à partir des données GeoJSON
+gdf = gpd.GeoDataFrame.from_features(data['features'])
+
+# gdf = gdf.merge(couche[['geometry']], left_index=True, right_index=True, suffixes=('', '_couche'))
+# geopollu = gdf.rename(columns={'geometry_couche': 'polyg_geom'})
+
+# On assigne les colones 'geometry' et 'nom_officiel_departement' au geodataframe gdf
+gdf = gdf.assign(geometry=couche['geometry'])
+gdf = gdf.assign(nom_officiel_departement=couche['nom_officiel_departement'])
+
+# Afficher les premières lignes du GeoDataFrame
+gdf.head()
+
+
+# Créer une figure avec deux sous-plots côte à côte
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+
+# Plot 1 : Carte avec la colonne 'code_o3'
+axs[0].set_title('Concentration du polluant O3')
+gdf.plot(column='code_o3', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
+
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Plot 2 : Carte avec la colonne 'code_pm10'
+axs[1].set_title('Concentration du polluant PM10')
+gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
+
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Ajuster l'espacement entre les sous-plots
+plt.tight_layout()
+
+# Afficher les plots
+plt.show()
+
+
+# Créer une figure avec deux sous-plots côte à côte
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+
+# Plot 1 : Carte avec la colonne 'code_no2'
+axs[0].set_title('Concentration du polluant NO2')
+gdf.plot(column='code_no2', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
+
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Plot 2 : Carte avec la colonne 'code_pm25'
+axs[1].set_title('Concentration du polluant PM2.5')
+gdf.plot(column='code_pm25', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
+
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Ajuster l'espacement entre les sous-plots
+plt.tight_layout()
+
+# Afficher les plots
+plt.show()
+
+
+gdf = gdf.set_geometry('geometry')
+# Création d'une figure et des axes
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+# On trace les départements avec différentes couleurs en fonction de la quantité de polluant
+ax.set_title('Concentration du polluant SO2')
+gdf.plot(column='code_so2', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
+# gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
+
+# On ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    ax.annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+```
+
+## Site Web
+
+
+
+
+# Attentes et réalité
+
+## Utilisation d'un jeu de données supplémentaire
 
 ```{python}
 
@@ -122,6 +359,7 @@ plt.title('Origine des particules PM10 en France (2014)')
 # Affichage du graphique
 plt.show()
 ```
+
 ## Production d'électricité en Occitanie
 
 ![](rte.png)
@@ -131,24 +369,20 @@ plt.show()
 
 L'utilisation des données de RTE ne nous a pas semblé si pertinante...      
  _Source : RTE, production d'électricité en 2022 en Occitanie_     
-[(https://www.rte-france.com/actualites/bilan-electrique-2022-occitanie#:~:text=Avec%2029%2C1%20TWh%2C%20la,hauteur%20de%2098%2C5%20%25.)]
 
 
-## Dinner
+## Respecter nos idéaux
 
-- Eat spaghetti
-- Drink wine
+|   Nos attentes|   Réussi &#x1F600; |  Raté &#128542;|
+|---    |:-:    |:-:  |
+|  Faire des réunions régulières   |   &#10003;   |
+|  Ne pas travailler dans l'urgence    |    |   &#x274C; |   
+|  Répartir le travail  |   &#10003;   |   | 
+|  Être efficaces  |     |   &#x274C; |   
+|  Utiliser les outils vus en cours   |   &#10003;  |   |
 
-# Construction du projet
 
-## Les choix
-- Pas les données de RTE finalement
-- Zooms spaciaux - temporels 
-- Choix des villes 
-
-## Création d'un module 
-
-## Création de classe
+- Satisfaction moyenne
 
 ## Les difficultés
 
@@ -157,99 +391,22 @@ L'utilisation des données de RTE ne nous a pas semblé si pertinante...
     - Organiser les idées et le travail
     - Éviter le travail inutile
     - Coodroner un groupe
+    - Temps de travail
+
 
 - Informatiques
-    - La prise en main des outils
+    - La prise en main des outils imposés
+    - Apprentissages personnels 
     - La création d'un module
     - Le déploiement du site 
 
 
-# Affichage et accessibilité 
+# Conclusion 
 
-## Graphiques
-```{python}
-import pandas as pd
-import geopandas as gpd
-import matplotlib.pyplot as plt
-import folium
-import requests
+## Ce qu'on retiendra pour l'avenir
+- Des bases solides dans l'utilisation de GitHub
+- Une meilleure organisation 
+- Le sujet de l'étude était intéressant
 
-# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
-couche = gpd.read_file("C:\\Users\\BossdiDibosS\\Desktop\\pollution\\modpollution\\data\\polyg_geom.geojson")
+## Un mot sur le contenu de l'étude
 
-# Définir l'URL
-url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-# url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-
-# Effectuer une requête pour récupérer les données GeoJSON
-response = requests.get(url)
-data = response.json()
-
-# Créer un GeoDataFrame à partir des données GeoJSON
-gdf = gpd.GeoDataFrame.from_features(data['features'])
-
-# gdf = gdf.merge(couche[['geometry']], left_index=True, right_index=True, suffixes=('', '_couche'))
-# geopollu = gdf.rename(columns={'geometry_couche': 'polyg_geom'})
-
-# On assigne les colones 'geometry' et 'nom_officiel_departement' au geodataframe gdf
-gdf = gdf.assign(geometry=couche['geometry'])
-gdf = gdf.assign(nom_officiel_departement=couche['nom_officiel_departement'])
-
-# Afficher les premières lignes du GeoDataFrame
-gdf.head()
-
-
-# Créer une figure avec deux sous-plots côte à côte
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
-
-# Plot 1 : Carte avec la colonne 'code_o3'
-axs[0].set_title('Carte - Code O3')
-gdf.plot(column='code_o3', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
-
-# Ajouter des étiquettes pour chaque département
-for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
-    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
-
-# Plot 2 : Carte avec la colonne 'code_pm10'
-axs[1].set_title('Carte - Code PM10')
-gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
-
-# Ajouter des étiquettes pour chaque département
-for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
-    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
-
-# Ajuster l'espacement entre les sous-plots
-plt.tight_layout()
-
-# Afficher les plots
-plt.show()
-```
-- Matplotlib
-- Graphiques horaires pour les données journalières
-- Histogrammes 
-- Courbes 
-On explique pourquoi on choisit cela
-
-
-## Interactivité 
-
-- Carte interactive 
-- Graphiques ineractifs
-
-## Accessibilité du site web
-
-- Page d'accueil
-- Trouver les infos facilement 
-
-## Des idées pour agir ? {transition="fade-in slide-out"}
-- À l'échelle municipale 
-    - 
-    - 
-
-- À l'échelle départementale 
-    - Ecourager le covoiturage 
-    -  
-
-- À l'échelle régionale 
-    - Limiter les vols internes
-    - Développer les lignes ferroviaires

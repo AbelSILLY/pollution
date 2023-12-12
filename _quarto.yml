@@ -2,7 +2,22 @@ project:
   type: website
   render:
     - index.qmd
-    - montpellier/tp.qmd
+    - webpage/test/tp.qmd
+    - webpage/montpellier/tp.qmd
+    - webpage/toulouse/tp.qmd
+    - webpage/Herault/tp.qmd
+    - webpage/comparatif_grandes_villes/tp.qmd
+    - webpage/Montauban/tp.qmd
+    - webpage/Albi/tp.qmd
+    - webpage/comparatif_moyennes_villes/tp.qmd
+    - webpage/Lourdes/tp.qmd
+    - webpage/La_Calmette/tp.qmd
+    - webpage/comparatif_petites_villes/tp.qmd
+    - webpage/HauteGaronne/tp.qmd
+    - webpage/Tarn/tp.qmd
+    - webpage/HautesPyrenees/tp.qmd
+    - webpage/Gard/tp.qmd
+    - webpage/PourAllerPlusLoin/tp.qmd
 
 website:
   back-to-top-navigation: true
@@ -10,27 +25,44 @@ website:
   title: "Projet Pollution"
   site-url: https://abelsilly.github.io/pollution/
   repo-url: https://github.com/AbelSILLY/pollution
-
-navbar:
-    title: "Software dev. for data sciences"
+  repo-actions: [source, issue]
+  navbar:
+    title: "Pollution"
     background: primary
     search: true
-    tools:
-      - icon: bicycle
-        href: https://moodle.umontpellier.fr/course/view.php?id=22454
-        text: Moodle
-      - icon: github
-        href: https://github.com/josephsalmon/HAX712X
-        text: GitHub
     left:
-    - sidebar:montpellier
-
-sidebar:
-    - id: montpellier
-      title: "Montpellier"
+      - sidebar:departement
+      - sidebar:villes
+      - sidebar:pourallerplusloin
+  sidebar:
+    - id: departement
+      title: "Département"
       collapse-level: 3
       contents:
-        - montpellier/tp.qmd
+        - webpage/Herault/tp.qmd
+        - webpage/HauteGaronne/tp.qmd
+        - webpage/Tarn/tp.qmd
+        - webpage/HautesPyrenees/tp.qmd
+        - webpage/Gard/tp.qmd
+    - id: villes
+      title: "Villes"
+      collapse-level: 3
+      contents:
+      - webpage/montpellier/tp.qmd
+      - webpage/toulouse/tp.qmd
+      - webpage/comparatif_grandes_villes/tp.qmd
+      - webpage/Montauban/tp.qmd
+      - webpage/Albi/tp.qmd
+      - webpage/comparatif_moyennes_villes/tp.qmd
+      - webpage/Lourdes/tp.qmd
+      - webpage/La_Calmette/tp.qmd
+      - webpage/comparatif_petites_villes/tp.qmd
+    - id: pourallerplusloin
+      title: "Pour aller plus loin"
+      collapse-level: 3
+      contents:
+      - webpage/PourAllerPlusLoin/tp.qmd
+
 
 format:
   html:

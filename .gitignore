@@ -1,3 +1,10 @@
 .DS_Store/.quarto/
 /_site/
 .nojekyll
+*test.py*
+*__pycache__*
+/.quarto/
+*/tp_files/*
+*tp_files*
+*.html
+*/README_files/*

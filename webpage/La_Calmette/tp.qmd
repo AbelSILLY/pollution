@@ -1,0 +1,107 @@
+# La Calmette
+La Clamette est un petit village du Gard, comptant environ 2 500 habitants. Cette commune rurale est exposée à un climat Méditerranéen, drainé par le Gard. Elle possède un patrimoine naturel remarquable composé de trois zones naturelles d'intérêt écologique, faunistique et floristique. 
+Nous proposons une étude de la qualité de l'air de cette ville.
+
+## Étude par polluants 
+
+### O3
+La Calmette étant un petit village, seule les données concernant la concentration en O3 sont répertoriées.
+
+L'Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.    
+
+On commencera par étudier l'évolution de la concentration en Ozone sur 5 ans.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'LA CALMETTE')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LA CALMETTE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LA CALMETTE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LA CALMETTE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à La Calmette par station (5 dernières années)')
+
+```
+
+Ces deux graphiques représente l'évolution de la concentration en O3 durant les 5 dernières années. On remarque une chute drastique de cette concentration en 2020, lors de la pandémie. Cette concentration agmente ensuite de manière plutôt linéaire jusqu'en 2023.
+   
+
+On s'intéresse à présent à l'évolution annuelle de la concentration d'O3 dans l'air. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LA CALMETTE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LA CALMETTE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LA CALMETTE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à La Calmette en 2022-2023')
+
+```
+
+On remarque clairement que la concentration en O3 diminue drastiquement en hiver, avant de remonter en flèche durant les mois d'étés. Ayant connaissance du mode de création des molécules d'O3, on se propose de comparer cette courbe avec la suivante, représentant le degré d'ensoleillement à Montauban sur l'année.
+
+#### insérer graph météo
+
+
+Enfin, pour avoir une vision plus précise des variation de concentration en O3 dans l'air à Montauban, on pourra regarder l'évolution de la concentration journalière en O3 sur l'année.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'LA CALMETTE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+df_m  = modpollution.extraire_donnees_villes(df_m,'LA CALMETTE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'LA CALMETTE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à La Calmette le mois dernier')
+```
+
+Le graphique n'étant pas très lisible, la barre interactive permet de selectionner des zones temporelles précises.   
+Étant donné que l'étude es faite à cheval sur les mois de Novembre et Décembre, les concentrations en O3 mesurées sont plutôt élevées et constantes en moyenne journalières.
+
+### NOX - PM10 - PM2.5
+
+La Clamette étant un tout petit village, les données pour les autres polluants ne sont pas répertoriées.

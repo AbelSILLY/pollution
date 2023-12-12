@@ -1,0 +1,411 @@
+# Toulouse
+
+Toulouse est la capitale de la région Occitanie. C'est la quatrième ville la plus peuplée de France, et est réputée pour son activité dans l'aéronautique. 
+Vous trouverez ci dessous une étude de la qualité de l'air de cette métropole.
+
+## Évolution de la pollution de l'air au cours des 5 dernières années
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = pd.read_csv("../../modpollution/data/data_a.csv")
+df_a = modpollution.modif_date_csv(df_a,True)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.mean_df(df_a)
+modpollution.plotpoll(df_a)
+```
+
+
+```{python}
+#| echo: false
+import requests
+import pandas as pd
+import plotly.express as px
+from datetime import datetime
+from collections import defaultdict
+
+# URL de l'API GeoJSON pour Toulouse
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=nom_com='TOULOUSE'&f=geojson"
+
+# Récupérer les données GeoJSON depuis l'API
+response = requests.get(url)
+data = response.json()
+
+# Extraire les données pertinentes pour Toulouse
+features = data['features']
+toulouse_data = [feature['properties'] for feature in features]
+
+# Préparer les données pour le tracé
+pollutants_per_year = defaultdict(list)
+
+for entry in toulouse_data:
+    pollutant = entry['nom_poll']
+    concentration = entry['valeur']
+    date_debut_timestamp = entry['date_debut']
+    year = datetime.utcfromtimestamp(date_debut_timestamp / 1000).year
+
+    pollutants_per_year[pollutant].append((year, concentration))
+
+# Transformer les données pour le tracé (calculer la concentration moyenne par année)
+for pollutant, data in pollutants_per_year.items():
+    data.sort(key=lambda x: x[0])
+
+    # Calculer les concentrations moyennes par année
+    averages_per_year = defaultdict(float)
+    counts_per_year = defaultdict(int)
+
+    for year, concentration in data:
+        if concentration is not None:
+            averages_per_year[year] += concentration
+            counts_per_year[year] += 1
+
+    for year in averages_per_year:
+        if counts_per_year[year] > 0:
+            averages_per_year[year] /= counts_per_year[year]
+
+    pollutants_per_year[pollutant] = list(averages_per_year.items())
+
+# Créer un DataFrame pour Plotly Express
+df = pd.DataFrame([(pollutant, year, concentration) for pollutant, data in pollutants_per_year.items() for year, concentration in data],
+                  columns=['Pollutant', 'Year', 'Concentration'])
+
+# Tracé avec Plotly Express
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants à Toulouse par année',
+              template='plotly', height=600)
+
+# Personnaliser le tracé pour ressembler à Matplotlib
+fig.update_traces(
+    line=dict(width=1),  # Épaisseur de la ligne
+    marker=dict(size=8)   # Taille des marqueurs
+)
+
+# Ajouter un curseur pour filtrer les données par année
+fig.update_layout(
+    xaxis=dict(
+        rangeslider=dict(
+            visible=True
+        ),
+        type='linear'  # Assurez-vous que le type d'axe x est 'linear' pour que le curseur fonctionne
+    )
+)
+
+# Afficher le tracé interactif
+fig.show()
+
+```
+
+Les deux graphiques ci-dessus permettent de visualiser la concentration des polluants en fonction du temps. On peut remarquer une lente décroissance des oxydes d'azote (NOX) qui suit celle des polluants NO et NO2. La concentration du polluant O3 (Ozone) reste quand à elle plutôt constante au fil des années, avant une légère baisse entre 2020 et 2021, probablement dûe à la diminution des activées lors de la pandémie. 
+
+
+## Étude par polluants 
+
+### Ozone (O3)
+
+L'Ozone est un polluant issu de réactions entre différents polluants (comme les oxydes d’azote) et de l’effet des rayonnements UV solaires.    
+
+On commencera par étudier l'évolution de la concentration en Ozone sur 5 ans.
+
+Plusieurs stations enregistrent la concentration en O3 à Toulouse. Elles sont principalement situées au bord de la Garonne, plutôt dans le centre de la ville. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'O3')
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration O3 à Toulouse par station (5 dernières années)')
+
+```
+
+Au cours des 5 dernières années, on assiste à une forte diminution de la concentration en O3 en 2020, lors de la pandémie mondiale. À la reprise des activités, la concentration a rapidement augmenté pour retrouver des valeurs similaires à celles mesurées en 2018 - 2019.    
+
+On regarde à présent l'évolution de la concentration en O3 au cours de la dernière année.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'O3')
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration O3 à Toulouse en 2022-2023')
+
+```
+
+La concentration en O3 à Toulouse au long d'une année est très variable. Durant les mois d'hiver, on assiste à une importante diminution de cette concentration, contre une forte augmentation en été.    
+Ayant connaissance de la production des molécules d'O3, on se propose de comparer l'allure de cette courbe avec celle de l'ensoleillement et de la température à Toulouse au cours de la dernière année.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df = modpollution.as_df_meteo('../../modpollution/data/data_meteo_toul.csv')
+modpollution.plotmeteo(df,y= 'Température (°C)',titre='Evolution de la Température à Toulouse sur 1 an')
+```
+
+
+On remarque que l'allure de la courbe de température et celle de la concentration d'Ozone se ressemblent. La corrélation entre température et création d'Ozone est donc positive. Pour en savoir plus, voir la section "pour aller plus loin".    
+
+Pour une vision encore plus précise, on se propose d'étuier la concentration en O3 sur le mois dernier.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+df_j = modpollution.as_df_csv('../../modpollution/data/data_j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'O3')
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration O3 à Toulouse le mois dernier')
+```
+
+  
+Le graphique n'étant pas très lisible, il est possible de n'afficher qu'une seule des station en cliquant sur la légende et également de zoomer à l'aide du curseur.
+
+### NOX
+
+Le polluant NOX regroupe les polluants NO2 et NO dans la catégorie des oxydes d'azote.     
+Plusieurs stations mesurent la concentration des polluants NOX dans l'air à Toulouse. Pour une meilleure lisibilité des graphiques suivant, il est possible de sélectionner les station en cliquant sur la légende.   
+
+On commence par étudier l'évolution du polluant NOX sur les 5 dernières années.
+ 
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en NOX à Toulouse par station (5 dernières années)')
+
+
+```
+
+On remarque que la concentration d'oxydes d'azote connaît une certaine diminution au cours des dernières années. Les concentrations mesurées dans les zones urbaines sont nettement inférieures à celles mesurées dans les stations "Trafic". La station rattachée au périphérique esure quand à elle, des concentrations significativement plus élevées. C
+
+Étudions maintenant la concentration de ce polluant sur un an.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX à Toulouse en 2022-2023')
+```
+
+Sur ce second graphique, on retrouve la même hiérarchie dans les concentrations mesurées par station. Les stations proches d'endroits de fort trafic routier mesurent des concentrations bien plus élevées.   
+L'allure de chacune des courbes se ressemble, avec une augmentation des concentrations en hiver.
+
+Pour regarder de plus près la concentration de NOX, on se propose de faire une étude sur le mois dernier.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv('../../modpollution/data/data_a.csv',True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'NOX')
+
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'NOX')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'NOX')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX à Toulouse le mois dernier')
+
+```
+
+Sur le mois qui vient de s'écouler, la différence des concentrations mesurées entre les stations est toujours visible. La encore, les allures de chacune des courbes se ressemblent. On remarque un plus grande concentration de NOX durant les week-ends.
+
+
+### PM10
+
+Les particules PM10 proviennent principalement du transport, du chauffage, ainsi que du secteur de l'industrie.    
+Seules deux stations mesurent les concentrations de particules PM10. L'une dans une zone urbaine, et l'autre dans une zone à fort trafic.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM10 à Toulouse par station (5 dernières années)')
+```
+
+Sur les 5 ans étudiés, la concentration de particules PM10 ne varie pas énormément. Elle connaît un léger essort en 2022.
+On remarque que les plus fortes concentrations sont mesurées dans une zone industrielle.
+
+Sur l'année 2022-2023, une autre station mesurant les concentrations dans une zone à haut trafique propose des mesures.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM10 à Toulouse en 2022-2023')
+```
+On remarque que les stations "Trafic" et "Industrielles" mesurent des concentrations légèrement supérieures à celles mesurées en zone urbaine. On remarque que les concentrations sont particulièrement élevées durant les mois d'hiver.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM10 à Toulouse le mois dernier')
+```
+
+Au cours du dernier mois, on remarque que les concentrations en PM10 augmentent surtout pendant les week-ends, et les journées particulièrement froides.
+
+### PM2.5
+
+Les particules PM2.5 sont les plus dangereuses pour notre organisme, c'est pourquoi on les retrouve en plus faible concentration. 
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM10')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_a,color='nom_station',titre='Concentration en PM2.5 à Toulouse par station (5 dernières années)')
+```
+
+On remarque une tendance décroissante de la concentration particules PM2.5 mais les données sont incomplètes.
+
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM2.5')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM10')
+
+modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en PM2.5 à Toulouse en 2022-2023')
+```
+
+Au cours de l'année, les concentrations les plus élevées sont observées durant les mois d'hiver. On remarquera que l'allure des courbes des particules PM2.5 et PM10 sont très similaires.
+
+```{python}
+#| echo: false
+import pandas as pd
+import sys
+sys.path.append('../..')
+import modpollution
+import pandas as pd
+df_a = modpollution.as_df_csv("../../modpollution/data/data_a.csv",True)
+df_m = modpollution.as_df_csv("../../modpollution/data/data_m.csv",False)
+df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
+df_a = modpollution.extraire_polluant(df_a,'PM10')
+df_m  = modpollution.extraire_donnees_villes(df_m,'TOULOUSE')
+df_m = modpollution.extraire_polluant(df_m,'PM2.5')
+df_j = modpollution.as_df_csv('../../modpollution/data/data_30j.csv',False)
+df_j = modpollution.extraire_donnees_villes(df_j,'TOULOUSE')
+df_j = modpollution.extraire_polluant(df_j,'PM2.5')
+
+modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en PM2.5 à Toulouse le mois dernier')
+```
+
+De même que pour les particules PM10, la concentration en particules PM2.5 observée au cours du mois dernier est particulièrement élevée durant les week-ends et les jours froids.
+
+

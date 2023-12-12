@@ -319,6 +319,25 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script type="text/javascript">
+  window.PlotlyConfig = {MathJaxConfig: 'local'};
+  if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+  if (typeof require !== 'undefined') {
+  require.undef("plotly");
+  requirejs.config({
+      paths: {
+          'plotly': ['https://cdn.plot.ly/plotly-2.26.0.min']
+      }
+  });
+  require(['plotly'], function(Plotly) {
+      window._Plotly = Plotly;
+  });
+  }
+  </script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -348,12 +367,6 @@ Ibrahim ATTOUMANI, Tristan RIVALDI, Kilian SAINT-CHÉlY, Abel SILLY, Jeanne VIVI
 <li>Quelles sont les principales causes et effets de la pollution de l’air en Occitanie ?</li>
 </ul>
 </section>
-<section id="section" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<ul>
-<li></li>
-</ul>
-</section>
 <section id="but-de-létude" class="slide level2">
 <h2>But de l’étude</h2>
 <ul>
@@ -368,26 +381,129 @@ Ibrahim ATTOUMANI, Tristan RIVALDI, Kilian SAINT-CHÉlY, Abel SILLY, Jeanne VIVI
 <li>Choix des données</li>
 <li>Choix des représentations</li>
 </ul></li>
-<li>L’influence de la météo ?
+<li>L’influence de la météo</li>
+</ul>
+</section>
+<section id="arborescence-du-projet" class="slide level2">
+<h2>Arborescence du projet</h2>
+</section></section>
+<section>
+<section id="module-modpollution" class="title-slide slide level1 center">
+<h1>Module Modpollution</h1>
+
+</section>
+<section id="module-modpollution-1" class="slide level2">
+<h2>Module Modpollution</h2>
 <ul>
-<li></li>
+<li>Modpollution
+<ul>
+<li>data
+<ul>
+<li>fichiers .csv</li>
+<li>fichiers. json</li>
 </ul></li>
+<li>io
+<ul>
+<li>La classe Load</li>
+<li>init</li>
+</ul></li>
+</ul>
+Sous modules
+<ul>
+<li>traitement : fonctions de traitement des données</li>
+<li>vis : fonctions de visualisation</li>
+</ul></li>
+</ul>
+</section>
+<section id="les-données" class="slide level2">
+<h2>Les données</h2>
+<ul>
+<li>Extraction des données</li>
+</ul>
+</section>
+<section id="la-classe" class="slide level2">
+<h2>La Classe</h2>
+</section>
+<section id="les-sous-modules" class="slide level2">
+<h2>Les sous-modules</h2>
+<ul>
+<li><p>Traitement</p></li>
+<li><p>Affichage</p></li>
 </ul>
 </section></section>
 <section>
-<section id="état-des-lieux" class="title-slide slide level1 center">
-<h1>État des lieux</h1>
-<div class="cell" data-execution_count="1">
+<section id="laffichage" class="title-slide slide level1 center">
+<h1>L’affichage</h1>
+
+</section>
+<section id="graphiques" class="slide level2">
+<h2>Graphiques</h2>
+<div class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
-<p><img data-src="slides_files/figure-revealjs/cell-2-output-1.png" width="1048" height="437"></p>
+
+<div>                            <div id="4484439b-5109-4a21-a831-d5cf3359d100" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4484439b-5109-4a21-a831-d5cf3359d100")) {                    Plotly.newPlot(                        "4484439b-5109-4a21-a831-d5cf3359d100",                        [{"hovertemplate":"Pollutant=NO\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"NO","line":{"color":"#636efa","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"NO","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[35.10000000000001,33.660000000000004,28.4,28.24,24.759999999999998,22.24],"yaxis":"y","type":"scatter"},{"hovertemplate":"Pollutant=NO2\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"NO2","line":{"color":"#EF553B","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"NO2","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[37.220000000000006,36.44,29.5,29.140000000000004,28.82,26.8],"yaxis":"y","type":"scatter"},{"hovertemplate":"Pollutant=NOX\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"NOX","line":{"color":"#00cc96","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"NOX","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[90.5,87.54,72.56,71.96000000000001,66.58,60.720000000000006],"yaxis":"y","type":"scatter"},{"hovertemplate":"Pollutant=O3\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"O3","line":{"color":"#ab63fa","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"O3","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[56.666666666666664,58.0,54.4,54.6,58.633333333333326,57.93333333333334],"yaxis":"y","type":"scatter"},{"hovertemplate":"Pollutant=PM10\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"PM10","line":{"color":"#FFA15A","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"PM10","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[18.4875,18.2375,17.5875,18.38571428571429,20.15,17.225],"yaxis":"y","type":"scatter"},{"hovertemplate":"Pollutant=PM2.5\u003cbr\u003eAnn\u00e9e=%{x}\u003cbr\u003eConcentration=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"PM2.5","line":{"color":"#19d3f3","dash":"solid","width":1},"marker":{"symbol":"circle","size":8},"mode":"lines+markers","name":"PM2.5","orientation":"v","showlegend":true,"x":[2018,2019,2020,2021,2022,2023],"xaxis":"x","y":[9.766666666666667,10.5,10.45,10.8,10.475,9.175],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Ann\u00e9e"},"rangeslider":{"visible":true},"type":"linear"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Concentration"}},"legend":{"title":{"text":"Pollutant"},"tracegroupgap":0},"title":{"text":"Concentration des polluants \u00e0 Toulouse par ann\u00e9e"},"height":600},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('4484439b-5109-4a21-a831-d5cf3359d100');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2" data-auto-animate="false">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="cell" data-execution_count="2">
+<section id="cartes" class="slide level2">
+<h2>Cartes</h2>
+<div class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
-<p><img data-src="slides_files/figure-revealjs/cell-3-output-1.png" width="1048" height="437"></p>
+<p><img data-src="slides_files/figure-revealjs/cell-4-output-1.png" width="942" height="470"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img data-src="slides_files/figure-revealjs/cell-4-output-2.png" width="940" height="470"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img data-src="slides_files/figure-revealjs/cell-4-output-3.png" width="440" height="402"></p>
+</div>
+</div>
+</section>
+<section id="site-web" class="slide level2">
+<h2>Site Web</h2>
+</section></section>
+<section>
+<section id="attentes-et-réalité" class="title-slide slide level1 center">
+<h1>Attentes et réalité</h1>
+
+</section>
+<section id="utilisation-dun-jeu-de-données-supplémentaire" class="slide level2">
+<h2>Utilisation d’un jeu de données supplémentaire</h2>
+<div class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<p><img data-src="slides_files/figure-revealjs/cell-5-output-1.png" width="1048" height="437"></p>
+</div>
+</div>
+</section>
+<section id="section" class="slide level2" data-auto-animate="false">
+<h2 data-id="quarto-animate-title"></h2>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<p><img data-src="slides_files/figure-revealjs/cell-6-output-1.png" width="1048" height="437"></p>
 </div>
 </div>
 </section>
@@ -395,34 +511,49 @@ Ibrahim ATTOUMANI, Tristan RIVALDI, Kilian SAINT-CHÉlY, Abel SILLY, Jeanne VIVI
 <h2>Production d’électricité en Occitanie</h2>
 
 <img data-src="rte.png" class="r-stretch"><p>L’utilisation des données de RTE ne nous a pas semblé si pertinante…<br>
-<em>Source : RTE, production d’électricité en 2022 en Occitanie</em><br>
-[(https://www.rte-france.com/actualites/bilan-electrique-2022-occitanie#:~:text=Avec%2029%2C1%20TWh%2C%20la,hauteur%20de%2098%2C5%20%25.)]</p>
+<em>Source : RTE, production d’électricité en 2022 en Occitanie</em></p>
 </section>
-<section id="dinner" class="slide level2">
-<h2>Dinner</h2>
+<section id="respecter-nos-idéaux" class="slide level2">
+<h2>Respecter nos idéaux</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Nos attentes</th>
+<th style="text-align: center;">Réussi 😀</th>
+<th style="text-align: center;">Raté 😞</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Faire des réunions régulières</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Ne pas travailler dans l’urgence</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr class="odd">
+<td>Répartir le travail</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Être efficaces</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr class="odd">
+<td>Utiliser les outils vus en cours</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Eat spaghetti</li>
-<li>Drink wine</li>
+<li>Satisfaction moyenne</li>
 </ul>
-</section></section>
-<section>
-<section id="construction-du-projet" class="title-slide slide level1 center">
-<h1>Construction du projet</h1>
-
-</section>
-<section id="les-choix" class="slide level2">
-<h2>Les choix</h2>
-<ul>
-<li>Pas les données de RTE finalement</li>
-<li>Zooms spaciaux - temporels</li>
-<li>Choix des villes</li>
-</ul>
-</section>
-<section id="création-dun-module" class="slide level2">
-<h2>Création d’un module</h2>
-</section>
-<section id="création-de-classe" class="slide level2">
-<h2>Création de classe</h2>
 </section>
 <section id="les-difficultés" class="slide level2">
 <h2>Les difficultés</h2>
@@ -433,61 +564,28 @@ Ibrahim ATTOUMANI, Tristan RIVALDI, Kilian SAINT-CHÉlY, Abel SILLY, Jeanne VIVI
 <li>Organiser les idées et le travail</li>
 <li>Éviter le travail inutile</li>
 <li>Coodroner un groupe</li>
+<li>Temps de travail</li>
 </ul></li>
 <li>Informatiques
 <ul>
-<li>La prise en main des outils</li>
+<li>La prise en main des outils imposés</li>
+<li>Apprentissages personnels</li>
 <li>La création d’un module</li>
 <li>Le déploiement du site</li>
 </ul></li>
 </ul>
 </section></section>
 <section>
-<section id="affichage-et-accessibilité" class="title-slide slide level1 center">
-<h1>Affichage et accessibilité</h1>
+<section id="conclusion" class="title-slide slide level1 center">
+<h1>Conclusion</h1>
 
 </section>
-<section id="graphiques" class="slide level2">
-<h2>Graphiques</h2>
+<section id="ce-quon-retiendra-pour-lavenir" class="slide level2">
+<h2>Ce qu’on retiendra pour l’avenir</h2>
 <ul>
-<li>Matplotlib</li>
-<li>Graphiques horaires pour les données journalières</li>
-<li>Histogrammes</li>
-<li>Courbes On explique pourquoi on choisit cela</li>
-</ul>
-</section>
-<section id="interactivité" class="slide level2">
-<h2>Interactivité</h2>
-<ul>
-<li>Carte interactive</li>
-<li>Graphiques ineractifs</li>
-</ul>
-</section>
-<section id="accessibilité-du-site-web" class="slide level2">
-<h2>Accessibilité du site web</h2>
-<ul>
-<li>Page d’accueil</li>
-<li>Trouver les infos facilement</li>
-</ul>
-</section>
-<section id="des-idées-pour-agir" class="slide level2" data-transition="fade-in slide-out">
-<h2>Des idées pour agir ?</h2>
-<ul>
-<li>À l’échelle municipale
-<ul>
-<li></li>
-<li></li>
-</ul></li>
-<li>À l’échelle départementale
-<ul>
-<li>Ecourager le covoiturage</li>
-<li></li>
-</ul></li>
-<li>À l’échelle régionale
-<ul>
-<li>Limiter les vols internes</li>
-<li>Développer les lignes ferroviaires</li>
-</ul></li>
+<li>Des bases solides dans l’utilisation de GitHub</li>
+<li>Une meilleure organisation</li>
+<li>Le sujet de l’étude était intéressant</li>
 </ul>
 <div class="footer footer-default">
 

@@ -1,110 +1,71 @@
-## Premières visualisations
-Le graphique ci-dessous affiche la concentration (?) de polluants en micro-gramme en Occitanie sur les 5 dernières années.
-On remarque une forte concentration en O3 et en NOX chaque année.
-```{python}
-#| echo: false
-import requests
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+# Étude de la pollution de l'air en Occitanie
 
-# URL de l'API GeoJSON
-url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+La pollution de l'air est principalement dûes aux activités humaines, et impactent notre environnement et notre santé.   
+Sur ce site, vous trouverez une étude de l'évolution de la pollution de l'air en Occitanie.
+Cette étude permet une visulalisation de l'évolution des concentrations de polluants en fonction du temps.
 
-# Obtenir les données GeoJSON depuis l'API
-response = requests.get(url)
-data = response.json()
 
-# Convertir les données GeoJSON en un DataFrame pandas
-features = data['features']
-data_list = []
-
-for feature in features:
-    properties = feature['properties']
-    data_list.append(properties)
-
-df_polluants = pd.DataFrame(data_list)
-
-# Convertir les colonnes de date au format datetime64[ns]
-df_polluants['date_debut'] = pd.to_datetime(df_polluants['date_debut'], unit='ms')
-df_polluants['date_fin'] = pd.to_datetime(df_polluants['date_fin'], unit='ms')
-
-# Ajouter une colonne 'annee' en extrayant l'année de la colonne 'date_debut'
-df_polluants['annee'] = df_polluants['date_debut'].dt.year
-
-# Créer un graphique à barres empilées avec les années sur l'axe des abscisses
-plt.figure(figsize=(16, 8))
-sns.barplot(x='annee', y='valeur', hue='nom_poll', data=df_polluants, palette='Set1', ci=None)
-
-plt.title('Quantité de chaque polluant pour toutes les années')
-plt.xlabel('Année')
-plt.ylabel('Quantité de polluants')
-plt.legend(title='Polluant', loc='upper right')
-plt.show()
-```
-
-Le graphique ce-dessous présente une autre visualisation des mêmes données qui nous permet de voir l'évolution dans le temps de la concentration (s'il y en a une).
+## Qualité de l'air en Occitanie
 
 ```{python}
 #| echo: false
-import requests
+
 import pandas as pd
+import geopandas as gpd
 import matplotlib.pyplot as plt
-from datetime import datetime
-from collections import defaultdict
+import folium
+import requests
+import warnings 
+warnings.filterwarnings("ignore")
+# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
+couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
 
-# URL of the GeoJSON API for the entire Occitanie region
-url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_annuelle_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+# affichage des 5 premières lignes afin d'avoir un aperçu des données
+couche.head()
 
-# Get GeoJSON data from the API
-response = requests.get(url)
-data = response.json()
+# initialisation d'un nouveau dataframe à partir d'un URL (ATMO) pour les données de pollutions
+geopollu = gpd.read_file("https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson")
 
-# Extract relevant data for the Occitanie region
-features = data['features']
-occitanie_data = [feature['properties'] for feature in features]
 
-# Prepare data for plotting
-pollutants_per_year = defaultdict(list)
+# affichage du dataframe
+geopollu.head()
 
-for entry in occitanie_data:
-    pollutant = entry['nom_poll']
-    concentration = entry['valeur']
-    date_debut_timestamp = entry['date_debut']
-    year = datetime.utcfromtimestamp(date_debut_timestamp / 1000).year
+# ici on reassigne la colone geometry du datafrafe couche au datataframe geopollu et on le renomme polyg_geom
+geopollu = geopollu.assign(polyg_geom=couche['geometry'])
+geopollu = geopollu.assign(nom_officiel_departement=couche['nom_officiel_departement'])
+geopollu.head()
 
-    pollutants_per_year[pollutant].append((year, concentration))
+geopollu.drop('geometry', axis=1, inplace=True)#(cette ligne permet de supprimer la colone geometry du dataframe geopollu)
+geopollu.drop('nom_dept', axis=1, inplace=True)
 
-# Transform data for plotting (calculate average concentration per year)
-for pollutant, data in pollutants_per_year.items():
-    data.sort(key=lambda x: x[0])
+# Assurez-vous que la colonne géométrique est correctement définie
+geopollu = geopollu.set_geometry('polyg_geom')
 
-    # Calculate average concentrations per year
-    averages_per_year = defaultdict(float)
-    counts_per_year = defaultdict(int)
+# Supprimez les lignes avec des géométries nulles
+geopollu = geopollu.dropna(subset=['polyg_geom'])
 
-    for year, concentration in data:
-        if concentration is not None:
-            averages_per_year[year] += concentration
-            counts_per_year[year] += 1
+# Création d'une figure et des axes
+fig, ax = plt.subplots(figsize=(7, 7))
 
-    for year in averages_per_year:
-        if counts_per_year[year] > 0:
-            averages_per_year[year] /= counts_per_year[year]
+# On trace le GeoDataFrame
+geopollu.plot(ax=ax, color='lightgrey', edgecolor='green')
 
-    pollutants_per_year[pollutant] = list(averages_per_year.items())
+# On ajoute des cercles proportionnels à la quantité de polluant
+for idx, row in geopollu.iterrows():
+    if row['polyg_geom']:
+        ax.plot(row.polyg_geom.centroid.x, row.polyg_geom.centroid.y, 'ro', markersize=row['valeur'] * 0.1)
+        # Ajouter le nom du département
+        ax.text(row.polyg_geom.centroid.x, row.polyg_geom.centroid.y, row['nom_officiel_departement'], fontsize=8)
 
-# Plotting
-for pollutant, data in pollutants_per_year.items():
-    years, concentrations = zip(*data)
-    plt.plot(years, concentrations, marker='o', linestyle='-', linewidth=1, label=pollutant)
 
-plt.title('Concentration des polluants en Occitanie par année')
-plt.xlabel('Année')
-plt.ylabel('Concentration')
-plt.legend(title='Pollutant', loc='upper right')
+# Ajouter le légende
+ax.set_title('Concentration moyenne de tous les polluants')
 plt.show()
 ```
+
+Cette première carte permet de voir la concentration de polluants de l'air sur l'année 2023. Plus le point rouge est gros, plus la concentration est élevée. On retrouvera plus d'informations dans le section Départements.  
+
+
 
 
 ```{python}
@@ -115,6 +76,8 @@ import folium
 from datetime import datetime
 from IPython.display import display
 import os
+import warnings 
+warnings.filterwarnings("ignore")
 
 # Récupérer les données depuis l'URL
 url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/epipol_occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
@@ -167,92 +130,181 @@ for coordinates, alert_info in alerts_by_location.items():
 display(m)
 ```
 
+
+
+Cette carte interractive permet de voir tout les pics de pollution de l'air au cours de la dernière année. Ces pics sont répertoriés sous forme d'Alertes, dont on connaît la date. La plupart de ces alertes concernent les particules PM10 (surtout durant les mois d'hiver), ainsi que l'O3 (plutôt en été).   
+   
+
+Cela n'a rien d'étonnant quand on comprend l'origine et l'impact des polluants. Ces pourquoi on propose un court descriptifs des polluants étudiés.
+
+## Description des différents polluants
+
+### PM 10
+Les particules PM10 sont des particules fines dont le diamètre inférieur à 10 µm. Elles peuvent provenir de différentes sources comme les chantiers, les carrières ou encore l'industrie manufacturière. Ces particules provoquent une altération de la santé respiratoire.
+
+### PM2.5
+Les particules PM2.5 sont des particules fines dont le diamètre est inférieur à 2.5 µm. Elles entraîne de plus une altération de la santé cardiovasculaire, et proviennent princiaplement du secteur résidentiel et du transport routier.
+
+### NOX
+Les NOX regroupent différents oxydes d'azote : monoxyde d'azote, dioxyde d'azote et protoxyde d'azote. Ces composés chimiques composés d'oxygène et d'azote sont des polluants atmosphériques qui contribuent fortement à l'effet de serre. Ce sont des indicateurs des activités de combustion, notamment le trafic routier.
+
+#### NO2
+Le dioxyde d’azote (NO2) a pour source principale le trafic routier. Il entraine une diminution de la fonction pulmonaire, et, à des concentrations dépassant 200 μg/m3, sur de courtes durées, c'est un gaz toxique entraînant une inflammation importante des voies respiratoires.
+Ce gaz participe au phénomène des pluies acides, qui appauvrissent les milieux naturels.
+
+#### NO
+Le monoxyde d'azote NO est émis lors des phénomènes de combustion. Le NO2 est issu de l'oxydation du NO. 
+Les sources principales sont les véhicules (près de 60%) et les installations de combustion (centrales thermiques, chauffages...).
+
+### O3
+L’ozone (O3) est un polluant dit « secondaire », c’est-à-dire qu’il n’est pas rejeté directement dans l’atmosphère et n’est pas rejeté directement par les activités humaines. Les températures élevées et le fort rayonnement lumineux vont favoriser les réactions chimiques dans les basses couches de l’atmosphère produisant de l’ozone à partir des polluants NOX notamment.
+Il est déclenché par le rayonnement solaire, c’est pourquoi on retrouve des concentrations d’ozone plus présents en été et en journée – souvent entre mai et septembre.
+
+On se propose donc de visualiser les principaux polluants de notre étude. 
+
+## Visualisation des concentrations des principaux polluants en Occitanie en 2023
+
+
 ```{python}
-# %%
-import requests
-from datetime import datetime
+#| echo: false
+
+import pandas as pd
+import geopandas as gpd
 import matplotlib.pyplot as plt
-from collections import defaultdict
+import folium
+import requests
+import warnings 
+warnings.filterwarnings("ignore")
 
-def obtenir_donnees_toulouse():
-    url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_mensuelle_poll_princ/FeatureServer/0/query"
-    
-    # Paramètres de la requête pour récupérer toutes les données
-    params_toutes_donnees = {
-        'outFields': '*',
-        'where': '1=1',  # Récupérer toutes les données
-        'f': 'geojson'
-    }
+# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
+couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
 
-    # Effectuer la requête pour récupérer toutes les données
-    response_toutes_donnees = requests.get(url, params=params_toutes_donnees)
+# Définir l'URL
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+# url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
 
-    # Vérifier si la requête a réussi (code de statut 200)
-    if response_toutes_donnees.status_code == 200:
-        # Récupérer les données JSON
-        data_toutes_donnees = response_toutes_donnees.json()
+# Effectuer une requête pour récupérer les données GeoJSON
+response = requests.get(url)
+data = response.json()
 
-        # Filtrer les données pour Toulouse
-        donnees_toulouse = [feature for feature in data_toutes_donnees['features'] if feature['properties']['nom_com'] == 'TOULOUSE']
+# Créer un GeoDataFrame à partir des données GeoJSON
+gdf = gpd.GeoDataFrame.from_features(data['features'])
 
-        # Préparer les données pour le graphique
-        polluants_par_mois = defaultdict(list)
+# gdf = gdf.merge(couche[['geometry']], left_index=True, right_index=True, suffixes=('', '_couche'))
+# geopollu = gdf.rename(columns={'geometry_couche': 'polyg_geom'})
 
-        if donnees_toulouse:
-            for feature in donnees_toulouse:
-                properties = feature['properties']
-                polluant = properties['nom_poll']
-                concentration = properties['valeur']
-                date_debut_timestamp = properties['date_debut']
+# On assigne les colones 'geometry' et 'nom_officiel_departement' au geodataframe gdf
+gdf = gdf.assign(geometry=couche['geometry'])
+gdf = gdf.assign(nom_officiel_departement=couche['nom_officiel_departement'])
 
-                # Convertir le timestamp en date et extraire le mois
-                mois_date_debut = datetime.utcfromtimestamp(date_debut_timestamp / 1000).strftime('%Y-%m')
+# Afficher les premières lignes du GeoDataFrame
+gdf.head()
 
-                polluants_par_mois[polluant].append((mois_date_debut, concentration))
 
-            # Trier les données par mois
-            for polluant, data in polluants_par_mois.items():
-                data.sort(key=lambda x: datetime.strptime(x[0], '%Y-%m'))
+# Créer une figure avec deux sous-plots côte à côte
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
-                # Calculer la moyenne des concentrations pour chaque mois
-                moyennes_par_mois = defaultdict(float)
-                compteur_par_mois = defaultdict(int)
+# Plot 1 : Carte avec la colonne 'code_o3'
+axs[0].set_title('Concentration du polluant O3')
+gdf.plot(column='code_o3', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
 
-                for mois, concentration in data:
-                    if concentration is not None:  # Vérifier si la concentration n'est pas None
-                        moyennes_par_mois[mois] += concentration
-                        compteur_par_mois[mois] += 1
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
 
-                for mois in moyennes_par_mois:
-                    if compteur_par_mois[mois] > 0:
-                        moyennes_par_mois[mois] /= compteur_par_mois[mois]
+# Plot 2 : Carte avec la colonne 'code_pm10'
+axs[1].set_title('Concentration du polluant PM10')
+gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
 
-                polluants_par_mois[polluant] = list(moyennes_par_mois.items())
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
 
-            # Créer le graphique avec des points plus petits et des lignes en pointillé
-            for polluant, data in polluants_par_mois.items():
-                mois, concentrations = zip(*data)
-                plt.plot(mois, concentrations, marker='o', markersize=5, linestyle='--', linewidth=1, label=polluant)
+# Ajuster l'espacement entre les sous-plots
+plt.tight_layout()
 
-            plt.xlabel('Mois')
-            plt.ylabel('Concentration (en ug.m-3)')
-            plt.title('Concentration des polluants à Toulouse par mois')
-            plt.xticks(rotation=45, ha='right')  # Pour faire pivoter les noms des mois
+# Afficher les plots
+plt.show()
 
-            # Afficher une étiquette sur trois mois
-            plt.xticks(mois[::2], mois[::2])
 
-            plt.legend(loc='upper right')
+# Créer une figure avec deux sous-plots côte à côte
+fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 
-            # Afficher le graphique
-            plt.show()
-        else:
-            print("Aucune donnée trouvée pour Toulouse.")
-    else:
-        print(f"La requête a échoué avec le code d'erreur {response_toutes_donnees.status_code}")
+# Plot 1 : Carte avec la colonne 'code_no2'
+axs[0].set_title('Concentration du polluant NO2')
+gdf.plot(column='code_no2', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
 
-# Exécute la fonction pour obtenir les données et afficher le graphique
-obtenir_donnees_toulouse()
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
 
-# %%
+# Plot 2 : Carte avec la colonne 'code_pm25'
+axs[1].set_title('Concentration du polluant PM2.5')
+gdf.plot(column='code_pm25', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
+
+# Ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Ajuster l'espacement entre les sous-plots
+plt.tight_layout()
+
+# Afficher les plots
+plt.show()
+
+
+gdf = gdf.set_geometry('geometry')
+# Création d'une figure et des axes
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+
+# On trace les départements avec différentes couleurs en fonction de la quantité de polluant
+ax.set_title('Concentration du polluant SO2')
+gdf.plot(column='code_so2', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
+# gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
+
+# On ajouter des étiquettes pour chaque département
+for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
+    ax.annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
 ```
+
+
+## Évolution des concentrations des polluants au fil du temps 
+
+### Évolution des concentrations des polluants au cours des 5 dernières années
+
+```{python}
+#| echo: false
+
+import modpollution
+import warnings 
+warnings.filterwarnings("ignore")
+df_a = modpollution.as_df_csv("./modpollution/data/data_a.csv",True)
+df_a = modpollution.mean_df(df_a)
+
+modpollution.plotpollline(df_a,color='nom_poll',titre='Moyenne des concentrations par an en Occitanie')
+
+```
+
+
+Le graphique ci-dessus représente l'évolution de la concentration des différents polluant par années en Occitanie.   
+Ils permettent une première visualisation rapide des données annuelles.
+On remarque que les concentrations des polluants sont plutôt stables, avec une petite chute en 2020, lors de la pandémie du Covid-19.   
+Ce graphique est interractif! Le curseur vous permet de selectionner une zone particulière et de naviguer dans le temps.  
+
+
+```{python}
+#| echo: false
+
+import modpollution
+import warnings 
+warnings.filterwarnings("ignore")
+df_a = modpollution.as_df_csv("./modpollution/data/data_a.csv",True)
+df_a = modpollution.mean_df(df_a)
+
+modpollution.plotpoll(df_a)
+```
+
+Le second graphique représente exactement les mêmes données, mais de manière animée. Vous pouvez utiliser la barre de temps pour vous déplacer ou simplement laisser l'animation se faire.
+
+
+
