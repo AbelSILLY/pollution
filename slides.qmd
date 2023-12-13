@@ -40,34 +40,44 @@ format:
 - Modpollution
     - data
         - fichiers .csv
-        - fichiers. json
-    - io 
-        - La classe Load 
-        -  init
+        - fichiers .json
     
     Sous modules
+    - io: import de données avec Load
     - traitement : fonctions de traitement des données
-    - vis : fonctions de visualisation 
+    - vis : fonctions de visualisation
+    
 
 
 ## Les données
 
-
+- pollution:
+    - annuelles (2018-2023)
+    - mensuelles (2022-2023)
+    - journalières (2022-2023)
+    - horaire (dernier mois)
+- météo:
+    - Montpellier (2022-2023)
+    - Toulouse (2022-2023)
+    - Hautes-Pyrénées (2022-2023)
 
 ## La Classe
-
+- Load: initialisation avec les url de données et chemin vers 'data'
+- Ecrit le contenu des fichiers en binaire pour problème d'encodage
 
 ## Les sous-modules
+- io:
+    - requests (pooch aurait fonctionné)
 
 - Traitement
-    pandas
+    - pandas
 
 
 ## 
-- Affichage 
-    plotly
-    geopandas
-    folium
+- Affichage :
+    - plotly
+    - geopandas
+    - folium
 
 # L'affichage
 
@@ -86,7 +96,7 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
-
+##
 ```{python}
 #| echo: false
 import requests
@@ -233,8 +243,41 @@ plt.tight_layout()
 for ax in axs:
     ax.axis("off")
 plt.show()
+```
 
+##
 
+```{python}
+#| echo: false
+
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import folium
+import requests
+import warnings 
+warnings.filterwarnings("ignore")
+
+# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
+couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
+
+# Définir l'URL
+url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+# url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+# Effectuer une requête pour récupérer les données GeoJSON
+response = requests.get(url)
+data = response.json()
+
+# Créer un GeoDataFrame à partir des données GeoJSON
+gdf = gpd.GeoDataFrame.from_features(data['features'])
+
+# gdf = gdf.merge(couche[['geometry']], left_index=True, right_index=True, suffixes=('', '_couche'))
+# geopollu = gdf.rename(columns={'geometry_couche': 'polyg_geom'})
+
+# On assigne les colones 'geometry' et 'nom_officiel_departement' au geodataframe gdf
+gdf = gdf.assign(geometry=couche['geometry'])
+gdf = gdf.assign(nom_officiel_departement=couche['nom_officiel_departement'])
 # Créer une figure avec deux sous-plots côte à côte
 fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 

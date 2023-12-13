@@ -4,7 +4,7 @@ from modpollution.io import url_meteo_hp,url_meteo_mtp,url_meteo_toul, path_targ
 
 class Load:
     """
-    Cette classe télécharge les données de concentration mensuelles et annuelles.
+    Cette classe télécharge toutes les données nécessaires pour l'étude (pollution et météo).
 
     Paramètres:
     -----------
