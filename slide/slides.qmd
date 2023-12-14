@@ -145,9 +145,9 @@ def plotpoll(df):
 #| echo: false
 import pandas as pd
 import sys
-#sys.path.append('../..')
+sys.path.append('../')
 import modpollution
-df_a = pd.read_csv("./modpollution/data/data_a.csv")
+df_a = pd.read_csv("../modpollution/data/data_a.csv")
 df_a = modpollution.modif_date_csv(df_a,True)
 df_a = modpollution.extraire_donnees_villes(df_a,'TOULOUSE')
 df_a = modpollution.mean_df(df_a)
@@ -271,7 +271,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
-couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
+couche = gpd.read_file("../modpollution/data/polyg_geom.geojson")
 
 # Définir l'URL
 url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
@@ -531,18 +531,19 @@ L'utilisation des données de RTE ne nous a pas semblé si pertinante...
     - La prise en main des outils proposés
     - Apprentissages personnels 
     - Les données météo
-    - Les url et fichiers .json
+    - Les url et fichiers csv
 
 ![](ordi.png)
 
 # Conclusion 
 
-## Ce qu'on retiendra pour l'avenir
-- Des bases solides dans l'utilisation de GitHub
-- Une meilleure organisation 
-- Le sujet de l'étude était intéressant
+## 
+- Ce qu'on retiendra pour l'avenir
+    - Des bases solides dans l'utilisation de GitHub
+    - Une meilleure organisation 
+    - Le sujet de l'étude était intéressant
 
-## Ce qu'on aurait pu améliorer
-- Utilser des tests
-- Faire une documentation
-- Une classe supplémentaire pour le traitement
+- Ce qu'on aurait pu améliorer
+    - Utilser des tests
+    - Faire une documentation
+    - Une classe supplémentaire pour le traitement
