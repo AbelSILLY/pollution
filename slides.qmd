@@ -56,22 +56,32 @@ format:
     - mensuelles (2022-2023)
     - journalières (2022-2023)
     - horaire (dernier mois)
+    - indice de pollution
 - météo:
     - Montpellier (2022-2023)
     - Toulouse (2022-2023)
     - Hautes-Pyrénées (2022-2023)
 
-## La Classe
-- Load: initialisation avec les url de données et chemin vers 'data'
-- Ecrit le contenu des fichiers en binaire pour problème d'encodage
 
-## Les sous-modules
-- io:
+
+
+## io
+- Classe Load 
     - requests (pooch aurait fonctionné)
+    - initialisation avec les url de données et chemin vers 'data'
+    - écrit le contenu des fichiers en binaire pour problème d'encodage
+
+ <br/>
+
+```{.python}
+fname_mcsv = 'data_m.csv'
+data_mcsv = requests.get(url_mcsv)
+with open(os.path.join(path_target,fname_mcsv),'wb') as output_file:
+        output_file.write(data_mcsv.content)
+```
 
 ## Traitement
 
-## Affichage
 
 ```{.python}
 def as_df(data_path_target):
@@ -104,13 +114,30 @@ def extraire_donnees_station(donnees, station):
 ```
 
 
-## 
-- Affichage :
+# L'affichage
     - plotly
     - geopandas
     - folium
 
-# L'affichage
+```{.python}
+def plotpoll(df):
+    vmin=np.min(df['valeur'])
+    vmax=np.max(df['valeur'])
+    tmin = np.min(df["date_debut"])
+    tmax=  np.max(df["date_debut"])
+    fig = px.scatter(
+        df,
+        x = "date_debut",
+        y = "valeur",
+        animation_frame = 'date_debut',
+        animation_group = 'nom_poll',
+        color="nom_poll",
+        range_x=[tmin, tmax],#pour bien se placer sur le graphe
+        range_y=[vmin-5, vmax+5],
+        size='valeur'
+    )
+    fig.show("notebook")
+```
 
 ## Graphiques
 
@@ -127,6 +154,25 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
+##
+```{.python}
+... 
+fig = px.line(df, x='Year', y='Concentration', color='Pollutant', markers=True, line_group='Pollutant',
+              labels={'Concentration': 'Concentration', 'Year': 'Année'},
+              title='Concentration des polluants à Toulouse par année',
+              template='plotly', height=600)
+# Ajouter un curseur pour filtrer les données par année
+fig.update_layout(
+    xaxis=dict(
+        rangeslider=dict(
+            visible=True
+        ),
+        type='linear'  
+    )
+)
+
+fig.show()
+```
 ##
 ```{python}
 #| echo: false
@@ -211,6 +257,7 @@ fig.show()
 
 
 ## Cartes
+- Cartes choroplates
 
 ```{python}
 #| echo: false
@@ -276,88 +323,9 @@ for ax in axs:
 plt.show()
 ```
 
-##
 
-```{python}
-#| echo: false
-
-import pandas as pd
-import geopandas as gpd
-import matplotlib.pyplot as plt
-import folium
-import requests
-import warnings 
-warnings.filterwarnings("ignore")
-
-# initialisation d'un dataframe à partir d'un fichier local contenant les géométries (polygone) de l'Occitanie
-couche = gpd.read_file("./modpollution/data/polyg_geom.geojson")
-
-# Définir l'URL
-url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/Indice_quotidien_de_qualité_de_l’air_pour_les_collectivités_territoriales_en_Occitanie/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-# url = "https://services9.arcgis.com/7Sr9Ek9c1QTKmbwr/arcgis/rest/services/mesures_occitanie_72h_poll_princ/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
-
-# Effectuer une requête pour récupérer les données GeoJSON
-response = requests.get(url)
-data = response.json()
-
-# Créer un GeoDataFrame à partir des données GeoJSON
-gdf = gpd.GeoDataFrame.from_features(data['features'])
-
-# gdf = gdf.merge(couche[['geometry']], left_index=True, right_index=True, suffixes=('', '_couche'))
-# geopollu = gdf.rename(columns={'geometry_couche': 'polyg_geom'})
-
-# On assigne les colones 'geometry' et 'nom_officiel_departement' au geodataframe gdf
-gdf = gdf.assign(geometry=couche['geometry'])
-gdf = gdf.assign(nom_officiel_departement=couche['nom_officiel_departement'])
-# Créer une figure avec deux sous-plots côte à côte
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
-
-# Plot 1 : Carte avec la colonne 'code_no2'
-axs[0].set_title('Concentration du polluant NO2')
-gdf.plot(column='code_no2', cmap='Spectral', linewidth=0.8, ax=axs[0], edgecolor='0.8', legend=True)
-
-# Ajouter des étiquettes pour chaque département
-for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
-    axs[0].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
-
-# Plot 2 : Carte avec la colonne 'code_pm25'
-axs[1].set_title('Concentration du polluant PM2.5')
-gdf.plot(column='code_pm25', cmap='Spectral', linewidth=0.8, ax=axs[1], edgecolor='0.8', legend=True)
-
-# Ajouter des étiquettes pour chaque département
-for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
-    axs[1].annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
-
-# Ajuster l'espacement entre les sous-plots
-plt.tight_layout()
-
-# Afficher les plots
-for ax in axs:
-    ax.axis("off")
-plt.show()
-
-
-gdf = gdf.set_geometry('geometry')
-# Création d'une figure et des axes
-fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-
-# On trace les départements avec différentes couleurs en fonction de la quantité de polluant
-ax.set_title('Concentration du polluant SO2')
-gdf.plot(column='code_so2', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
-# gdf.plot(column='code_pm10', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.8', legend=True)
-
-# On ajouter des étiquettes pour chaque département
-for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
-    ax.annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
-
-# Afficher le plot
-for ax in axs:
-    ax.axis("off")
-plt.show()
-```
-
-## 
-- Carte intéractive
+## Cartes
+- Carte interactive
 
 ```{python}
 #| echo: false
@@ -431,8 +399,8 @@ display(m)
 ##
 ![](toulouse.png)
 
-# Github 
-
+# Github et IDE
+![](githubimage.png)
 
 # Attentes et réalité
 
@@ -555,14 +523,17 @@ L'utilisation des données de RTE ne nous a pas semblé si pertinante...
     - Coodroner un groupe
     - Temps de travail
 
+![](groupe.png)
+
 ## Les difficultés...
 
 - Informatiques
-    - La prise en main des outils imposés
+    - La prise en main des outils proposés
     - Apprentissages personnels 
-    - La création d'un module
-    - Le déploiement du site 
+    - Les données météo
+    - Les url et fichiers csv
 
+![](ordi.png)
 
 # Conclusion 
 
@@ -571,5 +542,7 @@ L'utilisation des données de RTE ne nous a pas semblé si pertinante...
 - Une meilleure organisation 
 - Le sujet de l'étude était intéressant
 
-## Un mot sur le contenu de l'étude
-
+## Ce qu'on aurait pu améliorer
+- Utilser des tests
+- Faire une documentation
+- Une classe supplémentaire pour le traitement
