@@ -84,23 +84,22 @@ with open(os.path.join(path_target,fname_mcsv),'wb') as output_file:
 
 
 ```{.python}
-def as_df(data_path_target):
-    with open(data_path_target) as f:
-     data = json.load(f)
-    
-    features = data['features']
-    data_list = []
+def as_df_csv(data_path_target,annee):
+   df = pd.read_csv(data_path_target,encoding='UTF-8-SIG')
+   df = df.dropna()
+   df = modpollution.modif_date_csv(df,annee)
+   return df
 
-    for feature in features:
-        data_list.append(feature['attributes'])
-
-    df_raw = pd.DataFrame(data_list)
-    df = df_raw.dropna()
-    return df
-
-
+def modif_date_csv(df,annee):
+   df['date_debut'] = pd.to_datetime(df['date_debut'],utc = True)
+   if annee == True:
+      df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d')
+   else:
+      df['date_debut'] = df['date_debut'].dt.strftime('%Y-%m-%d %H:%M:%S')
+   df = df.sort_values(by = 'date_debut')
+   return df
 ```
-    
+
  <br/>
  
  <br/>   
@@ -110,7 +109,6 @@ def as_df(data_path_target):
 def extraire_donnees_station(donnees, station):
     df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
     return df
-
 ```
 
 
@@ -531,7 +529,7 @@ L'utilisation des données de RTE ne nous a pas semblé si pertinante...
     - La prise en main des outils proposés
     - Apprentissages personnels 
     - Les données météo
-    - Les url et fichiers csv
+    - Les url et fichiers json
 
 ![](ordi.png)
 
