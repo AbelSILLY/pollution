@@ -7,19 +7,19 @@ format:
         background-transition: fade
 ---
 
-# Une première approche
+# Introduction
 
-## Introduction
+## 
 
 ![](cycles-pollution.png)
 
 
-- Quelles sont les principales causes et effets de la pollution de l'air en Occitanie ?
+- Comment évolue la pollution de l'air en Occitanie ?
 
 
 ## But de l'étude 
 
-- Quels sont les principaux polluants et quels sont leurs impacts sur notre santé et l'environnement ?
+- Quels sont les principaux polluants ?
     -  Apprivoisement du sujet
     - La première prise en main des données
 
@@ -29,11 +29,11 @@ format:
     - Choix des représentations
 
 - L'influence de la météo
+    - Comparaison des graphiques
 
 
-## Arborescence du projet
+# Arborescence du projet
 
-# Module Modpollution
 
 ## Module Modpollution
 
@@ -59,8 +59,39 @@ format:
 
 ## Les sous-modules
 
-- Traitement
-    pandas
+## Traitement
+
+## Affichage
+
+```{.python}
+def as_df(data_path_target):
+    with open(data_path_target) as f:
+     data = json.load(f)
+    
+    features = data['features']
+    data_list = []
+
+    for feature in features:
+        data_list.append(feature['attributes'])
+
+    df_raw = pd.DataFrame(data_list)
+    df = df_raw.dropna()
+    return df
+
+
+```
+    
+ <br/>
+ 
+ <br/>   
+    
+
+```{.python}
+def extraire_donnees_station(donnees, station):
+    df = donnees.loc[(donnees["nom_station"] == station), ["nom_poll", "valeur", "date_debut", "nom_station"]]
+    return df
+
+```
 
 
 ## 
@@ -86,6 +117,7 @@ df_a = modpollution.mean_df(df_a)
 modpollution.plotpoll(df_a)
 ```
 
+##
 
 ```{python}
 #| echo: false
@@ -340,8 +372,13 @@ display(m)
 
 
 ## Site Web
+![](siteaccueil.png)
 
+## 
+![](siteville.png)
 
+##
+![](toulouse.png)
 
 # Github 
 
