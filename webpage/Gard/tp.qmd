@@ -130,7 +130,7 @@ modpollution.plotpollline(df_m,color='nom_station',titre='Concentration en NOX p
 
 ##### Pollution sur 1 mois #####
 df_j = modpollution.as_df_csv("../../modpollution/data/data_30j.csv",False)
-df_j = modpollution.extraire_donnees_depart(df_j,'GARD ')
+df_j = modpollution.extraire_donnees_depart(df_j,'GARD')
 df_j = modpollution.extraire_polluant(df_j,'NOX')
 modpollution.plotpollline(df_j,color='nom_station',titre='Concentration en NOX par stations le mois dernier')
 ```
