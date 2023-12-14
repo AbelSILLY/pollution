@@ -262,6 +262,8 @@ for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['no
 plt.tight_layout()
 
 # Afficher les plots
+for ax in axs:
+    ax.axis("off")
 plt.show()
 
 
@@ -288,6 +290,8 @@ for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['no
 plt.tight_layout()
 
 # Afficher les plots
+for ax in axs:
+    ax.axis("off")
 plt.show()
 
 
@@ -303,6 +307,11 @@ gdf.plot(column='code_so2', cmap='Spectral', linewidth=0.8, ax=ax, edgecolor='0.
 # On ajouter des étiquettes pour chaque département
 for x, y, label in zip(gdf.geometry.centroid.x, gdf.geometry.centroid.y, gdf['nom_officiel_departement']):
     ax.annotate(label, xy=(x, y), xytext=(3, 3), textcoords='offset points')
+
+# Afficher le plot
+for ax in axs:
+    ax.axis("off")
+plt.show()
 ```
 
 ## 
